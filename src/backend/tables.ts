@@ -8,7 +8,7 @@ import {
   text,
   timestamp,
   varchar,
-} from "@termix/plugin-sdk/db";
+} from "@termix-ssh/plugin-sdk/db";
 
 /**
  * userId is a plain column, not refUser(): a recording is evidence about the

@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import express, { type Request, type Response, type Router } from "express";
-import type { PluginContext } from "@termix/plugin-sdk/backend";
+import type { PluginContext } from "@termix-ssh/plugin-sdk/backend";
 import type { SessionRecordingRepository } from "./repository.js";
 
 function actorId(ctx: PluginContext): string | undefined {

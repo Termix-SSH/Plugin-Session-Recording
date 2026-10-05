@@ -1,5 +1,5 @@
 import { Circle } from "lucide-react";
-import { useTranslation } from "@termix/plugin-sdk/frontend";
+import { useTranslation } from "@termix-ssh/plugin-sdk/frontend";
 
 /** What ssh-terminal hands a "terminal.toolbarStatus" component. */
 interface TerminalToolbarStatusProps {

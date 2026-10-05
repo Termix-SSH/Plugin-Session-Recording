@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { createTestDb, type TestDb } from "@termix/plugin-sdk/testing";
+import { createTestDb, type TestDb } from "@termix-ssh/plugin-sdk/testing";
 import { pluginDir } from "./helpers";
 import { createSessionRecordingRepository } from "../../src/backend/repository";
 import { sessionRecordings } from "../../src/backend/tables";

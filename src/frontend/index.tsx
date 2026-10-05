@@ -1,5 +1,5 @@
 import { ScrollText } from "lucide-react";
-import type { TermixApp } from "@termix/plugin-sdk/frontend";
+import type { TermixApp } from "@termix-ssh/plugin-sdk/frontend";
 import { SessionLogsPanel } from "./SessionLogsPanel";
 import { RecordingStatus } from "./RecordingStatus";
 

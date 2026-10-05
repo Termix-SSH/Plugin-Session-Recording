@@ -7,7 +7,7 @@ import {
   createTestDb,
   type MockPluginContext,
   type TestDb,
-} from "@termix/plugin-sdk/testing";
+} from "@termix-ssh/plugin-sdk/testing";
 import manifestJson from "../../manifest.json";
 import { pluginDir } from "./helpers";
 import { createSessionRecordingRepository } from "../../src/backend/repository";
@@ -15,7 +15,7 @@ import { sessionRecordings } from "../../src/backend/tables";
 import { createRecordingsWriter } from "../../src/backend/service";
 
 const manifest =
-  manifestJson as unknown as import("@termix/plugin-sdk/manifest").PluginManifest;
+  manifestJson as unknown as import("@termix-ssh/plugin-sdk/manifest").PluginManifest;
 
 let db: TestDb | null = null;
 let dataDir: string;
