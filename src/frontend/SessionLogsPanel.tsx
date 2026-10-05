@@ -13,12 +13,13 @@ import {
   usePermission,
 } from "@termix/plugin-sdk/frontend";
 import {
-  Input,
+  PanelSearch,
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
   copyToClipboard,
+  useConfirm,
 } from "@termix/plugin-sdk/ui";
 import {
   ArrowLeft,
@@ -29,7 +30,6 @@ import {
   FileText,
   Loader2,
   ScrollText,
-  Search,
   X,
 } from "lucide-react";
 import { SessionRecordingPlayer } from "./SessionRecordingPlayer";
@@ -297,10 +297,7 @@ export function SessionLogsPanel() {
   const [viewBlob, setViewBlob] = useState<Blob | null>(null);
   const [viewText, setViewText] = useState<string | null>(null);
   const [viewLoading, setViewLoading] = useState(false);
-  const [deleteTarget, setDeleteTarget] = useState<SessionLogRecord | null>(
-    null,
-  );
-  const [deleting, setDeleting] = useState(false);
+  const confirm = useConfirm();
   const [copied, setCopied] = useState(false);
   const logsRef = useRef(logs);
   logsRef.current = logs;
@@ -413,17 +410,22 @@ export function SessionLogsPanel() {
     }
   };
 
-  const handleDelete = async () => {
-    if (!deleteTarget) return;
-    setDeleting(true);
+  const handleDelete = async (log: SessionLogRecord) => {
+    const ok = await confirm({
+      title: t("sessionLogs.confirmDelete"),
+      description: `${
+        log.hostName ??
+        log.hostIp ??
+        t("sessionLogs.sessionFallback", { id: log.id })
+      }, ${formatDate(log.startedAt)}`,
+      confirmLabel: t("sessionLogs.deleteLog"),
+    });
+    if (!ok) return;
     try {
-      await api.delete(deleteTarget.id);
-      setLogs((prev) => prev.filter((l) => l.id !== deleteTarget.id));
-      setDeleteTarget(null);
+      await api.delete(log.id);
+      setLogs((prev) => prev.filter((l) => l.id !== log.id));
     } catch {
       toast.error(t("sessionLogs.deleteError"));
-    } finally {
-      setDeleting(false);
     }
   };
 
@@ -555,13 +557,12 @@ export function SessionLogsPanel() {
           </div>
         ) : (
           <>
-            <div className="relative px-3 py-2 border-b border-border/60">
-              <Search className="absolute left-5.5 top-1/2 -translate-y-1/2 size-3.5 text-muted-foreground/50 pointer-events-none" />
-              <Input
-                placeholder={t("sessionLogs.filterByHost")}
+            <div className="px-3 py-2 border-b border-border">
+              <PanelSearch
                 value={filter}
-                onChange={(e) => setFilter(e.target.value)}
-                className="pl-8 h-7 text-xs"
+                onChange={setFilter}
+                placeholder={t("sessionLogs.filterByHost")}
+                fill
               />
             </div>
 
@@ -584,7 +585,7 @@ export function SessionLogsPanel() {
                     onView={() => handleView(log)}
                     onDownload={() => handleDownload(log)}
                     onDownloadText={() => handleDownloadText(log)}
-                    onDelete={() => setDeleteTarget(log)}
+                    onDelete={() => void handleDelete(log)}
                   />
                 ))}
               </div>
@@ -592,41 +593,6 @@ export function SessionLogsPanel() {
           </>
         )}
       </div>
-
-      {/* Inline delete confirmation - positioned against the relative parent in AppShell */}
-      {deleteTarget && (
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm p-4">
-          <div className="bg-popover border border-border shadow-xl w-full max-w-xs flex flex-col gap-4 p-4">
-            <p className="text-sm text-foreground">
-              {t("sessionLogs.confirmDelete")}
-            </p>
-            <div className="flex flex-col text-xs text-muted-foreground">
-              <span className="font-medium text-foreground/80">
-                {deleteTarget.hostName ??
-                  deleteTarget.hostIp ??
-                  t("sessionLogs.sessionFallback", { id: deleteTarget.id })}
-              </span>
-              <span>{formatDate(deleteTarget.startedAt)}</span>
-            </div>
-            <div className="flex justify-end gap-2">
-              <button
-                onClick={() => setDeleteTarget(null)}
-                className="px-3 py-1.5 text-xs border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-              >
-                {t("common.cancel")}
-              </button>
-              <button
-                onClick={handleDelete}
-                disabled={deleting}
-                className="px-3 py-1.5 text-xs bg-destructive text-destructive-foreground hover:bg-destructive/90 transition-colors flex items-center gap-1.5"
-              >
-                {deleting && <Loader2 className="size-3 animate-spin" />}
-                {t("sessionLogs.deleteLog")}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
