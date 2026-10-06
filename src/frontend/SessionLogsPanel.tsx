@@ -20,6 +20,12 @@ import {
   TooltipTrigger,
   copyToClipboard,
   useConfirm,
+  EmptyState,
+  Facts,
+  ListBadge,
+  ListRow,
+  ListRowAction,
+  PanelList,
 } from "@termix-ssh/plugin-sdk/ui";
 import {
   ArrowLeft,
@@ -30,7 +36,7 @@ import {
   FileText,
   Loader2,
   ScrollText,
-  X,
+  Trash2,
 } from "lucide-react";
 import { SessionRecordingPlayer } from "./SessionRecordingPlayer";
 import { asciicastToPlainText, parseAsciicast } from "./asciicast";
@@ -140,19 +146,6 @@ async function extractPlainText(
   return asciicastToPlainText(parseAsciicast(source));
 }
 
-function SectionHeader({ label, count }: { label: string; count: number }) {
-  return (
-    <div className="flex items-center gap-2 px-3 py-2 border-b border-border/60 bg-muted/20">
-      <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 flex-1">
-        {label}
-      </span>
-      <span className="text-[10px] font-semibold text-muted-foreground/40 bg-muted/60 px-1.5 py-0.5">
-        {count}
-      </span>
-    </div>
-  );
-}
-
 function LogMeta({
   items,
   className,
@@ -212,12 +205,14 @@ function ActionButton({
 
 function LogRow({
   log,
+  stripe,
   onView,
   onDownload,
   onDownloadText,
   onDelete,
 }: {
   log: SessionLogRecord;
+  stripe: number;
   onView: () => void;
   onDownload: () => void;
   onDownloadText: () => void;
@@ -230,56 +225,54 @@ function LogRow({
     t("sessionLogs.hostFallback", { id: log.hostId });
 
   return (
-    <div className="group flex items-center gap-2.5 px-3 py-2.5 border-b border-border/40 last:border-b-0 hover:bg-muted/40 transition-colors">
-      <div className="shrink-0 flex items-center justify-center size-7 bg-muted/60 text-muted-foreground">
-        <ScrollText className="size-3.5" />
-      </div>
-
-      <div className="flex flex-col flex-1 min-w-0 gap-0.5">
-        <span className="text-xs font-semibold truncate text-foreground">
-          {hostLabel}
-        </span>
-        <LogMeta
-          className="text-muted-foreground/60"
-          items={[
-            formatDate(log.startedAt),
-            (log.protocol ?? "ssh").toUpperCase(),
-            log.username,
-            formatDuration(log.duration),
-            formatBytes(log.sizeBytes),
-          ]}
-        />
-      </div>
-
-      <TooltipProvider disableHoverableContent>
-        <div className="shrink-0 flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
-          <ActionButton label={t("sessionLogs.viewLog")} onClick={onView}>
-            <Eye className="size-3" />
-          </ActionButton>
+    <ListRow
+      stripe={stripe}
+      tone="muted"
+      icon={<ScrollText />}
+      title={hostLabel}
+      onClick={onView}
+      badges={
+        <ListBadge className="ml-auto">
+          {(log.protocol ?? "ssh").toUpperCase()}
+        </ListBadge>
+      }
+      meta={
+        <Facts>
+          <span>{formatDate(log.startedAt)}</span>
+          {log.username ? <span>{log.username}</span> : null}
+          <span>{formatDuration(log.duration)}</span>
+          <span>{formatBytes(log.sizeBytes)}</span>
+        </Facts>
+      }
+      actions={
+        <>
+          <ListRowAction label={t("sessionLogs.viewLog")} onClick={onView}>
+            <Eye />
+          </ListRowAction>
           {log.format === "asciicast" && (
-            <ActionButton
+            <ListRowAction
               label={t("sessionLogs.downloadAsText")}
               onClick={onDownloadText}
             >
-              <FileText className="size-3" />
-            </ActionButton>
+              <FileText />
+            </ListRowAction>
           )}
-          <ActionButton
+          <ListRowAction
             label={t("sessionLogs.downloadLog")}
             onClick={onDownload}
           >
-            <Download className="size-3" />
-          </ActionButton>
-          <ActionButton
+            <Download />
+          </ListRowAction>
+          <ListRowAction
             label={t("sessionLogs.deleteLog")}
+            tone="destructive"
             onClick={onDelete}
-            destructive
           >
-            <X className="size-3" />
-          </ActionButton>
-        </div>
-      </TooltipProvider>
-    </div>
+            <Trash2 />
+          </ListRowAction>
+        </>
+      }
+    />
   );
 }
 
@@ -540,59 +533,41 @@ export function SessionLogsPanel() {
 
   return (
     <div className="flex flex-col flex-1 min-h-0">
-      <div className="flex-1 overflow-y-auto">
-        {logs.length === 0 ? (
-          <div className="flex flex-col items-center justify-center flex-1 gap-3 p-6 text-center py-16">
-            <div className="size-10 bg-muted/40 flex items-center justify-center">
-              <ScrollText className="size-5 text-muted-foreground/30" />
-            </div>
-            <div className="flex flex-col gap-1">
-              <span className="text-sm font-semibold text-muted-foreground/60">
-                {t("sessionLogs.noLogs")}
-              </span>
-              <span className="text-xs text-muted-foreground/40">
-                {t("sessionLogs.noLogsDesc")}
-              </span>
-            </div>
-          </div>
-        ) : (
-          <>
-            <div className="px-3 py-2 border-b border-border">
-              <PanelSearch
-                value={filter}
-                onChange={setFilter}
-                placeholder={t("sessionLogs.filterByHost")}
-                fill
-              />
-            </div>
-
-            {filtered.length === 0 ? (
-              <div className="flex flex-col items-center justify-center gap-2 py-10 text-center">
-                <span className="text-xs text-muted-foreground/50">
-                  {t("sessionLogs.noResults", { query: filter })}
-                </span>
-              </div>
-            ) : (
-              <div className="flex flex-col">
-                <SectionHeader
-                  label={t("sessionLogs.title")}
-                  count={filtered.length}
-                />
-                {filtered.map((log) => (
-                  <LogRow
-                    key={log.id}
-                    log={log}
-                    onView={() => handleView(log)}
-                    onDownload={() => handleDownload(log)}
-                    onDownloadText={() => handleDownloadText(log)}
-                    onDelete={() => void handleDelete(log)}
-                  />
-                ))}
-              </div>
-            )}
-          </>
-        )}
-      </div>
+      {logs.length > 0 && (
+        <div className="flex shrink-0 items-center gap-2 border-b border-border px-3 py-2">
+          <PanelSearch
+            value={filter}
+            onChange={setFilter}
+            placeholder={t("sessionLogs.filterByHost")}
+            fill
+          />
+        </div>
+      )}
+      <PanelList
+        empty={
+          logs.length === 0 ? (
+            <EmptyState
+              icon={ScrollText}
+              title={t("sessionLogs.noLogs")}
+              hint={t("sessionLogs.noLogsDesc")}
+            />
+          ) : (
+            <EmptyState title={t("sessionLogs.noResults", { query: filter })} />
+          )
+        }
+      >
+        {filtered.map((log, index) => (
+          <LogRow
+            key={log.id}
+            log={log}
+            stripe={index}
+            onView={() => handleView(log)}
+            onDownload={() => handleDownload(log)}
+            onDownloadText={() => handleDownloadText(log)}
+            onDelete={() => void handleDelete(log)}
+          />
+        ))}
+      </PanelList>
     </div>
   );
 }
