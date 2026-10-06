@@ -1,10 +1,6 @@
 import { Terminal } from "@xterm/xterm";
 
-export type AsciicastEvent = [
-  time: number,
-  type: "i" | "o" | "r",
-  data: string,
-];
+type AsciicastEvent = [time: number, type: "i" | "o" | "r", data: string];
 
 export type Asciicast = {
   width: number;

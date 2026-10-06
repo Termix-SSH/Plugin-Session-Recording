@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-export function isInside(file: string, dir: string): boolean {
+function isInside(file: string, dir: string): boolean {
   return path.resolve(file).startsWith(`${path.resolve(dir)}${path.sep}`);
 }
 
