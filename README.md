@@ -25,14 +25,6 @@ Session Recording records your terminal and remote desktop sessions so you can w
 
 <br />
 
-## Services
-
-Provides to other plugins:
-
-- `recordings.writer`: start a recording and add to it as a session runs, or save a recording that is already finished
-
-<br />
-
 ## Sponsors
 
 Interested in a paid placement to support development? Email [mail@termix.site](mailto:mail@termix.site).

@@ -23,3 +23,9 @@ npm run format     # format the code with Prettier
 ## Permissions
 
 - `session-recording.view`: view and play back your own session recordings. Admins and users have it by default.
+
+## Services
+
+Provides to other plugins:
+
+- `recordings.writer`: start a recording and add to it as a session runs, or save a recording that is already finished
