@@ -16,12 +16,6 @@ Session Recording records your terminal and remote desktop sessions so you can w
 
 <br />
 
-## Install
-
-Session Recording ships with [Termix](https://github.com/Termix-SSH/Termix). Admins can turn it on or off, update it or install it again from the Plugins tab. Want to see it first? Try the [demo](https://demo.termix.site/), any username and password works.
-
-<br />
-
 ## Features
 
 - Record SSH, RDP and VNC sessions
