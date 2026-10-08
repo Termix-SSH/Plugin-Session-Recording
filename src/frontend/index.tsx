@@ -1,7 +1,6 @@
 import { ScrollText } from "lucide-react";
 import type { TermixApp } from "@termix-ssh/plugin-sdk/frontend";
 import { SessionLogsPanel } from "./SessionLogsPanel";
-import { RecordingStatus } from "./RecordingStatus";
 
 export function activate(app: TermixApp): void {
   app.registerRailItem({
@@ -21,21 +20,6 @@ export function activate(app: TermixApp): void {
     icon: ScrollText,
     titleKey: "nav.sessionLogs",
     hostless: true,
-  });
-
-  app.registerSlotContribution("terminal.toolbarStatus", {
-    actionId: "session-recording.terminalStatus",
-    titleKey: "nav.sessionLogs",
-    kind: "component",
-    component: RecordingStatus,
-    when: (context) => {
-      const host = context.host as
-        | { pluginSettings?: Record<string, Record<string, unknown>> }
-        | undefined;
-      const enabled =
-        host?.pluginSettings?.["session-recording"]?.enableSessionRecording;
-      return enabled !== false;
-    },
   });
 }
 

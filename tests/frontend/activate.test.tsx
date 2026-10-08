@@ -42,9 +42,7 @@ describe(`${manifest.id} activate`, () => {
     expect(rendered.registered.railItems()).toEqual([
       expect.objectContaining({ id: "session-logs" }),
     ]);
-    expect(rendered.registered.slot("terminal.toolbarStatus")).toEqual([
-      "session-recording.terminalStatus",
-    ]);
+    expect(rendered.registered.slot("terminal.toolbarStatus")).toEqual([]);
   });
 
   it("removes everything it registered on deactivate", async () => {

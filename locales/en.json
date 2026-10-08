@@ -26,9 +26,6 @@
       }
     }
   },
-  "terminalStatus": {
-    "recording": "Recording"
-  },
   "sessionLogs": {
     "title": "Session Logs",
     "noLogs": "No session logs yet",

@@ -79,8 +79,7 @@
       "key": "enableSessionRecording",
       "labelKey": "hosts.enableSessionRecording",
       "editorTab": "general"
-    },
-    "uses": ["terminal.toolbarStatus"]
+    }
   },
   "locales": "locales",
   "platforms": ["linux", "win32", "darwin"]
