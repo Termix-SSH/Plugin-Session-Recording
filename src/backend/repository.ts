@@ -1,5 +1,8 @@
 import { and, desc, eq, inArray, lt } from "drizzle-orm";
-import type { PluginDatabase, PluginHosts } from "@termix-ssh/plugin-sdk/backend";
+import type {
+  PluginDatabase,
+  PluginHosts,
+} from "@termix-ssh/plugin-sdk/backend";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // The table comes from ctx.db.define, which the SDK hands back untyped, and
