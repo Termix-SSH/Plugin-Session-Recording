@@ -14,6 +14,8 @@
 
 Session Recording records your terminal and remote desktop sessions so you can watch them again later.
 
+Read the [docs](https://docs.termix.site/plugins/session-recording) to set it up and use it.
+
 <br />
 
 ## Features

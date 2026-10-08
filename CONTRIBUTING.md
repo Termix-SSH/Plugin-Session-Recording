@@ -10,22 +10,6 @@ npm run validate   # check manifest.json
 npm run format     # format the code with Prettier
 ```
 
-## Settings
+## Docs
 
-### Admin
-
-- **Retention (days):** remove recordings older than this. Checked at startup and once a day
-
-### Host
-
-- **Enable session recording:** record sessions on this host
-
-## Permissions
-
-- `session-recording.view`: view and play back your own session recordings. Admins and users have it by default.
-
-## Services
-
-Provides to other plugins:
-
-- `recordings.writer`: start a recording and add to it as a session runs, or save a recording that is already finished
+The docs for this plugin are in [docs/](docs/) and are published at https://docs.termix.site/plugins/session-recording. Settings, permissions, services, environment variables and the API reference are made from `manifest.json` and the `@openapi` comments in the code, so keep those up to date instead of writing them by hand. See [writing docs](https://docs.termix.site/develop/docs).

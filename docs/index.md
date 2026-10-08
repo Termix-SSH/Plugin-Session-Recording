@@ -1,0 +1,25 @@
+Session Recording saves what happens in your sessions so you can watch them back later: SSH terminals as text, and RDP, VNC and Telnet sessions as video. Use it for audits, for training, or to see what you ran last week.
+
+## Turn it on for a host
+
+Open the host in **Manage** and turn on **Enable session recording** in its Session Recording section. Every session on that host is recorded from then on. A **Recording** badge shows in the terminal while it is.
+
+For RDP, VNC and Telnet, [Remote Desktop](/plugins/remote-desktop#recording) needs its recording paths set up too.
+
+## Watch them
+
+Open **Session Logs** from the sidebar. Recordings are listed with the host, start time, duration and size. Filter by host and search.
+
+Open one to play it back. Drag the timeline, pause, and change the speed. Terminal recordings can be copied or downloaded as a file or as plain text.
+
+You only see your own recordings.
+
+## How long they are kept
+
+Recordings are deleted after 30 days. Admins change it with **Retention (days)** in **Settings**, **Session Recording**. Old ones are cleaned up at start and once a day.
+
+Recordings are files in the data folder, `plugin-data/session-recording`. Long recordings of busy sessions use disk, so pick a retention that fits.
+
+A recording stays when its user is deleted, since it is a record of what happened on the host.
+
+Who can watch recordings is set by the `session-recording.view` permission. Admins and users have it at first.
