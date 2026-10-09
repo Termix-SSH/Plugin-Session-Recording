@@ -1,4 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { screen } from "@testing-library/react";
 import type { PluginApiClient } from "@termix-ssh/plugin-sdk/frontend";
 import {
   renderWithApp,
@@ -65,5 +66,46 @@ describe(`${manifest.id} activate`, () => {
     });
     const element = rendered.renderPanel("session-logs");
     expect(element).toBeTruthy();
+  });
+
+  const LOG = {
+    id: 1,
+    hostId: 7,
+    hostName: "web",
+    userId: "user-1",
+    protocol: "ssh",
+    format: "asciicast",
+    startedAt: "2026-10-01T10:00:00.000Z",
+    duration: 5,
+    sizeBytes: 10,
+  };
+
+  const listing = vi.fn(async () => ({
+    data: { logs: [LOG] },
+  })) as unknown as PluginApiClient["get"];
+
+  it("hides the delete button for non-admins", async () => {
+    rendered = await renderWithApp(plugin, {
+      manifest,
+      locales,
+      permissions: ["session-recording.view"],
+      api: stubApi({ get: listing }),
+    });
+    rendered.renderPanel("session-logs");
+    expect(await screen.findByText("web")).toBeTruthy();
+    expect(screen.queryByLabelText("Delete")).toBeNull();
+  });
+
+  it("shows the delete button for admins", async () => {
+    rendered = await renderWithApp(plugin, {
+      manifest,
+      locales,
+      permissions: ["session-recording.view"],
+      isAdmin: true,
+      api: stubApi({ get: listing }),
+    });
+    rendered.renderPanel("session-logs");
+    expect(await screen.findByText("web")).toBeTruthy();
+    expect(screen.getByLabelText("Delete")).toBeTruthy();
   });
 });

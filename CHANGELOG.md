@@ -9,3 +9,4 @@
 - Play recordings back at any speed
 - Download a recording as a file or plain text
 - Old recordings are removed after a number of days you choose
+- Only admins can delete a recording

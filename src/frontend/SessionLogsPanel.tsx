@@ -216,7 +216,7 @@ function LogRow({
   onView: () => void;
   onDownload: () => void;
   onDownloadText: () => void;
-  onDelete: () => void;
+  onDelete?: () => void;
 }) {
   const { t } = useTranslation();
   const hostLabel =
@@ -263,13 +263,15 @@ function LogRow({
           >
             <Download />
           </ListRowAction>
-          <ListRowAction
-            label={t("sessionLogs.deleteLog")}
-            tone="destructive"
-            onClick={onDelete}
-          >
-            <Trash2 />
-          </ListRowAction>
+          {onDelete && (
+            <ListRowAction
+              label={t("sessionLogs.deleteLog")}
+              tone="destructive"
+              onClick={onDelete}
+            >
+              <Trash2 />
+            </ListRowAction>
+          )}
         </>
       }
     />
@@ -282,6 +284,7 @@ export function SessionLogsPanel() {
   const pluginApi = usePluginApi();
   const api = useMemo(() => createSessionRecordingApi(pluginApi), [pluginApi]);
   const canView = usePermission("view");
+  const canDelete = usePermission("admin.plugins.manage");
   const [logs, setLogs] = useState<SessionLogRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("");
@@ -564,7 +567,7 @@ export function SessionLogsPanel() {
             onView={() => handleView(log)}
             onDownload={() => handleDownload(log)}
             onDownloadText={() => handleDownloadText(log)}
-            onDelete={() => void handleDelete(log)}
+            onDelete={canDelete ? () => void handleDelete(log) : undefined}
           />
         ))}
       </PanelList>
