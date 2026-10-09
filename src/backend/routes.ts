@@ -156,7 +156,6 @@ function registerContent(
         return res.status(404).json({ error: "File not found" });
       }
 
-      const content = await fs.promises.readFile(resolvedPath);
       const format =
         row.format ?? (filePath.endsWith(".cast") ? "asciicast" : "text");
       const contentType =
@@ -165,7 +164,19 @@ function registerContent(
           : format === "asciicast"
             ? "application/x-asciicast"
             : "text/plain";
-      res.type(contentType).send(content);
+      // Remote desktop recordings can be large, so stream instead of
+      // reading the whole file first.
+      res.type(contentType);
+      const stream = fs.createReadStream(resolvedPath);
+      stream.on("error", (error) => {
+        ctx.log.error("Failed to stream session recording", error);
+        if (!res.headersSent) {
+          res.status(500).json({ error: "Failed to read session recording" });
+        } else {
+          res.destroy(error);
+        }
+      });
+      stream.pipe(res);
     } catch (error) {
       ctx.log.error(
         "Failed to read session recording content",
@@ -245,6 +256,9 @@ export function registerSessionRecordingRoutes(
   dataDir: () => Promise<string>,
 ): Router {
   const router = express.Router();
+  // Every route needs session-recording.view, the same permission the rail
+  // item and the writer service are gated on.
+  router.use(ctx.rbac.require("view") as never);
   registerList(router, ctx, repository);
   registerGet(router, ctx, repository);
   registerContent(router, ctx, repository, dataDir);

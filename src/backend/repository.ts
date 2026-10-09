@@ -1,4 +1,4 @@
-import { and, desc, eq, inArray, lt } from "drizzle-orm";
+import { and, desc, eq, lt } from "drizzle-orm";
 import type {
   PluginDatabase,
   PluginHosts,
@@ -211,19 +211,6 @@ export function createSessionRecordingRepository(
       await drizzle.delete(table).where(eq(table.id, id));
       await db.persist();
       return true;
-    },
-
-    async deleteByHostId(hostId: number): Promise<void> {
-      const drizzle = await client();
-      await drizzle.delete(table).where(eq(table.hostId, hostId));
-      await db.persist();
-    },
-
-    async deleteByHostIds(hostIds: number[]): Promise<void> {
-      if (hostIds.length === 0) return;
-      const drizzle = await client();
-      await drizzle.delete(table).where(inArray(table.hostId, hostIds));
-      await db.persist();
     },
 
     /**

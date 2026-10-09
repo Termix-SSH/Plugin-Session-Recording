@@ -3,8 +3,7 @@
     "sessionLogs": "Session Logs"
   },
   "hosts": {
-    "enableSessionRecording": "Session Recording",
-    "enableSessionRecordingDesc": "Record terminal session output for later review"
+    "enableSessionRecording": "Session Recording"
   },
   "permissions": {
     "view": {
@@ -36,7 +35,6 @@
     "downloadAsText": "Download as text",
     "deleteLog": "Delete",
     "confirmDelete": "Delete this session log?",
-    "confirmDeleteDesc": "This action cannot be undone.",
     "copyContent": "Copy",
     "copied": "Copied!",
     "loadError": "Failed to load session logs",

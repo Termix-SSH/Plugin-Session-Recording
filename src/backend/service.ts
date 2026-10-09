@@ -112,6 +112,7 @@ export function createRecordingsWriter(
         discard() {
           discarded = true;
           void repository.deleteById(row.id).catch(() => {});
+          if (wroteFirst) void fs.unlink(filePath).catch(() => {});
         },
       };
     },

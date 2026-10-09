@@ -26,6 +26,12 @@ describe("session recording routes", () => {
     expect(res.status).toBe(401);
   });
 
+  it("403s without session-recording.view", async () => {
+    server = await startServer({ permissions: [] });
+    const res = await server.request("GET", "/");
+    expect(res.status).toBe(403);
+  });
+
   it("lists only the caller's own recordings", async () => {
     server = await startServer();
 
