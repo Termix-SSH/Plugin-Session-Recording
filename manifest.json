@@ -73,7 +73,16 @@
         "enableLabelKey": "settings.host.enable.label",
         "enableDescriptionKey": "settings.host.enable.description",
         "fields": []
-      }
+      },
+      "user": [
+        {
+          "key": "alwaysShowActions",
+          "type": "boolean",
+          "labelKey": "settings.alwaysShowActions.label",
+          "descriptionKey": "settings.alwaysShowActions.description",
+          "default": false
+        }
+      ]
     },
     "hostCapability": {
       "key": "enableSessionRecording",

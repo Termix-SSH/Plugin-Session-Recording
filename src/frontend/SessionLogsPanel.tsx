@@ -11,8 +11,10 @@ import {
   useToast,
   usePluginApi,
   usePermission,
+  useSettings,
 } from "@termix-ssh/plugin-sdk/frontend";
 import {
+  Button,
   PanelSearch,
   Tooltip,
   TooltipContent,
@@ -36,9 +38,15 @@ import {
   FileText,
   Loader2,
   ScrollText,
+  SlidersHorizontal,
   Trash2,
 } from "lucide-react";
 import { SessionRecordingPlayer } from "./SessionRecordingPlayer";
+import {
+  SessionLogSettings,
+  readSessionLogSettings,
+  rowActionProps,
+} from "./SessionLogSettings";
 import { asciicastToPlainText, parseAsciicast } from "./asciicast";
 import {
   createSessionRecordingApi,
@@ -206,6 +214,7 @@ function ActionButton({
 function LogRow({
   log,
   stripe,
+  alwaysShowActions,
   onView,
   onDownload,
   onDownloadText,
@@ -213,6 +222,7 @@ function LogRow({
 }: {
   log: SessionLogRecord;
   stripe: number;
+  alwaysShowActions: boolean;
   onView: () => void;
   onDownload: () => void;
   onDownloadText: () => void;
@@ -244,7 +254,8 @@ function LogRow({
           <span>{formatBytes(log.sizeBytes)}</span>
         </Facts>
       }
-      actions={
+      {...rowActionProps(
+        alwaysShowActions,
         <>
           <ListRowAction label={t("sessionLogs.viewLog")} onClick={onView}>
             <Eye />
@@ -272,8 +283,8 @@ function LogRow({
               <Trash2 />
             </ListRowAction>
           )}
-        </>
-      }
+        </>,
+      )}
     />
   );
 }
@@ -295,6 +306,9 @@ export function SessionLogsPanel() {
   const [viewLoading, setViewLoading] = useState(false);
   const confirm = useConfirm();
   const [copied, setCopied] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const settings = useSettings("user");
+  const { alwaysShowActions } = readSessionLogSettings(settings.values);
   const logsRef = useRef(logs);
   logsRef.current = logs;
 
@@ -534,6 +548,15 @@ export function SessionLogsPanel() {
     );
   }
 
+  if (settingsOpen) {
+    return (
+      <SessionLogSettings
+        settings={settings}
+        onBack={() => setSettingsOpen(false)}
+      />
+    );
+  }
+
   return (
     <div className="flex flex-col flex-1 min-h-0">
       {logs.length > 0 && (
@@ -544,6 +567,15 @@ export function SessionLogsPanel() {
             placeholder={t("sessionLogs.filterByHost")}
             fill
           />
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => setSettingsOpen(true)}
+            title={t("sessionLogs.settingsTitle")}
+            aria-label={t("sessionLogs.settingsTitle")}
+          >
+            <SlidersHorizontal className="size-3.5" />
+          </Button>
         </div>
       )}
       <PanelList
@@ -564,6 +596,7 @@ export function SessionLogsPanel() {
             key={log.id}
             log={log}
             stripe={index}
+            alwaysShowActions={alwaysShowActions}
             onView={() => handleView(log)}
             onDownload={() => handleDownload(log)}
             onDownloadText={() => handleDownloadText(log)}
