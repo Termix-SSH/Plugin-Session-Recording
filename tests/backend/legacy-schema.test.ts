@@ -22,7 +22,7 @@ describe("legacy recording schema repair", () => {
         ),
         "utf8",
       );
-      db.sqlite.exec(migration.replace('  "username" text,\n', ""));
+      db.sqlite.exec(migration.replace(/ {2}"username" text,\r?\n/, ""));
       if (adopted) {
         db.applied.push("0001_adopt_session_recordings");
       } else {

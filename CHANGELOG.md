@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1
+
+### Fixed
+
+- Recordings broke after upgrading from 2.8 because the old table had no username column
+
 ## 1.0.0
 
 ### Added
