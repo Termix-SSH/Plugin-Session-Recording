@@ -1,5 +1,6 @@
 import type { Router } from "express";
 import type { PluginContext } from "@termix-ssh/plugin-sdk/backend";
+import { repairLegacyRecordingSchema } from "./legacy-schema.js";
 import { sessionRecordings } from "./tables.js";
 import { createSessionRecordingRepository } from "./repository.js";
 import { createRecordingsWriter, type RecordingsWriterV1 } from "./service.js";
@@ -10,6 +11,7 @@ export type { RecordingsWriterV1, RecordingSink } from "./service.js";
 
 export async function activate(ctx: PluginContext) {
   const table = await ctx.db.define(sessionRecordings);
+  await repairLegacyRecordingSchema(ctx.db);
   const repository = createSessionRecordingRepository(ctx.db, table, ctx.hosts);
 
   ctx.http
