@@ -43,9 +43,7 @@
         "id": "session-logs",
         "titleKey": "nav.sessionLogs",
         "icon": "ScrollText",
-        "openFrom": [
-          "rail"
-        ]
+        "openFrom": ["rail"]
       }
     ],
     "permissions": [
@@ -53,10 +51,7 @@
         "name": "view",
         "titleKey": "permissions.view.title",
         "descriptionKey": "permissions.view.description",
-        "defaultRoles": [
-          "admin",
-          "user"
-        ]
+        "defaultRoles": ["admin", "user"]
       }
     ],
     "settings": {
@@ -96,9 +91,5 @@
     }
   },
   "locales": "locales",
-  "platforms": [
-    "linux",
-    "win32",
-    "darwin"
-  ]
+  "platforms": ["linux", "win32", "darwin"]
 }
