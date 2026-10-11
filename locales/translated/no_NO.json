@@ -1,63 +1,68 @@
 {
   "nav": {
-    "sessionLogs": "Øktlogger"
+    "sessionLogs": "Sesjonslogger"
   },
   "hosts": {
-    "enableSessionRecording": "Øktopptak",
-    "enableSessionRecordingDesc": "Ta opp utdata fra terminaløkten for senere gjennomgang"
+    "enableSessionRecording": "Sesjonsopptak"
   },
   "permissions": {
     "view": {
-      "title": "Se opptak av økter",
-      "description": "Se og spill av dine egne øktopptak."
+      "title": "Vis sesjonsopptak",
+      "description": "Se og spill av dine egne sesjonsopptak."
     }
   },
   "settings": {
     "admin": {
       "retentionDays": {
         "label": "Oppbevaring (dager)",
-        "description": "Hvor lenge et øktopptak lagres før det slettes automatisk."
+        "description": "Hvor lenge et sesjonsopptak beholdes før det slettes automatisk."
       }
     },
     "host": {
       "enable": {
-        "label": "Aktiver øktopptak",
-        "description": "Spill inn terminalutdata for denne verten, slik at du kan spille det av eller laste det ned senere."
+        "label": "Aktiver sesjonsopptak",
+        "description": "Ta opp terminalutdata for denne verten slik at du kan spille dem av eller laste dem ned senere."
       }
+    },
+    "alwaysShowActions": {
+      "label": "Vis alltid knapper",
+      "description": "Hold knappene for visning, nedlasting og sletting under hver logg synlige. Slå av for å vise dem kun ved sveiping."
     }
   },
-  "terminalStatus": {
-    "recording": "Innspilling"
-  },
   "sessionLogs": {
-    "title": "Øktlogger",
-    "noLogs": "Ingen øktlogger ennå",
-    "noLogsDesc": "Aktiver øktlogging på en vert for å starte opptaket",
+    "title": "Sesjonslogger",
+    "noLogs": "Ingen sesjonslogger ennå",
+    "noLogsDesc": "Aktiver sesjonslogging på en vert for å starte opptak",
     "duration": "Varighet",
     "viewLog": "Vis logg",
     "downloadLog": "Last ned",
     "downloadAsText": "Last ned som tekst",
     "deleteLog": "Slett",
-    "confirmDelete": "Slette denne øktloggen?",
-    "confirmDeleteDesc": "Denne handlingen kan ikke angres.",
+    "confirmDelete": "Slette denne sesjonsloggen?",
     "copyContent": "Kopier",
     "copied": "Kopiert!",
-    "loadError": "Kunne ikke laste inn øktlogger",
-    "deleteError": "Kunne ikke slette øktloggen",
+    "loadError": "Kunne ikke laste inn sesjonslogger",
+    "deleteError": "Kunne ikke slette sesjonslogg",
     "filterByHost": "Filtrer etter vert...",
     "back": "Tilbake",
-    "empty": "(tømme)",
-    "noResults": "Ingen resultater for «{{query}}»",
+    "empty": "(tom)",
+    "noResults": "Ingen resultater for \"{{query}}\"",
     "hostFallback": "Vert {{id}}",
-    "sessionFallback": "Økt {{id}}"
+    "sessionFallback": "Sesjon {{id}}",
+    "settingsTitle": "Innstillinger for sesjonslogger",
+    "settingsDisplayTitle": "Visning"
   },
   "player": {
-    "timeline": "Tidslinje for opptak",
+    "timeline": "Opptakstidslinje",
     "speed": "Avspillingshastighet",
-    "play": "Spill av opptaket",
-    "pause": "Sett opptaket på pause"
+    "play": "Spill av opptak",
+    "pause": "Pause opptak",
+    "zoom": "Zoom",
+    "zoomIn": "Zoom inn",
+    "zoomOut": "Zoom ut",
+    "fit": "Tilpass til panel"
   },
   "plugin": {
-    "name": "Session Recording"
+    "name": "Sesjonsopptak"
   }
 }

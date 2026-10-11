@@ -3,61 +3,66 @@
     "sessionLogs": "Registres de sessió"
   },
   "hosts": {
-    "enableSessionRecording": "Gravació de sessions",
-    "enableSessionRecordingDesc": "Enregistra la sortida de la sessió de terminal per a una revisió posterior"
+    "enableSessionRecording": "Enregistrament de sessió"
   },
   "permissions": {
     "view": {
-      "title": "Veure enregistraments de sessions",
-      "description": "Veure i reproduir els enregistraments de les teves pròpies sessions."
+      "title": "Veure enregistraments de sessió",
+      "description": "Visualitza i reprodueix els teus propis enregistraments de sessió."
     }
   },
   "settings": {
     "admin": {
       "retentionDays": {
         "label": "Retenció (dies)",
-        "description": "Quant de temps es conserva una gravació de sessió abans que s'elimini automàticament."
+        "description": "Durada durant la qual es conserva un enregistrament de sessió abans que s'esborri automàticament."
       }
     },
     "host": {
       "enable": {
-        "label": "Activa l'enregistrament de la sessió",
-        "description": "Enregistra la sortida del terminal per a aquest host per poder reproduir-la o descarregar-la més tard."
+        "label": "Activa l'enregistrament de sessió",
+        "description": "Enregistra la sortida del terminal d'aquest amfitrió per poder-la reproduir o descarregar més endavant."
       }
+    },
+    "alwaysShowActions": {
+      "label": "Mostra sempre els botons",
+      "description": "Mantén visibles els botons de visualització, descàrrega i supressió sota cada registre. Desactiva-ho per mostrar-los només en passar el cursor per sobre."
     }
-  },
-  "terminalStatus": {
-    "recording": "Enregistrament"
   },
   "sessionLogs": {
     "title": "Registres de sessió",
     "noLogs": "Encara no hi ha registres de sessió",
-    "noLogsDesc": "Habilita el registre de sessions en un amfitrió per iniciar l'enregistrament",
+    "noLogsDesc": "Activa l'enregistrament de sessió en un amfitrió per començar a enregistrar",
     "duration": "Durada",
     "viewLog": "Veure registre",
     "downloadLog": "Descarrega",
     "downloadAsText": "Descarrega com a text",
     "deleteLog": "Suprimeix",
-    "confirmDelete": "Voleu suprimir aquest registre de sessió?",
-    "confirmDeleteDesc": "Aquesta acció no es pot desfer.",
-    "copyContent": "Còpia",
+    "confirmDelete": "Vols suprimir aquest registre de sessió?",
+    "copyContent": "Copia",
     "copied": "Copiat!",
     "loadError": "No s'han pogut carregar els registres de sessió",
     "deleteError": "No s'ha pogut suprimir el registre de sessió",
     "filterByHost": "Filtra per amfitrió...",
     "back": "Enrere",
     "empty": "(buit)",
-    "noResults": "No hi ha resultats per a \"{{query}}\"",
+    "noResults": "No s'han trobat resultats per a «{{query}}»",
     "hostFallback": "Amfitrió {{id}}",
-    "sessionFallback": "Sessió {{id}}"
+    "sessionFallback": "Sessió {{id}}",
+    "settingsTitle": "Configuració dels registres de sessió",
+    "settingsDisplayTitle": "Visualització"
   },
   "player": {
-    "timeline": "Cronologia de gravació",
+    "timeline": "Línia temporal de l'enregistrament",
     "speed": "Velocitat de reproducció",
-    "play": "Reprodueix la gravació",
-    "pause": "Pausa l'enregistrament"
+    "play": "Reprodueix l'enregistrament",
+    "pause": "Pausa l'enregistrament",
+    "zoom": "Zoom",
+    "zoomIn": "Amplia",
+    "zoomOut": "Redueix",
+    "fit": "Ajusta al panell"
   },
   "plugin": {
-    "name": "Session Recording"
+    "name": "Enregistrament de sessió"
   }
 }

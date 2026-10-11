@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "sessionLogs": "Protokoly relácií"
+  },
+  "hosts": {
+    "enableSessionRecording": "Nahrávanie relácií"
+  },
+  "permissions": {
+    "view": {
+      "title": "Zobraziť nahrávky relácií",
+      "description": "Zobrazte a prehrávajte vlastné nahrávky relácií."
+    }
+  },
+  "settings": {
+    "admin": {
+      "retentionDays": {
+        "label": "Uchovávanie (dni)",
+        "description": "Ako dlho sa nahrávka relácie uchováva, kým sa automaticky nevymaže."
+      }
+    },
+    "host": {
+      "enable": {
+        "label": "Povoliť nahrávanie relácií",
+        "description": "Nahrávajte výstup terminálu pre tento hostiteľ, aby ste ho mohli neskôr prehrať alebo stiahnuť."
+      }
+    },
+    "alwaysShowActions": {
+      "label": "Vždy zobrazovať tlačidlá",
+      "description": "Udržujte tlačidlá na zobrazenie, stiahnutie a vymazanie pod každým protokolom viditeľné. Vypnutím sa zobrazia iba pri najetí myšou."
+    }
+  },
+  "sessionLogs": {
+    "title": "Protokoly relácií",
+    "noLogs": "Zatiaľ žiadne protokoly relácií",
+    "noLogsDesc": "Povoľte protokolovanie relácií na hostiteľovi, aby ste začali nahrávať",
+    "duration": "Trvanie",
+    "viewLog": "Zobraziť protokol",
+    "downloadLog": "Stiahnuť",
+    "downloadAsText": "Stiahnuť ako text",
+    "deleteLog": "Vymazať",
+    "confirmDelete": "Vymazať tento protokol relácie?",
+    "copyContent": "Kopírovať",
+    "copied": "Skopírované!",
+    "loadError": "Nepodarilo sa načítať protokoly relácií",
+    "deleteError": "Nepodarilo sa vymazať protokol relácie",
+    "filterByHost": "Filtrovať podľa hostiteľa...",
+    "back": "Späť",
+    "empty": "(prázdne)",
+    "noResults": "Žiadne výsledky pre \"{{query}}\"",
+    "hostFallback": "Hostiteľ {{id}}",
+    "sessionFallback": "Relácia {{id}}",
+    "settingsTitle": "Nastavenia protokolov relácií",
+    "settingsDisplayTitle": "Zobrazenie"
+  },
+  "player": {
+    "timeline": "Časová os nahrávky",
+    "speed": "Rýchlosť prehrávania",
+    "play": "Prehrať nahrávku",
+    "pause": "Pozastaviť nahrávku",
+    "zoom": "Priblíženie",
+    "zoomIn": "Priblížiť",
+    "zoomOut": "Oddialiť",
+    "fit": "Prispôsobiť panelu"
+  },
+  "plugin": {
+    "name": "Nahrávanie relácií"
+  }
+}

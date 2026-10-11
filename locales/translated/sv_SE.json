@@ -3,61 +3,66 @@
     "sessionLogs": "Sessionsloggar"
   },
   "hosts": {
-    "enableSessionRecording": "Sessionsinspelning",
-    "enableSessionRecordingDesc": "Spela in utdata från terminalsessionen för senare granskning"
+    "enableSessionRecording": "Sessionsinspelning"
   },
   "permissions": {
     "view": {
-      "title": "Visa inspelningar av sessionen",
-      "description": "Se och spela upp dina egna inspelningar av sessioner."
+      "title": "Visa sessionsinspelningar",
+      "description": "Se och spela upp dina egna sessionsinspelningar."
     }
   },
   "settings": {
     "admin": {
       "retentionDays": {
-        "label": "Lagringstid (dagar)",
+        "label": "Behållning (dagar)",
         "description": "Hur länge en sessionsinspelning sparas innan den raderas automatiskt."
       }
     },
     "host": {
       "enable": {
         "label": "Aktivera sessionsinspelning",
-        "description": "Spela in terminalutdata för den här värden så att du kan spela upp eller ladda ner den senare."
+        "description": "Spela in terminalutdata för denna värd så att du kan spela upp eller ladda ner den senare."
       }
+    },
+    "alwaysShowActions": {
+      "label": "Visa alltid knappar",
+      "description": "Håll knapparna för visning, nedladdning och radering under varje logg synliga. Stäng av för att endast visa dem vid hovring."
     }
-  },
-  "terminalStatus": {
-    "recording": "Inspelning"
   },
   "sessionLogs": {
     "title": "Sessionsloggar",
     "noLogs": "Inga sessionsloggar ännu",
-    "noLogsDesc": "Aktivera sessionsloggning på en värd för att starta inspelning",
-    "duration": "Varaktighet",
+    "noLogsDesc": "Aktivera sessionsloggning på en värd för att börja spela in",
+    "duration": "Längd",
     "viewLog": "Visa logg",
     "downloadLog": "Ladda ner",
     "downloadAsText": "Ladda ner som text",
     "deleteLog": "Radera",
-    "confirmDelete": "Radera den här sessionsloggen?",
-    "confirmDeleteDesc": "Den här åtgärden kan inte ångras.",
+    "confirmDelete": "Radera denna sessionslogg?",
     "copyContent": "Kopiera",
-    "copied": "Kopierad!",
-    "loadError": "Misslyckades med att läsa in sessionsloggar",
-    "deleteError": "Misslyckades med att radera sessionsloggen",
+    "copied": "Kopierat!",
+    "loadError": "Kunde inte ladda sessionsloggar",
+    "deleteError": "Kunde inte radera sessionslogg",
     "filterByHost": "Filtrera efter värd...",
     "back": "Tillbaka",
-    "empty": "(tömma)",
+    "empty": "(tom)",
     "noResults": "Inga resultat för \"{{query}}\"",
     "hostFallback": "Värd {{id}}",
-    "sessionFallback": "Session {{id}}"
+    "sessionFallback": "Session {{id}}",
+    "settingsTitle": "Inställningar för sessionsloggar",
+    "settingsDisplayTitle": "Visning"
   },
   "player": {
-    "timeline": "Inspelningstidslinje",
+    "timeline": "Inspelnings tidslinje",
     "speed": "Uppspelningshastighet",
-    "play": "Spela upp inspelningen",
-    "pause": "Pausa inspelningen"
+    "play": "Spela upp inspelning",
+    "pause": "Pausa inspelning",
+    "zoom": "Zooma",
+    "zoomIn": "Zooma in",
+    "zoomOut": "Zooma ut",
+    "fit": "Anpassa till panel"
   },
   "plugin": {
-    "name": "Session Recording"
+    "name": "Sessionsinspelning"
   }
 }

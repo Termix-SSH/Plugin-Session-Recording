@@ -1,63 +1,68 @@
 {
   "nav": {
-    "sessionLogs": "Logi sesji"
+    "sessionLogs": "Dzienniki sesji"
   },
   "hosts": {
-    "enableSessionRecording": "Nagrywanie sesji",
-    "enableSessionRecordingDesc": "Zapisuj wyjście sesji terminala do późniejszego przejrzenia"
+    "enableSessionRecording": "Nagrywanie sesji"
   },
   "permissions": {
     "view": {
-      "title": "Zobacz nagrania sesji",
-      "description": "Oglądaj i odtwarzaj własne nagrania sesji."
+      "title": "Podgląd nagrań sesji",
+      "description": "Podgląd i odtwarzanie własnych nagrań sesji."
     }
   },
   "settings": {
     "admin": {
       "retentionDays": {
-        "label": "Retencja (dni)",
-        "description": "Jak długo przechowywane jest nagranie sesji, zanim zostanie automatycznie usunięte."
+        "label": "Czas przechowywania (dni)",
+        "description": "Okres, przez który nagranie sesji jest przechowywane przed automatycznym usunięciem."
       }
     },
     "host": {
       "enable": {
         "label": "Włącz nagrywanie sesji",
-        "description": "Nagraj dane wyjściowe terminala dla tego hosta, aby móc je później odtworzyć lub pobrać."
+        "description": "Nagrywaj wyjście terminala dla tego hosta, aby móc je później odtworzyć lub pobrać."
       }
+    },
+    "alwaysShowActions": {
+      "label": "Zawsze pokazuj przyciski",
+      "description": "Utrzymuj widoczne przyciski podglądu, pobierania i usuwania pod każdym dziennikiem. Wyłącz, aby pokazywać je tylko po najechaniu kursorem."
     }
   },
-  "terminalStatus": {
-    "recording": "Nagranie"
-  },
   "sessionLogs": {
-    "title": "Logi sesji",
-    "noLogs": "Brak logów sesji",
+    "title": "Dzienniki sesji",
+    "noLogs": "Brak dzienników sesji",
     "noLogsDesc": "Włącz rejestrowanie sesji na hoście, aby rozpocząć nagrywanie",
     "duration": "Czas trwania",
-    "viewLog": "Wyświetl log",
+    "viewLog": "Podgląd dziennika",
     "downloadLog": "Pobierz",
     "downloadAsText": "Pobierz jako tekst",
     "deleteLog": "Usuń",
-    "confirmDelete": "Usunąć ten log sesji?",
-    "confirmDeleteDesc": "Tej czynności nie można cofnąć.",
+    "confirmDelete": "Usunąć ten dziennik sesji?",
     "copyContent": "Kopiuj",
     "copied": "Skopiowano!",
-    "loadError": "Nie udało się załadować logów sesji",
-    "deleteError": "Nie udało się usunąć logu sesji",
-    "filterByHost": "Filtruj według hosta...",
-    "back": "Wstecz",
+    "loadError": "Nie udało się załadować dzienników sesji",
+    "deleteError": "Nie udało się usunąć dziennika sesji",
+    "filterByHost": "Filtruj po hoście...",
+    "back": "Wróć",
     "empty": "(pusty)",
     "noResults": "Brak wyników dla „{{query}}”",
-    "hostFallback": "Gospodarz {{id}}",
-    "sessionFallback": "Sesja {{id}}"
+    "hostFallback": "Host {{id}}",
+    "sessionFallback": "Sesja {{id}}",
+    "settingsTitle": "Ustawienia dzienników sesji",
+    "settingsDisplayTitle": "Wyświetlanie"
   },
   "player": {
-    "timeline": "Oś czasu nagrywania",
+    "timeline": "Oś czasu nagrania",
     "speed": "Prędkość odtwarzania",
     "play": "Odtwórz nagranie",
-    "pause": "Wstrzymaj nagrywanie"
+    "pause": "Wstrzymaj nagranie",
+    "zoom": "Powiększenie",
+    "zoomIn": "Powiększ",
+    "zoomOut": "Pomniejsz",
+    "fit": "Dopasuj do panelu"
   },
   "plugin": {
-    "name": "Session Recording"
+    "name": "Nagrywanie sesji"
   }
 }

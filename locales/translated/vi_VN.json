@@ -1,63 +1,68 @@
 {
   "nav": {
-    "sessionLogs": "Nhật ký phiên"
+    "sessionLogs": "Nhật ký phiên làm việc"
   },
   "hosts": {
-    "enableSessionRecording": "Ghi phiên",
-    "enableSessionRecordingDesc": "Ghi lại đầu ra phiên terminal để xem lại sau"
+    "enableSessionRecording": "Ghi lại phiên làm việc"
   },
   "permissions": {
     "view": {
-      "title": "Xem bản ghi lại các buổi họp",
-      "description": "Xem và phát lại các bản ghi âm buổi tập của chính bạn."
+      "title": "Xem các bản ghi phiên làm việc",
+      "description": "Xem và phát lại các bản ghi phiên làm việc của bạn."
     }
   },
   "settings": {
     "admin": {
       "retentionDays": {
-        "label": "Thời gian lưu giữ (ngày)",
-        "description": "Thời gian lưu giữ bản ghi phiên trước khi nó tự động bị xóa."
+        "label": "Thời gian lưu trữ (ngày)",
+        "description": "Thời gian lưu trữ bản ghi phiên làm việc trước khi bị xóa tự động."
       }
     },
     "host": {
       "enable": {
-        "label": "Bật tính năng ghi lại phiên",
-        "description": "Ghi lại thông báo lỗi trên terminal của máy chủ này để bạn có thể phát lại hoặc tải xuống sau."
+        "label": "Bật ghi lại phiên làm việc",
+        "description": "Ghi lại đầu ra của terminal cho host này để bạn có thể phát lại hoặc tải xuống sau."
       }
+    },
+    "alwaysShowActions": {
+      "label": "Luôn hiển thị các nút",
+      "description": "Giữ các nút xem, tải xuống và xóa dưới mỗi nhật ký luôn hiển thị. Tắt để chỉ hiển thị chúng khi di chuột qua."
     }
   },
-  "terminalStatus": {
-    "recording": "Ghi âm"
-  },
   "sessionLogs": {
-    "title": "Nhật ký phiên",
-    "noLogs": "Chưa có nhật ký phiên nào",
-    "noLogsDesc": "Bật ghi nhật ký phiên trên máy chủ để bắt đầu ghi",
+    "title": "Nhật ký phiên làm việc",
+    "noLogs": "Chưa có nhật ký phiên làm việc nào",
+    "noLogsDesc": "Bật ghi nhật ký phiên làm việc trên một host để bắt đầu ghi lại",
     "duration": "Thời lượng",
     "viewLog": "Xem nhật ký",
     "downloadLog": "Tải xuống",
     "downloadAsText": "Tải xuống dưới dạng văn bản",
     "deleteLog": "Xóa",
-    "confirmDelete": "Xóa nhật ký phiên này?",
-    "confirmDeleteDesc": "Hành động này không thể hoàn tác.",
+    "confirmDelete": "Xóa nhật ký phiên làm việc này?",
     "copyContent": "Sao chép",
     "copied": "Đã sao chép!",
-    "loadError": "Tải nhật ký phiên thất bại",
-    "deleteError": "Xóa nhật ký phiên thất bại",
-    "filterByHost": "Lọc theo máy chủ...",
+    "loadError": "Không thể tải nhật ký phiên làm việc",
+    "deleteError": "Không thể xóa nhật ký phiên làm việc",
+    "filterByHost": "Lọc theo host...",
     "back": "Quay lại",
     "empty": "(trống)",
-    "noResults": "Không tìm thấy kết quả cho \"{{query}}\"",
-    "hostFallback": "Máy chủ {{id}}",
-    "sessionFallback": "Phiên {{id}}"
+    "noResults": "Không có kết quả cho \"{{query}}\"",
+    "hostFallback": "Host {{id}}",
+    "sessionFallback": "Phiên làm việc {{id}}",
+    "settingsTitle": "Cài đặt nhật ký phiên làm việc",
+    "settingsDisplayTitle": "Hiển thị"
   },
   "player": {
-    "timeline": "Lịch trình ghi âm",
+    "timeline": "Dòng thời gian bản ghi",
     "speed": "Tốc độ phát lại",
-    "play": "Phát bản ghi âm",
-    "pause": "Tạm dừng ghi âm"
+    "play": "Phát bản ghi",
+    "pause": "Tạm dừng bản ghi",
+    "zoom": "Thu phóng",
+    "zoomIn": "Phóng to",
+    "zoomOut": "Thu nhỏ",
+    "fit": "Vừa với bảng"
   },
   "plugin": {
-    "name": "Session Recording"
+    "name": "Ghi lại phiên làm việc"
   }
 }

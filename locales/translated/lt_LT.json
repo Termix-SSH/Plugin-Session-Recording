@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "sessionLogs": "Sesijų žurnalai"
+  },
+  "hosts": {
+    "enableSessionRecording": "Sesijų įrašymas"
+  },
+  "permissions": {
+    "view": {
+      "title": "Peržiūrėti sesijų įrašus",
+      "description": "Peržiūrėkite ir atkurtite savo sesijų įrašus."
+    }
+  },
+  "settings": {
+    "admin": {
+      "retentionDays": {
+        "label": "Laikymo trukmė (dienos)",
+        "description": "Kaip ilgai sesijos įrašas bus saugomas, kol bus automatiškai ištrintas."
+      }
+    },
+    "host": {
+      "enable": {
+        "label": "Įjungti sesijų įrašymą",
+        "description": "Įrašykite šio serverio terminalo išvestį, kad galėtumėte ją vėliau atkurti arba atsisiųsti."
+      }
+    },
+    "alwaysShowActions": {
+      "label": "Visada rodyti mygtukus",
+      "description": "Palikite peržiūros, atsisiuntimo ir trynimo mygtukus po kiekvienu žurnalu matomus. Išjunkite, kad jie būtų rodomi tik užvedus pelę."
+    }
+  },
+  "sessionLogs": {
+    "title": "Sesijų žurnalai",
+    "noLogs": "Dar nėra sesijų žurnalų",
+    "noLogsDesc": "Įjunkite sesijų įrašymą serveryje, kad pradėtumėte įrašinėti",
+    "duration": "Trukmė",
+    "viewLog": "Peržiūrėti žurnalą",
+    "downloadLog": "Atsisiųsti",
+    "downloadAsText": "Atsisiųsti kaip tekstą",
+    "deleteLog": "Ištrinti",
+    "confirmDelete": "Ištrinti šį sesijos žurnalą?",
+    "copyContent": "Kopijuoti",
+    "copied": "Nukopijuota!",
+    "loadError": "Nepavyko įkelti sesijų žurnalų",
+    "deleteError": "Nepavyko ištrinti sesijos žurnalo",
+    "filterByHost": "Filtruoti pagal serverį...",
+    "back": "Atgal",
+    "empty": "(tuščia)",
+    "noResults": "Nerasta rezultatų užklausai „{{query}}“",
+    "hostFallback": "Serveris {{id}}",
+    "sessionFallback": "Sesija {{id}}",
+    "settingsTitle": "Sesijų žurnalų nustatymai",
+    "settingsDisplayTitle": "Rodinys"
+  },
+  "player": {
+    "timeline": "Įrašo laiko juosta",
+    "speed": "Atkūrimo greitis",
+    "play": "Leisti įrašą",
+    "pause": "Pristabdyti įrašą",
+    "zoom": "Mastelis",
+    "zoomIn": "Priartinti",
+    "zoomOut": "Atitolinti",
+    "fit": "Priderinti prie skydelio"
+  },
+  "plugin": {
+    "name": "Sesijų įrašymas"
+  }
+}

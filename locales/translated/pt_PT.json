@@ -3,61 +3,66 @@
     "sessionLogs": "Registos de Sessão"
   },
   "hosts": {
-    "enableSessionRecording": "Gravação de Sessão",
-    "enableSessionRecordingDesc": "Gravar a saída da sessão de terminal para revisão posterior"
+    "enableSessionRecording": "Gravação de Sessão"
   },
   "permissions": {
     "view": {
-      "title": "Veja as gravações das sessões",
-      "description": "Veja e reproduza as gravações das suas próprias sessões."
+      "title": "Ver gravações de sessão",
+      "description": "Ver e reproduzir as suas próprias gravações de sessão."
     }
   },
   "settings": {
     "admin": {
       "retentionDays": {
         "label": "Retenção (dias)",
-        "description": "Durante quanto tempo é mantida uma gravação de sessão antes de ser automaticamente eliminada."
+        "description": "Tempo que uma gravação de sessão é mantida antes de ser eliminada automaticamente."
       }
     },
     "host": {
       "enable": {
         "label": "Ativar gravação de sessão",
-        "description": "Grave a saída do terminal para este host para que possa reproduzi-la ou descarregá-la posteriormente."
+        "description": "Gravar a saída do terminal para este host para poder reproduzi-la ou descarregá-la mais tarde."
       }
+    },
+    "alwaysShowActions": {
+      "label": "Mostrar sempre os botões",
+      "description": "Manter os botões de ver, descarregar e eliminar visíveis abaixo de cada registo. Desative para mostrá-los apenas ao passar o rato."
     }
-  },
-  "terminalStatus": {
-    "recording": "Gravação"
   },
   "sessionLogs": {
     "title": "Registos de Sessão",
-    "noLogs": "Ainda sem registos de sessão",
+    "noLogs": "Ainda não há registos de sessão",
     "noLogsDesc": "Ative o registo de sessão num host para começar a gravar",
     "duration": "Duração",
     "viewLog": "Ver registo",
-    "downloadLog": "Transferir",
+    "downloadLog": "Descarregar",
     "downloadAsText": "Descarregar como texto",
     "deleteLog": "Eliminar",
     "confirmDelete": "Eliminar este registo de sessão?",
-    "confirmDeleteDesc": "Esta ação não pode ser desfeita.",
     "copyContent": "Copiar",
     "copied": "Copiado!",
-    "loadError": "Falha ao carregar registos de sessão",
-    "deleteError": "Falha ao eliminar registo de sessão",
+    "loadError": "Falha ao carregar os registos de sessão",
+    "deleteError": "Falha ao eliminar o registo de sessão",
     "filterByHost": "Filtrar por host...",
     "back": "Voltar",
     "empty": "(vazio)",
-    "noResults": "Nenhum resultado para \"{{query}}\"",
-    "hostFallback": "Anfitrião {{id}}",
-    "sessionFallback": "Sessão {{id}}"
+    "noResults": "Sem resultados para \"{{query}}\"",
+    "hostFallback": "Host {{id}}",
+    "sessionFallback": "Sessão {{id}}",
+    "settingsTitle": "Definições de registo de sessão",
+    "settingsDisplayTitle": "Exibição"
   },
   "player": {
-    "timeline": "Cronograma de gravação",
+    "timeline": "Linha temporal da gravação",
     "speed": "Velocidade de reprodução",
     "play": "Reproduzir gravação",
-    "pause": "Pausar gravação"
+    "pause": "Pausar gravação",
+    "zoom": "Zoom",
+    "zoomIn": "Aumentar zoom",
+    "zoomOut": "Diminuir zoom",
+    "fit": "Ajustar ao painel"
   },
   "plugin": {
-    "name": "Session Recording"
+    "name": "Gravação de Sessão"
   }
 }

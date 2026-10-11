@@ -3,61 +3,66 @@
     "sessionLogs": "Sessielogboeken"
   },
   "hosts": {
-    "enableSessionRecording": "Sessieopname",
-    "enableSessionRecordingDesc": "Sla de uitvoer van de terminalsessie op voor latere beoordeling."
+    "enableSessionRecording": "Sessieopname"
   },
   "permissions": {
     "view": {
-      "title": "Bekijk sessieopnames",
+      "title": "Sessieopnames bekijken",
       "description": "Bekijk en speel je eigen sessieopnames af."
     }
   },
   "settings": {
     "admin": {
       "retentionDays": {
-        "label": "Retentie (dagen)",
+        "label": "Bewaartermijn (dagen)",
         "description": "Hoe lang een sessieopname wordt bewaard voordat deze automatisch wordt verwijderd."
       }
     },
     "host": {
       "enable": {
         "label": "Sessieopname inschakelen",
-        "description": "Neem de terminaluitvoer van deze host op, zodat u deze later kunt afspelen of downloaden."
+        "description": "Neem de terminaluitvoer van deze host op zodat je deze later kunt afspelen of downloaden."
       }
+    },
+    "alwaysShowActions": {
+      "label": "Knoppen altijd tonen",
+      "description": "Houd de knoppen voor bekijken, downloaden en verwijderen onder elk logboek zichtbaar. Zet dit uit om ze alleen bij hover te tonen."
     }
-  },
-  "terminalStatus": {
-    "recording": "Opname"
   },
   "sessionLogs": {
     "title": "Sessielogboeken",
     "noLogs": "Nog geen sessielogboeken",
-    "noLogsDesc": "Schakel sessielogging in op een host om te beginnen met opnemen.",
+    "noLogsDesc": "Schakel sessielogging in op een host om opnames te starten",
     "duration": "Duur",
     "viewLog": "Logboek bekijken",
-    "downloadLog": "Download",
+    "downloadLog": "Downloaden",
     "downloadAsText": "Downloaden als tekst",
     "deleteLog": "Verwijderen",
     "confirmDelete": "Dit sessielogboek verwijderen?",
-    "confirmDeleteDesc": "Deze actie kan niet ongedaan gemaakt worden.",
     "copyContent": "Kopiëren",
     "copied": "Gekopieerd!",
-    "loadError": "Het laden van de sessielogboeken is mislukt.",
-    "deleteError": "Het verwijderen van het sessielogboek is mislukt.",
+    "loadError": "Kan sessielogboeken niet laden",
+    "deleteError": "Kan sessielogboek niet verwijderen",
     "filterByHost": "Filteren op host...",
-    "back": "Rug",
+    "back": "Terug",
     "empty": "(leeg)",
     "noResults": "Geen resultaten voor \"{{query}}\"",
     "hostFallback": "Host {{id}}",
-    "sessionFallback": "Sessie {{id}}"
+    "sessionFallback": "Sessie {{id}}",
+    "settingsTitle": "Instellingen voor sessielogboeken",
+    "settingsDisplayTitle": "Weergave"
   },
   "player": {
-    "timeline": "Opnametijdlijn",
+    "timeline": "Tijdlijn van opname",
     "speed": "Afspeelsnelheid",
-    "play": "Speel opname af",
-    "pause": "Opname pauzeren"
+    "play": "Opname afspelen",
+    "pause": "Opname pauzeren",
+    "zoom": "Zoomen",
+    "zoomIn": "Inzoomen",
+    "zoomOut": "Uitzoomen",
+    "fit": "Aan paneel aanpassen"
   },
   "plugin": {
-    "name": "Session Recording"
+    "name": "Sessieopname"
   }
 }

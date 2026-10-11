@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "sessionLogs": "Zapisnici sesija"
+  },
+  "hosts": {
+    "enableSessionRecording": "Snimanje sesija"
+  },
+  "permissions": {
+    "view": {
+      "title": "Pregled snimki sesija",
+      "description": "Pregledajte i reproducirajte vlastite snimke sesija."
+    }
+  },
+  "settings": {
+    "admin": {
+      "retentionDays": {
+        "label": "Rok zadržavanja (dani)",
+        "description": "Koliko dugo se snimka sesije čuva prije automatskog brisanja."
+      }
+    },
+    "host": {
+      "enable": {
+        "label": "Omogući snimanje sesija",
+        "description": "Snimajte izlaz terminala za ovog hosta kako biste ga kasnije mogli reproducirati ili preuzeti."
+      }
+    },
+    "alwaysShowActions": {
+      "label": "Uvijek prikaži gumbe",
+      "description": "Održite gumbe za pregled, preuzimanje i brisanje vidljivima ispod svakog zapisnika. Isključite da bi se prikazivali samo pri prelasku mišem."
+    }
+  },
+  "sessionLogs": {
+    "title": "Zapisnici sesija",
+    "noLogs": "Još nema zapisnika sesija",
+    "noLogsDesc": "Omogućite bilježenje sesija na hostu kako biste započeli snimanje",
+    "duration": "Trajanje",
+    "viewLog": "Pregled zapisnika",
+    "downloadLog": "Preuzmi",
+    "downloadAsText": "Preuzmi kao tekst",
+    "deleteLog": "Izbriši",
+    "confirmDelete": "Izbrisati ovaj zapisnik sesije?",
+    "copyContent": "Kopiraj",
+    "copied": "Kopirano!",
+    "loadError": "Neuspjelo učitavanje zapisnika sesija",
+    "deleteError": "Neuspjelo brisanje zapisnika sesije",
+    "filterByHost": "Filtriraj po hostu...",
+    "back": "Natrag",
+    "empty": "(prazno)",
+    "noResults": "Nema rezultata za \"{{query}}\"",
+    "hostFallback": "Host {{id}}",
+    "sessionFallback": "Sesija {{id}}",
+    "settingsTitle": "Postavke zapisnika sesija",
+    "settingsDisplayTitle": "Prikaz"
+  },
+  "player": {
+    "timeline": "Vremenska crta snimke",
+    "speed": "Brzina reprodukcije",
+    "play": "Reproduciraj snimku",
+    "pause": "Pauziraj snimku",
+    "zoom": "Zumiranje",
+    "zoomIn": "Povećaj",
+    "zoomOut": "Smanji",
+    "fit": "Prilagodi panelu"
+  },
+  "plugin": {
+    "name": "Snimanje sesija"
+  }
+}

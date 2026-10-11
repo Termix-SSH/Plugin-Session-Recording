@@ -3,61 +3,66 @@
     "sessionLogs": "Protokoly relací"
   },
   "hosts": {
-    "enableSessionRecording": "Nahrávání relace",
-    "enableSessionRecordingDesc": "Zaznamenejte výstup terminálové relace pro pozdější kontrolu"
+    "enableSessionRecording": "Nahrávání relací"
   },
   "permissions": {
     "view": {
-      "title": "Zobrazit záznamy relací",
-      "description": "Prohlížejte a přehrávejte si vlastní nahrávky z relací."
+      "title": "Zobrazovat nahrávky relací",
+      "description": "Zobrazujte a přehrávejte vlastní nahrávky relací."
     }
   },
   "settings": {
     "admin": {
       "retentionDays": {
-        "label": "Retenční doba (dny)",
-        "description": "Jak dlouho je záznam relace uchováván, než je automaticky smazán."
+        "label": "Doba uchování (dny)",
+        "description": "Jak dlouho se bude nahrávka relace uchovávat, než bude automaticky smazána."
       }
     },
     "host": {
       "enable": {
-        "label": "Povolit nahrávání relace",
-        "description": "Nahrajte výstup terminálu pro tento hostitel, abyste si ho mohli později přehrát nebo stáhnout."
+        "label": "Povolit nahrávání relací",
+        "description": "Nahrávejte výstup terminálu pro tohoto hostitele, abyste jej mohli později přehrát nebo stáhnout."
       }
+    },
+    "alwaysShowActions": {
+      "label": "Vždy zobrazovat tlačítka",
+      "description": "Udržujte tlačítka pro zobrazení, stažení a smazání pod každým protokolem viditelná. Vypněte, pokud je chcete zobrazovat pouze při najetí myší."
     }
-  },
-  "terminalStatus": {
-    "recording": "Záznam"
   },
   "sessionLogs": {
     "title": "Protokoly relací",
     "noLogs": "Zatím žádné protokoly relací",
-    "noLogsDesc": "Povolte protokolování relace na hostiteli pro zahájení nahrávání",
-    "duration": "Trvání",
+    "noLogsDesc": "Pro zahájení nahrávání povolte protokolování relací na hostiteli",
+    "duration": "Délka",
     "viewLog": "Zobrazit protokol",
     "downloadLog": "Stáhnout",
     "downloadAsText": "Stáhnout jako text",
-    "deleteLog": "Vymazat",
+    "deleteLog": "Smazat",
     "confirmDelete": "Smazat tento protokol relace?",
-    "confirmDeleteDesc": "Tuto akci nelze vrátit zpět.",
-    "copyContent": "Kopie",
+    "copyContent": "Kopírovat",
     "copied": "Zkopírováno!",
     "loadError": "Nepodařilo se načíst protokoly relací",
     "deleteError": "Nepodařilo se smazat protokol relace",
     "filterByHost": "Filtrovat podle hostitele...",
-    "back": "Zadní",
-    "empty": "(prázdný)",
-    "noResults": "Žádné výsledky pro výraz „{{query}}“",
+    "back": "Zpět",
+    "empty": "(prázdné)",
+    "noResults": "Žádné výsledky pro „{{query}}“",
     "hostFallback": "Hostitel {{id}}",
-    "sessionFallback": "Relace {{id}}"
+    "sessionFallback": "Relace {{id}}",
+    "settingsTitle": "Nastavení protokolů relací",
+    "settingsDisplayTitle": "Zobrazení"
   },
   "player": {
-    "timeline": "Časová osa nahrávání",
+    "timeline": "Časová osa nahrávky",
     "speed": "Rychlost přehrávání",
     "play": "Přehrát nahrávku",
-    "pause": "Pozastavit nahrávání"
+    "pause": "Pozastavit nahrávku",
+    "zoom": "Přiblížení",
+    "zoomIn": "Přiblížit",
+    "zoomOut": "Oddálit",
+    "fit": "Přizpůsobit panelu"
   },
   "plugin": {
-    "name": "Session Recording"
+    "name": "Nahrávání relací"
   }
 }

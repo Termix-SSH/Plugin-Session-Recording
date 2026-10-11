@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "sessionLogs": "Dnevniki sej"
+  },
+  "hosts": {
+    "enableSessionRecording": "Snemanje sej"
+  },
+  "permissions": {
+    "view": {
+      "title": "Ogled posnetkov sej",
+      "description": "Oglejte si in predvajajte svoje posnetke sej."
+    }
+  },
+  "settings": {
+    "admin": {
+      "retentionDays": {
+        "label": "Obdobje shranjevanja (dni)",
+        "description": "Kako dolgo se posnetek seje shrani, preden se samodejno izbriše."
+      }
+    },
+    "host": {
+      "enable": {
+        "label": "Omogoči snemanje sej",
+        "description": "Zabeležite izhod terminala za tega gostitelja, da ga lahko kasneje predvajate ali prenesete."
+      }
+    },
+    "alwaysShowActions": {
+      "label": "Vedno prikaži gumbe",
+      "description": "Gumba za ogled, prenos in brisanje pod vsakim dnevnikom naj bodo vedno vidni. Če izklopite, se prikažejo le ob drsenju miške."
+    }
+  },
+  "sessionLogs": {
+    "title": "Dnevniki sej",
+    "noLogs": "Še ni dnevnikov sej",
+    "noLogsDesc": "Omogočite beleženje sej na gostitelju, da začnete z snemanjem",
+    "duration": "Trajanje",
+    "viewLog": "Ogled dnevnika",
+    "downloadLog": "Prenos",
+    "downloadAsText": "Prenos kot besedilo",
+    "deleteLog": "Izbriši",
+    "confirmDelete": "Izbrišete ta dnevnik seje?",
+    "copyContent": "Kopiraj",
+    "copied": "Kopirano!",
+    "loadError": "Nalaganje dnevnikov sej ni uspelo",
+    "deleteError": "Brisanje dnevnika seje ni uspelo",
+    "filterByHost": "Filtriraj po gostitelju...",
+    "back": "Nazaj",
+    "empty": "(prazno)",
+    "noResults": "Ni rezultatov za \"{{query}}\"",
+    "hostFallback": "Gostitelj {{id}}",
+    "sessionFallback": "Seja {{id}}",
+    "settingsTitle": "Nastavitve dnevnika sej",
+    "settingsDisplayTitle": "Prikaz"
+  },
+  "player": {
+    "timeline": "Časovnica posnetka",
+    "speed": "Hitrost predvajanja",
+    "play": "Predvajaj posnetek",
+    "pause": "Premor pri predvajanju",
+    "zoom": "Povečava",
+    "zoomIn": "Povečaj",
+    "zoomOut": "Pomanjšaj",
+    "fit": "Prilagodi panelu"
+  },
+  "plugin": {
+    "name": "Snemanje sej"
+  }
+}

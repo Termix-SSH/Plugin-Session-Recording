@@ -1,10 +1,9 @@
 {
   "nav": {
-    "sessionLogs": "Sessionslogfiler"
+    "sessionLogs": "Sessionslog"
   },
   "hosts": {
-    "enableSessionRecording": "Sessionsoptagelse",
-    "enableSessionRecordingDesc": "Optag output fra terminalsessionen til senere gennemgang"
+    "enableSessionRecording": "Sessionsoptagelse"
   },
   "permissions": {
     "view": {
@@ -22,42 +21,48 @@
     "host": {
       "enable": {
         "label": "Aktivér sessionsoptagelse",
-        "description": "Optag terminaloutput for denne vært, så du kan afspille det eller downloade det senere."
+        "description": "Optag terminaloutput for denne vært, så du kan afspille eller downloade det senere."
       }
+    },
+    "alwaysShowActions": {
+      "label": "Vis altid knapper",
+      "description": "Hold knapperne Vis, Download og Slet under hver log synlige. Slå fra for kun at vise dem ved hover."
     }
   },
-  "terminalStatus": {
-    "recording": "Indspilning"
-  },
   "sessionLogs": {
-    "title": "Sessionslogfiler",
-    "noLogs": "Ingen sessionslogfiler endnu",
-    "noLogsDesc": "Aktivér sessionslogning på en vært for at starte optagelse",
+    "title": "Sessionslog",
+    "noLogs": "Ingen sessionslog endnu",
+    "noLogsDesc": "Aktivér sessionsoptagelse på en vært for at starte optagelse",
     "duration": "Varighed",
-    "viewLog": "Se log",
+    "viewLog": "Vis log",
     "downloadLog": "Download",
     "downloadAsText": "Download som tekst",
     "deleteLog": "Slet",
     "confirmDelete": "Slet denne sessionslog?",
-    "confirmDeleteDesc": "Denne handling kan ikke fortrydes.",
-    "copyContent": "Kopi",
+    "copyContent": "Kopier",
     "copied": "Kopieret!",
-    "loadError": "Kunne ikke indlæse sessionslogfiler",
-    "deleteError": "Kunne ikke slette sessionsloggen",
+    "loadError": "Kunne ikke indlæse sessionslog",
+    "deleteError": "Kunne ikke slette sessionslog",
     "filterByHost": "Filtrer efter vært...",
     "back": "Tilbage",
     "empty": "(tom)",
     "noResults": "Ingen resultater for \"{{query}}\"",
     "hostFallback": "Vært {{id}}",
-    "sessionFallback": "Session {{id}}"
+    "sessionFallback": "Session {{id}}",
+    "settingsTitle": "Indstillinger for sessionslog",
+    "settingsDisplayTitle": "Visning"
   },
   "player": {
-    "timeline": "Optagelsestidslinje",
+    "timeline": "Optagelsens tidslinje",
     "speed": "Afspilningshastighed",
     "play": "Afspil optagelse",
-    "pause": "Pause optagelse"
+    "pause": "Pause optagelse",
+    "zoom": "Zoom",
+    "zoomIn": "Zoom ind",
+    "zoomOut": "Zoom ud",
+    "fit": "Tilpas til panel"
   },
   "plugin": {
-    "name": "Session Recording"
+    "name": "Sessionsoptagelse"
   }
 }

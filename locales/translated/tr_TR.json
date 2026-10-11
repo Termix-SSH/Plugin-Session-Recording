@@ -3,61 +3,66 @@
     "sessionLogs": "Oturum Kayıtları"
   },
   "hosts": {
-    "enableSessionRecording": "Oturum kaydı",
-    "enableSessionRecordingDesc": "Daha sonra gözden geçirmek için terminal oturumu çıktısını kaydet"
+    "enableSessionRecording": "Oturum Kaydı"
   },
   "permissions": {
     "view": {
-      "title": "Oturum kayıtlarını görüntüleyin",
-      "description": "Kendi oturum kayıtlarınızı görüntüleyin ve tekrar oynatın."
+      "title": "Oturum kayıtlarını görüntüle",
+      "description": "Kendi oturum kayıtlarınızı görüntüleyin ve oynatın."
     }
   },
   "settings": {
     "admin": {
       "retentionDays": {
-        "label": "Saklama süresi (gün)",
-        "description": "Oturum kaydının otomatik olarak silinmeden önce ne kadar süreyle saklandığı."
+        "label": "Tutma süresi (gün)",
+        "description": "Bir oturum kaydının otomatik olarak silinmeden önce ne kadar süreyle saklanacağı."
       }
     },
     "host": {
       "enable": {
-        "label": "Oturum kaydını etkinleştirin",
-        "description": "Bu sunucu için terminal çıktısını kaydedin, böylece daha sonra tekrar oynatabilir veya indirebilirsiniz."
+        "label": "Oturum kaydını etkinleştir",
+        "description": "Bu ana bilgisayar için terminal çıktısını kaydedin, böylece daha sonra oynatabilir veya indirebilirsiniz."
       }
+    },
+    "alwaysShowActions": {
+      "label": "Butonları her zaman göster",
+      "description": "Her kayıt altındaki görüntüle, indir ve sil butonlarını görünür tutun. Sadece üzerine gelindiğinde göstermek için kapatın."
     }
   },
-  "terminalStatus": {
-    "recording": "Kayıt"
-  },
   "sessionLogs": {
-    "title": "Oturum Günlükleri",
-    "noLogs": "Henüz oturum günlüğü yok",
-    "noLogsDesc": "Kayda başlamak için bir sunucuda oturum günlüğünü etkinleştirin",
+    "title": "Oturum Kayıtları",
+    "noLogs": "Henüz oturum kaydı yok",
+    "noLogsDesc": "Kaydı başlatmak için bir ana bilgisayarda oturum kaydını etkinleştirin",
     "duration": "Süre",
-    "viewLog": "Günlüğü görüntüle",
+    "viewLog": "Kaydı görüntüle",
     "downloadLog": "İndir",
     "downloadAsText": "Metin olarak indir",
     "deleteLog": "Sil",
-    "confirmDelete": "Bu oturum günlüğü silinsin mi?",
-    "confirmDeleteDesc": "Bu işlem geri alınamaz.",
+    "confirmDelete": "Bu oturum kaydı silinsin mi?",
     "copyContent": "Kopyala",
     "copied": "Kopyalandı!",
-    "loadError": "Oturum günlükleri yüklenemedi",
-    "deleteError": "Oturum günlüğü silinemedi",
-    "filterByHost": "Sunucuya göre filtrele...",
+    "loadError": "Oturum kayıtları yüklenemedi",
+    "deleteError": "Oturum kaydı silinemedi",
+    "filterByHost": "Ana bilgisayara göre filtrele...",
     "back": "Geri",
     "empty": "(boş)",
-    "noResults": "\"{{query}} \" için sonuç bulunamadı.",
-    "hostFallback": "Sunucu {{id}}",
-    "sessionFallback": "Oturum {{id}}"
+    "noResults": "\"{{query}}\" için sonuç bulunamadı",
+    "hostFallback": "Ana Bilgisayar {{id}}",
+    "sessionFallback": "Oturum {{id}}",
+    "settingsTitle": "Oturum kayıt ayarları",
+    "settingsDisplayTitle": "Görünüm"
   },
   "player": {
     "timeline": "Kayıt zaman çizelgesi",
     "speed": "Oynatma hızı",
     "play": "Kaydı oynat",
-    "pause": "Kaydı duraklat"
+    "pause": "Kaydı duraklat",
+    "zoom": "Yakınlaştır",
+    "zoomIn": "Yakınlaştır",
+    "zoomOut": "Uzaklaştır",
+    "fit": "Panele sığdır"
   },
   "plugin": {
-    "name": "Session Recording"
+    "name": "Oturum Kaydı"
   }
 }

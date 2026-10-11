@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "sessionLogs": "Sesiju žurnāli"
+  },
+  "hosts": {
+    "enableSessionRecording": "Sesiju ierakstīšana"
+  },
+  "permissions": {
+    "view": {
+      "title": "Apskatīt sesiju ierakstus",
+      "description": "Apskatiet un atskaņojiet savus sesiju ierakstus."
+    }
+  },
+  "settings": {
+    "admin": {
+      "retentionDays": {
+        "label": "Saglabāšanas periods (dienas)",
+        "description": "Cik ilgi sesijas ieraksts tiek saglabāts, pirms to automātiski dzēš."
+      }
+    },
+    "host": {
+      "enable": {
+        "label": "Iespējot sesiju ierakstīšanu",
+        "description": "Ierakstiet šī mezgla termināļa izvadi, lai to vēlāk varētu atskaņot vai lejupielādēt."
+      }
+    },
+    "alwaysShowActions": {
+      "label": "Vienmēr rādīt pogas",
+      "description": "Turiet skata, lejupielādes un dzēšanas pogas zem katras žurnāla ieraksta redzamas. Izslēdziet, lai tās rādītu tikai, novietojot peli virs tām."
+    }
+  },
+  "sessionLogs": {
+    "title": "Sesiju žurnāli",
+    "noLogs": "Vēl nav sesiju žurnālu",
+    "noLogsDesc": "Lai sāktu ierakstīšanu, iespējiet sesiju žurnālvadību uz mezgla",
+    "duration": "Ilgums",
+    "viewLog": "Apskatīt žurnālu",
+    "downloadLog": "Lejupielādēt",
+    "downloadAsText": "Lejupielādēt kā tekstu",
+    "deleteLog": "Dzēst",
+    "confirmDelete": "Dzēst šo sesijas žurnālu?",
+    "copyContent": "Kopēt",
+    "copied": "Nokopēts!",
+    "loadError": "Neizdevās ielādēt sesiju žurnālus",
+    "deleteError": "Neizdevās dzēst sesijas žurnālu",
+    "filterByHost": "Filtrēt pēc mezgla...",
+    "back": "Atpakaļ",
+    "empty": "(tukšs)",
+    "noResults": "Nav rezultātu vaicājumam „{{query}}”",
+    "hostFallback": "Mezgls {{id}}",
+    "sessionFallback": "Sesija {{id}}",
+    "settingsTitle": "Sesiju žurnālu iestatījumi",
+    "settingsDisplayTitle": "Attēlojums"
+  },
+  "player": {
+    "timeline": "Ieraksta laika ass",
+    "speed": "Atskaņošanas ātrums",
+    "play": "Atskaņot ierakstu",
+    "pause": "Pauzēt ierakstu",
+    "zoom": "Pietuvināt",
+    "zoomIn": "Pietuvināt",
+    "zoomOut": "Attālināt",
+    "fit": "Pielāgot panelim"
+  },
+  "plugin": {
+    "name": "Sesiju ierakstīšana"
+  }
+}

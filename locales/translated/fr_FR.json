@@ -3,43 +3,42 @@
     "sessionLogs": "Journaux de session"
   },
   "hosts": {
-    "enableSessionRecording": "Enregistrement de session",
-    "enableSessionRecordingDesc": "Enregistrer la sortie de la session terminal pour une consultation ultérieure"
+    "enableSessionRecording": "Enregistrement de session"
   },
   "permissions": {
     "view": {
-      "title": "Consulter les enregistrements des sessions",
-      "description": "Consultez et relisez vos propres enregistrements de session."
+      "title": "Voir les enregistrements de session",
+      "description": "Voir et lire vos propres enregistrements de session."
     }
   },
   "settings": {
     "admin": {
       "retentionDays": {
-        "label": "Rétention (jours)",
+        "label": "Conservation (jours)",
         "description": "Durée de conservation d'un enregistrement de session avant sa suppression automatique."
       }
     },
     "host": {
       "enable": {
         "label": "Activer l'enregistrement de session",
-        "description": "Enregistrez la sortie du terminal pour cet hôte afin de pouvoir la relire ou la télécharger ultérieurement."
+        "description": "Enregistrer la sortie du terminal pour cet hôte afin de pouvoir la lire ou la télécharger ultérieurement."
       }
+    },
+    "alwaysShowActions": {
+      "label": "Toujours afficher les boutons",
+      "description": "Garder les boutons de visualisation, de téléchargement et de suppression visibles sous chaque journal. Désactivez pour les afficher uniquement au survol."
     }
-  },
-  "terminalStatus": {
-    "recording": "Enregistrement"
   },
   "sessionLogs": {
     "title": "Journaux de session",
-    "noLogs": "Aucun journal de session pour l’instant",
-    "noLogsDesc": "Activez la journalisation des sessions sur un hôte pour démarrer l’enregistrement",
+    "noLogs": "Aucun journal de session pour le moment",
+    "noLogsDesc": "Activez la journalisation de session sur un hôte pour commencer l'enregistrement",
     "duration": "Durée",
-    "viewLog": "Afficher le journal",
+    "viewLog": "Voir le journal",
     "downloadLog": "Télécharger",
-    "downloadAsText": "Télécharger au format texte",
+    "downloadAsText": "Télécharger en texte",
     "deleteLog": "Supprimer",
     "confirmDelete": "Supprimer ce journal de session ?",
-    "confirmDeleteDesc": "Cette action est irréversible.",
     "copyContent": "Copier",
     "copied": "Copié !",
     "loadError": "Échec du chargement des journaux de session",
@@ -47,17 +46,23 @@
     "filterByHost": "Filtrer par hôte...",
     "back": "Retour",
     "empty": "(vide)",
-    "noResults": "Aucun résultat pour «{{query}}»",
+    "noResults": "Aucun résultat pour \"{{query}}\"",
     "hostFallback": "Hôte {{id}}",
-    "sessionFallback": "Session {{id}}"
+    "sessionFallback": "Session {{id}}",
+    "settingsTitle": "Paramètres des journaux de session",
+    "settingsDisplayTitle": "Affichage"
   },
   "player": {
     "timeline": "Chronologie de l'enregistrement",
     "speed": "Vitesse de lecture",
     "play": "Lire l'enregistrement",
-    "pause": "Mettre en pause l'enregistrement"
+    "pause": "Mettre en pause l'enregistrement",
+    "zoom": "Zoom",
+    "zoomIn": "Zoom avant",
+    "zoomOut": "Zoom arrière",
+    "fit": "Ajuster au panneau"
   },
   "plugin": {
-    "name": "Session Recording"
+    "name": "Enregistrement de session"
   }
 }

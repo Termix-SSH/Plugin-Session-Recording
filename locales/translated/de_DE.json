@@ -3,61 +3,66 @@
     "sessionLogs": "Sitzungsprotokolle"
   },
   "hosts": {
-    "enableSessionRecording": "Sitzungsaufzeichnung",
-    "enableSessionRecordingDesc": "Terminal-Sitzungsausgabe zur späteren Überprüfung aufzeichnen"
+    "enableSessionRecording": "Sitzungsaufzeichnung"
   },
   "permissions": {
     "view": {
       "title": "Sitzungsaufzeichnungen ansehen",
-      "description": "Sehen und spielen Sie Ihre eigenen Session-Aufnahmen ab."
+      "description": "Eigene Sitzungsaufzeichnungen ansehen und abspielen."
     }
   },
   "settings": {
     "admin": {
       "retentionDays": {
-        "label": "Aufbewahrungsdauer (Tage)",
+        "label": "Aufbewahrung (Tage)",
         "description": "Wie lange eine Sitzungsaufzeichnung aufbewahrt wird, bevor sie automatisch gelöscht wird."
       }
     },
     "host": {
       "enable": {
         "label": "Sitzungsaufzeichnung aktivieren",
-        "description": "Zeichnen Sie die Terminalausgabe dieses Hosts auf, damit Sie sie später wiedergeben oder herunterladen können."
+        "description": "Terminalausgabe für diesen Host aufzeichnen, damit sie später abgespielt oder heruntergeladen werden kann."
       }
+    },
+    "alwaysShowActions": {
+      "label": "Schaltflächen immer anzeigen",
+      "description": "Die Schaltflächen zum Anzeigen, Herunterladen und Löschen unter jedem Protokoll sichtbar lassen. Deaktivieren, um sie nur beim Hovern anzuzeigen."
     }
-  },
-  "terminalStatus": {
-    "recording": "Aufnahme"
   },
   "sessionLogs": {
     "title": "Sitzungsprotokolle",
     "noLogs": "Noch keine Sitzungsprotokolle",
-    "noLogsDesc": "Aktivieren Sie die Sitzungsprotokollierung auf einem Host, um die Aufzeichnung zu starten",
+    "noLogsDesc": "Aktivieren Sie die Sitzungsprotokollierung auf einem Host, um mit der Aufzeichnung zu beginnen.",
     "duration": "Dauer",
-    "viewLog": "Protokoll anzeigen",
+    "viewLog": "Protokoll ansehen",
     "downloadLog": "Herunterladen",
     "downloadAsText": "Als Text herunterladen",
     "deleteLog": "Löschen",
     "confirmDelete": "Dieses Sitzungsprotokoll löschen?",
-    "confirmDeleteDesc": "Diese Aktion kann nicht rückgängig gemacht werden.",
     "copyContent": "Kopieren",
     "copied": "Kopiert!",
-    "loadError": "Fehler beim Laden der Sitzungsprotokolle",
-    "deleteError": "Fehler beim Löschen des Sitzungsprotokolls",
+    "loadError": "Sitzungsprotokolle konnten nicht geladen werden",
+    "deleteError": "Sitzungsprotokoll konnte nicht gelöscht werden",
     "filterByHost": "Nach Host filtern...",
     "back": "Zurück",
     "empty": "(leer)",
     "noResults": "Keine Ergebnisse für \"{{query}}\"",
     "hostFallback": "Host {{id}}",
-    "sessionFallback": "Sitzung {{id}}"
+    "sessionFallback": "Sitzung {{id}}",
+    "settingsTitle": "Einstellungen für Sitzungsprotokolle",
+    "settingsDisplayTitle": "Darstellung"
   },
   "player": {
-    "timeline": "Aufnahmezeitplan",
+    "timeline": "Aufzeichnung-Zeitachse",
     "speed": "Wiedergabegeschwindigkeit",
-    "play": "Wiedergabe",
-    "pause": "Aufnahme pausieren"
+    "play": "Aufzeichnung abspielen",
+    "pause": "Aufzeichnung pausieren",
+    "zoom": "Zoom",
+    "zoomIn": "Vergrößern",
+    "zoomOut": "Verkleinern",
+    "fit": "An Panel anpassen"
   },
   "plugin": {
-    "name": "Session Recording"
+    "name": "Sitzungsaufzeichnung"
   }
 }

@@ -3,61 +3,66 @@
     "sessionLogs": "セッションログ"
   },
   "hosts": {
-    "enableSessionRecording": "セッション記録",
-    "enableSessionRecordingDesc": "後で確認できるようにターミナルセッションの出力を記録します"
+    "enableSessionRecording": "セッション録画"
   },
   "permissions": {
     "view": {
-      "title": "セッションの録画を見る",
-      "description": "自分のセッション録音を視聴・再生できます。"
+      "title": "セッション録画の閲覧",
+      "description": "自分のセッション録画を確認し、再生できます。"
     }
   },
   "settings": {
     "admin": {
       "retentionDays": {
         "label": "保持期間（日数）",
-        "description": "セッション記録が自動的に削除されるまでの保存期間。"
+        "description": "セッション録画が自動的に削除されるまでの保持期間です。"
       }
     },
     "host": {
       "enable": {
-        "label": "セッション記録を有効にする",
-        "description": "このホストの端末出力を記録しておけば、後で再生したりダウンロードしたりできます。"
+        "label": "セッション録画を有効にする",
+        "description": "このホストのターミナル出力を録画し、後で再生またはダウンロードできるようにします。"
       }
+    },
+    "alwaysShowActions": {
+      "label": "ボタンを常に表示する",
+      "description": "各ログの下にある「表示」「ダウンロード」「削除」ボタンを常に表示します。オフにすると、ホバー時のみ表示されます。"
     }
-  },
-  "terminalStatus": {
-    "recording": "録音"
   },
   "sessionLogs": {
     "title": "セッションログ",
     "noLogs": "セッションログはまだありません",
-    "noLogsDesc": "ホストでセッションログを有効にして記録を開始してください",
+    "noLogsDesc": "録画を開始するには、ホストでセッションログを有効にしてください",
     "duration": "所要時間",
     "viewLog": "ログを表示",
     "downloadLog": "ダウンロード",
     "downloadAsText": "テキストとしてダウンロード",
     "deleteLog": "削除",
     "confirmDelete": "このセッションログを削除しますか？",
-    "confirmDeleteDesc": "この操作は元に戻せません。",
     "copyContent": "コピー",
     "copied": "コピーしました！",
     "loadError": "セッションログの読み込みに失敗しました",
     "deleteError": "セッションログの削除に失敗しました",
-    "filterByHost": "ホストでフィルター...",
+    "filterByHost": "ホストでフィルタ...",
     "back": "戻る",
-    "empty": "(空)",
-    "noResults": "「{{query}}」の検索結果はありません",
+    "empty": "（空）",
+    "noResults": "「{{query}}」に一致する結果はありません",
     "hostFallback": "ホスト {{id}}",
-    "sessionFallback": "セッション {{id}}"
+    "sessionFallback": "セッション {{id}}",
+    "settingsTitle": "セッションログの設定",
+    "settingsDisplayTitle": "表示"
   },
   "player": {
-    "timeline": "録音タイムライン",
+    "timeline": "録画タイムライン",
     "speed": "再生速度",
-    "play": "録音を再生する",
-    "pause": "録画を一時停止"
+    "play": "録画を再生",
+    "pause": "録画を一時停止",
+    "zoom": "ズーム",
+    "zoomIn": "拡大",
+    "zoomOut": "縮小",
+    "fit": "パネルに合わせる"
   },
   "plugin": {
-    "name": "Session Recording"
+    "name": "セッション録画"
   }
 }

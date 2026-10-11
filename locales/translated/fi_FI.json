@@ -3,61 +3,66 @@
     "sessionLogs": "Istuntolokit"
   },
   "hosts": {
-    "enableSessionRecording": "Istunnon tallennus",
-    "enableSessionRecordingDesc": "Tallenna pääteistunnon tuloste myöhempää tarkastelua varten"
+    "enableSessionRecording": "Istunnon tallennus"
   },
   "permissions": {
     "view": {
-      "title": "Näytä istuntotallenteet",
-      "description": "Katsele ja toista omia istuntotallenteitasi."
+      "title": "Katso istunnon tallenteita",
+      "description": "Katso ja toista omia istunnon tallenteitasi."
     }
   },
   "settings": {
     "admin": {
       "retentionDays": {
-        "label": "Säilytys (päivää)",
-        "description": "Kuinka kauan istuntotallennetta säilytetään ennen kuin se poistetaan automaattisesti."
+        "label": "Säilytysaika (päivää)",
+        "description": "Kuinka kauan istunnon tallennetta säilytetään ennen automaattista poistamista."
       }
     },
     "host": {
       "enable": {
         "label": "Ota istunnon tallennus käyttöön",
-        "description": "Tallenna tämän isännän päätelaitteen lähtö, jotta voit toistaa sen tai ladata sen myöhemmin."
+        "description": "Tallenna tämän isäntäpalvelimen pääteulostulo, jotta voit toistaa tai ladata sen myöhemmin."
       }
+    },
+    "alwaysShowActions": {
+      "label": "Näytä painikkeet aina",
+      "description": "Pidä näkymä-, lataus- ja poistopainikkeet näkyvänä jokaisen lokin alla. Kytke pois päältä, jos haluat näyttää ne vain hiiren vierityksellä."
     }
-  },
-  "terminalStatus": {
-    "recording": "Äänitys"
   },
   "sessionLogs": {
     "title": "Istuntolokit",
-    "noLogs": "Ei vielä istuntolokeja",
-    "noLogsDesc": "Ota istunnon lokikirjaus käyttöön isännässä aloittaaksesi tallennuksen",
+    "noLogs": "Istuntolokeja ei vielä ole",
+    "noLogsDesc": "Ota istunnon tallennus käyttöön isäntäpalvelimella aloittaaksesi tallennuksen",
     "duration": "Kesto",
     "viewLog": "Näytä loki",
     "downloadLog": "Lataa",
     "downloadAsText": "Lataa tekstinä",
-    "deleteLog": "Poistaa",
+    "deleteLog": "Poista",
     "confirmDelete": "Poistetaanko tämä istuntoloki?",
-    "confirmDeleteDesc": "Tätä toimintoa ei voi perua.",
-    "copyContent": "Kopioida",
+    "copyContent": "Kopioi",
     "copied": "Kopioitu!",
     "loadError": "Istuntolokien lataaminen epäonnistui",
-    "deleteError": "Istuntolokitietojen poistaminen epäonnistui",
-    "filterByHost": "Suodata isännän mukaan...",
+    "deleteError": "Istuntolokin poistaminen epäonnistui",
+    "filterByHost": "Suodata isäntäpalvelimen mukaan...",
     "back": "Takaisin",
     "empty": "(tyhjä)",
     "noResults": "Ei tuloksia haulle \"{{query}}\"",
-    "hostFallback": "Isäntä {{id}}",
-    "sessionFallback": "Istunto {{id}}"
+    "hostFallback": "Isäntäpalvelin {{id}}",
+    "sessionFallback": "Istunto {{id}}",
+    "settingsTitle": "Istuntolokien asetukset",
+    "settingsDisplayTitle": "Näyttö"
   },
   "player": {
-    "timeline": "Tallennusaikajana",
+    "timeline": "Tallenteen aikajana",
     "speed": "Toistonopeus",
     "play": "Toista tallenne",
-    "pause": "Keskeytä tallennus"
+    "pause": "Keskeytä tallenteen toisto",
+    "zoom": "Zoomaa",
+    "zoomIn": "Lähennä",
+    "zoomOut": "Loitonna",
+    "fit": "Sovita paneeliin"
   },
   "plugin": {
-    "name": "Session Recording"
+    "name": "Istunnon tallennus"
   }
 }

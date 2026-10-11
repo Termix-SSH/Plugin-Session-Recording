@@ -1,15 +1,14 @@
 {
   "nav": {
-    "sessionLogs": "Logs de sessão"
+    "sessionLogs": "Registros de Sessão"
   },
   "hosts": {
-    "enableSessionRecording": "Gravação da sessão",
-    "enableSessionRecordingDesc": "Registre a saída da sessão do terminal para revisão posterior."
+    "enableSessionRecording": "Gravação de Sessão"
   },
   "permissions": {
     "view": {
-      "title": "Veja as gravações das sessões",
-      "description": "Veja e reproduza as gravações das suas próprias sessões."
+      "title": "Visualizar gravações de sessão",
+      "description": "Veja e reproduza suas próprias gravações de sessão."
     }
   },
   "settings": {
@@ -22,42 +21,48 @@
     "host": {
       "enable": {
         "label": "Ativar gravação de sessão",
-        "description": "Grave a saída do terminal para este host para que você possa reproduzi-la ou baixá-la posteriormente."
+        "description": "Grave a saída do terminal deste host para que você possa reproduzi-la ou baixá-la mais tarde."
       }
+    },
+    "alwaysShowActions": {
+      "label": "Sempre mostrar botões",
+      "description": "Mantenha os botões de visualização, download e exclusão visíveis abaixo de cada registro. Desative para mostrá-los apenas ao passar o mouse."
     }
   },
-  "terminalStatus": {
-    "recording": "Gravação"
-  },
   "sessionLogs": {
-    "title": "Logs de sessão",
-    "noLogs": "Ainda não há registros de sessão.",
-    "noLogsDesc": "Habilite o registro de sessão em um host para iniciar a gravação.",
+    "title": "Registros de Sessão",
+    "noLogs": "Nenhum registro de sessão ainda",
+    "noLogsDesc": "Ative o registro de sessão em um host para começar a gravar",
     "duration": "Duração",
     "viewLog": "Ver registro",
-    "downloadLog": "Download",
+    "downloadLog": "Baixar",
     "downloadAsText": "Baixar como texto",
-    "deleteLog": "Apagar",
+    "deleteLog": "Excluir",
     "confirmDelete": "Excluir este registro de sessão?",
-    "confirmDeleteDesc": "Esta ação não pode ser desfeita.",
     "copyContent": "Copiar",
     "copied": "Copiado!",
-    "loadError": "Falha ao carregar os registros da sessão.",
-    "deleteError": "Falha ao excluir o registro da sessão",
+    "loadError": "Falha ao carregar registros de sessão",
+    "deleteError": "Falha ao excluir registro de sessão",
     "filterByHost": "Filtrar por host...",
     "back": "Voltar",
     "empty": "(vazio)",
     "noResults": "Nenhum resultado para \"{{query}}\"",
-    "hostFallback": "Anfitrião {{id}}",
-    "sessionFallback": "Sessão {{id}}"
+    "hostFallback": "Host {{id}}",
+    "sessionFallback": "Sessão {{id}}",
+    "settingsTitle": "Configurações de registro de sessão",
+    "settingsDisplayTitle": "Exibição"
   },
   "player": {
-    "timeline": "Cronograma de gravação",
+    "timeline": "Linha do tempo da gravação",
     "speed": "Velocidade de reprodução",
     "play": "Reproduzir gravação",
-    "pause": "Pausar gravação"
+    "pause": "Pausar gravação",
+    "zoom": "Zoom",
+    "zoomIn": "Ampliar",
+    "zoomOut": "Reduzir",
+    "fit": "Ajustar ao painel"
   },
   "plugin": {
-    "name": "Session Recording"
+    "name": "Gravação de Sessão"
   }
 }

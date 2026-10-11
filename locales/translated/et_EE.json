@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "sessionLogs": "Istungipäevikud"
+  },
+  "hosts": {
+    "enableSessionRecording": "Istungite salvestamine"
+  },
+  "permissions": {
+    "view": {
+      "title": "Istungisalvestiste vaatamine",
+      "description": "Vaata ja esita oma istungisalvestisi."
+    }
+  },
+  "settings": {
+    "admin": {
+      "retentionDays": {
+        "label": "Säilitusaeg (päevi)",
+        "description": "Kui kaua istungisalvestist hoitakse, enne kui see automaatselt kustutatakse."
+      }
+    },
+    "host": {
+      "enable": {
+        "label": "Luba istungite salvestamine",
+        "description": "Salvesta selle hosti terminali väljund, et saaksid seda hiljem esitada või alla laadida."
+      }
+    },
+    "alwaysShowActions": {
+      "label": "Näita nuppe alati",
+      "description": "Hoia iga päeviku all nähtavatel vaatamise, alla laadimise ja kustutamise nupud. Lülita välja, et näidata neid ainult hiirekursori peale viimisel."
+    }
+  },
+  "sessionLogs": {
+    "title": "Istungipäevikud",
+    "noLogs": "Istungipäevikuid veel pole",
+    "noLogsDesc": "Salvestamise alustamiseks luba istungite logimisel hostil",
+    "duration": "Kestus",
+    "viewLog": "Vaata päevikut",
+    "downloadLog": "Laadi alla",
+    "downloadAsText": "Laadi alla tekstina",
+    "deleteLog": "Kustuta",
+    "confirmDelete": "Kustuta see istungipäevik?",
+    "copyContent": "Kopeeri",
+    "copied": "Kopeeritud!",
+    "loadError": "Istungipäevikute laadimine ebaõnnestus",
+    "deleteError": "Istungipäeviku kustutamine ebaõnnestus",
+    "filterByHost": "Filtreeri hosti järgi...",
+    "back": "Tagasi",
+    "empty": "(tühi)",
+    "noResults": "Päringule \"{{query}}\" tulemusi ei leitud",
+    "hostFallback": "Host {{id}}",
+    "sessionFallback": "Istung {{id}}",
+    "settingsTitle": "Istungipäevikute seaded",
+    "settingsDisplayTitle": "Kuvamine"
+  },
+  "player": {
+    "timeline": "Salvestise ajajoon",
+    "speed": "Esituskiirus",
+    "play": "Esita salvestis",
+    "pause": "Peata salvestise esitus",
+    "zoom": "Suumi",
+    "zoomIn": "Suumi sisse",
+    "zoomOut": "Suumi välja",
+    "fit": "Mahu paneeli"
+  },
+  "plugin": {
+    "name": "Istungite salvestamine"
+  }
+}

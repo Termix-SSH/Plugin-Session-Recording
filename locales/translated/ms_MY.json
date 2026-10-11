@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "sessionLogs": "Log Sesian"
+  },
+  "hosts": {
+    "enableSessionRecording": "Rakaman Sesian"
+  },
+  "permissions": {
+    "view": {
+      "title": "Lihat rakaman sesian",
+      "description": "Lihat dan main semula rakaman sesian anda sendiri."
+    }
+  },
+  "settings": {
+    "admin": {
+      "retentionDays": {
+        "label": "Tempoh Simpanan (hari)",
+        "description": "Lama rakaman sesian disimpan sebelum dipadam secara automatik."
+      }
+    },
+    "host": {
+      "enable": {
+        "label": "Dayakan rakaman sesian",
+        "description": "Rakam output terminal untuk hos ini supaya anda boleh memainkannya semula atau memuat turunnya kemudian."
+      }
+    },
+    "alwaysShowActions": {
+      "label": "Sentiasa papar butang",
+      "description": "Pastikan butang lihat, muat turun dan padam di bawah setiap log sentiasa kelihatan. Matikan untuk memaparkannya hanya apabila kursor diletakkan di atasnya."
+    }
+  },
+  "sessionLogs": {
+    "title": "Log Sesian",
+    "noLogs": "Belum ada log sesian",
+    "noLogsDesc": "Dayakan penglogsesian pada hos untuk mula merakam",
+    "duration": "Tempoh",
+    "viewLog": "Lihat log",
+    "downloadLog": "Muat turun",
+    "downloadAsText": "Muat turun sebagai teks",
+    "deleteLog": "Padam",
+    "confirmDelete": "Padam log sesian ini?",
+    "copyContent": "Salin",
+    "copied": "Disalin!",
+    "loadError": "Gagal memuat log sesian",
+    "deleteError": "Gagal memadam log sesian",
+    "filterByHost": "Tapis mengikut hos...",
+    "back": "Kembali",
+    "empty": "(kosong)",
+    "noResults": "Tiada hasil untuk \"{{query}}\"",
+    "hostFallback": "Hos {{id}}",
+    "sessionFallback": "Sesian {{id}}",
+    "settingsTitle": "Tetapan log sesian",
+    "settingsDisplayTitle": "Paparan"
+  },
+  "player": {
+    "timeline": "Garis masa rakaman",
+    "speed": "Kelajuan main semula",
+    "play": "Main rakaman",
+    "pause": "Jeda rakaman",
+    "zoom": "Zum",
+    "zoomIn": "Zum masuk",
+    "zoomOut": "Zum keluar",
+    "fit": "Muat ke panel"
+  },
+  "plugin": {
+    "name": "Rakaman Sesian"
+  }
+}
