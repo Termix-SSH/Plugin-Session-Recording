@@ -6,6 +6,12 @@
 
 <p>Record terminal and remote desktop sessions and play them back or download them later</p>
 
+<!-- VIDEO:START -->
+
+<a href="https://www.youtube.com/watch?v=fmYg3wqMHC0"><img src="https://img.shields.io/badge/Watch_the_demo-f59145?style=for-the-badge&logo=youtube&logoColor=white" alt="Watch the demo on YouTube" /></a>
+
+<!-- VIDEO:END -->
+
 </div>
 
 <br />
