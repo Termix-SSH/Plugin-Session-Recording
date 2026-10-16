@@ -63,6 +63,7 @@
     "fit": "Fit to panel"
   },
   "plugin": {
-    "name": "Session Recording"
+    "name": "Session Recording",
+    "description": "Record terminal and remote desktop sessions and play them back or download them later."
   }
 }
