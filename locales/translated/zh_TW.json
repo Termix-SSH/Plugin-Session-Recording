@@ -63,6 +63,7 @@
     "fit": "Fit to panel"
   },
   "plugin": {
-    "name": "Session Recording"
+    "name": "Session Recording",
+    "description": "錄製終端機和遠端桌面工作階段，之後播放或下載。"
   }
 }
