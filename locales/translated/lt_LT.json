@@ -63,6 +63,7 @@
     "fit": "Priderinti prie skydelio"
   },
   "plugin": {
-    "name": "Sesijų įrašymas"
+    "name": "Sesijų įrašymas",
+    "description": "Įrašykite terminalo ir nuotolinio darbalaukio sesijas, o vėliau jas atkurti arba atsisiųsti."
   }
 }

@@ -63,6 +63,7 @@
     "fit": "Pas by paneel"
   },
   "plugin": {
-    "name": "Sessieopname"
+    "name": "Sessieopname",
+    "description": "Neem terminaal- en afgeleë burelusse op en speel hulle later af of laai hulle af."
   }
 }

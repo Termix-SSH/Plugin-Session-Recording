@@ -63,6 +63,7 @@
     "fit": "Mahu paneeli"
   },
   "plugin": {
-    "name": "Istungite salvestamine"
+    "name": "Istungite salvestamine",
+    "description": "Salvesta terminali ja kauglaua sessioonid ning esita need hiljem uuesti või laadi alla."
   }
 }

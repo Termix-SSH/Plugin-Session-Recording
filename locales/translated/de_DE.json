@@ -63,6 +63,7 @@
     "fit": "An Panel anpassen"
   },
   "plugin": {
-    "name": "Sitzungsaufzeichnung"
+    "name": "Sitzungsaufzeichnung",
+    "description": "Nehmen Sie Terminal- und Remote-Desktop-Sitzungen auf und spielen Sie sie später ab oder laden Sie sie herunter."
   }
 }

@@ -63,6 +63,7 @@
     "fit": "Ajusta al panell"
   },
   "plugin": {
-    "name": "Enregistrament de sessió"
+    "name": "Enregistrament de sessió",
+    "description": "Grava sessions de terminal i escriptori remot i reprodueix-les o descarrega-les més tard."
   }
 }

@@ -63,6 +63,7 @@
     "fit": "Tilpass til panel"
   },
   "plugin": {
-    "name": "Sesjonsopptak"
+    "name": "Sesjonsopptak",
+    "description": "Spill inn terminal- og fjernskrivebordsøker og avspill dem eller last dem ned senere."
   }
 }

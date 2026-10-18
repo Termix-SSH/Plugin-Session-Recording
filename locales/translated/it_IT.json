@@ -63,6 +63,7 @@
     "fit": "Adatta al pannello"
   },
   "plugin": {
-    "name": "Registrazione sessione"
+    "name": "Registrazione sessione",
+    "description": "Registra le sessioni del terminale e del desktop remoto e riprodurle o scaricarle in seguito."
   }
 }

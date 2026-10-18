@@ -63,6 +63,7 @@
     "fit": "Dopasuj do panelu"
   },
   "plugin": {
-    "name": "Nagrywanie sesji"
+    "name": "Nagrywanie sesji",
+    "description": "Nagrywaj sesje terminala i pulpitu zdalnego, odtwarzaj je lub pobieraj później."
   }
 }

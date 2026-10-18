@@ -63,6 +63,7 @@
     "fit": "Ajuster au panneau"
   },
   "plugin": {
-    "name": "Enregistrement de session"
+    "name": "Enregistrement de session",
+    "description": "Enregistrez les sessions du terminal et du bureau à distance, puis rejouez-les ou téléchargez-les ultérieurement."
   }
 }

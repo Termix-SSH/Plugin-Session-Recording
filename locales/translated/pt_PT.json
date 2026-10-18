@@ -63,6 +63,7 @@
     "fit": "Ajustar ao painel"
   },
   "plugin": {
-    "name": "Gravação de Sessão"
+    "name": "Gravação de Sessão",
+    "description": "Gravar sessões do terminal e do ambiente desktop remoto e reproduzi-las ou descarregá-las mais tarde."
   }
 }

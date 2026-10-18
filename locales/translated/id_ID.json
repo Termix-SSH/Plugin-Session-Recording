@@ -63,6 +63,7 @@
     "fit": "Sesuaikan dengan panel"
   },
   "plugin": {
-    "name": "Perekaman Sesi"
+    "name": "Perekaman Sesi",
+    "description": "Rekam sesi terminal dan desktop jarak jauh, lalu putar ulang atau unduh rekaman tersebut nanti."
   }
 }

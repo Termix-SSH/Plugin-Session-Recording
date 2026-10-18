@@ -63,6 +63,7 @@
     "fit": "Prilagodi panelu"
   },
   "plugin": {
-    "name": "Snimanje sesija"
+    "name": "Snimanje sesija",
+    "description": "Snimajte sesije terminala i udaljenog desktopa te ih kasnije reproducirajte ili preuzmite."
   }
 }

@@ -63,6 +63,7 @@
     "fit": "Tilpas til panel"
   },
   "plugin": {
-    "name": "Sessionsoptagelse"
+    "name": "Sessionsoptagelse",
+    "description": "Optag terminal- og fjernskrivebordsessioner og afspil dem eller download dem senere."
   }
 }

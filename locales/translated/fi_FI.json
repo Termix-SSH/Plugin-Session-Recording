@@ -63,6 +63,7 @@
     "fit": "Sovita paneeliin"
   },
   "plugin": {
-    "name": "Istunnon tallennus"
+    "name": "Istunnon tallennus",
+    "description": "Näytä terminaali- ja etätyöpöytäistunnot ja toista tai lataa ne myöhemmin."
   }
 }

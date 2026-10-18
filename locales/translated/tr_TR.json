@@ -63,6 +63,7 @@
     "fit": "Panele sığdır"
   },
   "plugin": {
-    "name": "Oturum Kaydı"
+    "name": "Oturum Kaydı",
+    "description": "Terminal ve uzak masaüstü oturumlarını kaydedin, daha sonra oynatın veya indirin."
   }
 }

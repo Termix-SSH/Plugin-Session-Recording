@@ -63,6 +63,7 @@
     "fit": "Vừa với bảng"
   },
   "plugin": {
-    "name": "Ghi lại phiên làm việc"
+    "name": "Ghi lại phiên làm việc",
+    "description": "Ghi lại các phiên terminal và máy tính từ xa, sau đó phát lại hoặc tải xuống sau."
   }
 }

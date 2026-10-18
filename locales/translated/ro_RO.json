@@ -63,6 +63,7 @@
     "fit": "Potrivește la panou"
   },
   "plugin": {
-    "name": "Înregistrare sesiune"
+    "name": "Înregistrare sesiune",
+    "description": "Înregistrează sesiunile de terminal și desktop remote și redă-le sau descarcă-le ulterior."
   }
 }

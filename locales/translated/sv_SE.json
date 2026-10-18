@@ -63,6 +63,7 @@
     "fit": "Anpassa till panel"
   },
   "plugin": {
-    "name": "Sessionsinspelning"
+    "name": "Sessionsinspelning",
+    "description": "Spela in terminal- och fjärrskrivbordsessioner och spela upp eller ladda ner dem senare."
   }
 }

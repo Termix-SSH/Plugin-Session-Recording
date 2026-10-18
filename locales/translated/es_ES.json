@@ -63,6 +63,7 @@
     "fit": "Ajustar al panel"
   },
   "plugin": {
-    "name": "Grabación de sesiones"
+    "name": "Grabación de sesiones",
+    "description": "Graba sesiones de terminal y escritorio remoto y reprodúcelas o descárgalas más tarde."
   }
 }

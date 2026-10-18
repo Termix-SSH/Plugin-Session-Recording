@@ -63,6 +63,7 @@
     "fit": "Prilagodi panelu"
   },
   "plugin": {
-    "name": "Snemanje sej"
+    "name": "Snemanje sej",
+    "description": "Posnamej seje terminala in oddaljene namizne površine ter jih predvajaj ali prenesi kasneje."
   }
 }

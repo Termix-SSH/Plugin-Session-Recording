@@ -63,6 +63,7 @@
     "fit": "Přizpůsobit panelu"
   },
   "plugin": {
-    "name": "Nahrávání relací"
+    "name": "Nahrávání relací",
+    "description": "Nahrávání relací terminálu a vzdálené plochy s možností jejich přehrávání nebo stažení později."
   }
 }

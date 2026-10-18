@@ -63,6 +63,7 @@
     "fit": "Illesztés a panelhez"
   },
   "plugin": {
-    "name": "Munkamenet-felvétel"
+    "name": "Munkamenet-felvétel",
+    "description": "Rögzítse a terminál- és távoli asztali munkameneteket, és játssza le őket, vagy töltse le őket később."
   }
 }

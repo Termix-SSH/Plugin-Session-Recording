@@ -63,6 +63,7 @@
     "fit": "Prispôsobiť panelu"
   },
   "plugin": {
-    "name": "Nahrávanie relácií"
+    "name": "Nahrávanie relácií",
+    "description": "Nahrávajte relácie terminálu a vzdialenej plochy a prehrávajte ich alebo si ich neskôr sťahujte."
   }
 }
