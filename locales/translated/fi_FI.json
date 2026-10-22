@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Istunnon tallennus",
     "description": "Näytä terminaali- ja etätyöpöytäistunnot ja toista tai lataa ne myöhemmin."
+  },
+  "card": {
+    "title": "Viimeisimmät nauhoitukset",
+    "loading": "Ladataan..."
   }
 }

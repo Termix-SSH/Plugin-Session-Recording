@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Înregistrare sesiune",
     "description": "Înregistrează sesiunile de terminal și desktop remote și redă-le sau descarcă-le ulterior."
+  },
+  "card": {
+    "title": "Înregistrări recente",
+    "loading": "Se încarcă..."
   }
 }

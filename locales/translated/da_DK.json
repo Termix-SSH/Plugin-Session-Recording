@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Sessionsoptagelse",
     "description": "Optag terminal- og fjernskrivebordsessioner og afspil dem eller download dem senere."
+  },
+  "card": {
+    "title": "Seneste optagelser",
+    "loading": "Indlæser..."
   }
 }

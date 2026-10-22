@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Nahrávanie relácií",
     "description": "Nahrávajte relácie terminálu a vzdialenej plochy a prehrávajte ich alebo si ich neskôr sťahujte."
+  },
+  "card": {
+    "title": "Nedávne nahrávky",
+    "loading": "Načítava sa..."
   }
 }

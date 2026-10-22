@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Oturum Kaydı",
     "description": "Terminal ve uzak masaüstü oturumlarını kaydedin, daha sonra oynatın veya indirin."
+  },
+  "card": {
+    "title": "Son kayıtlar",
+    "loading": "Yükleniyor..."
   }
 }

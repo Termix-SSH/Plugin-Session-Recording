@@ -1,6 +1,7 @@
 import { ScrollText } from "lucide-react";
-import type { TermixApp } from "@termix-ssh/plugin-sdk/frontend";
+import type { TabProps, TermixApp } from "@termix-ssh/plugin-sdk/frontend";
 import { SessionLogsPanel } from "./SessionLogsPanel";
+import { RecordingsCard } from "./RecordingsCard";
 
 export function activate(app: TermixApp): void {
   app.registerRailItem({
@@ -16,10 +17,29 @@ export function activate(app: TermixApp): void {
 
   app.registerPanel("session-logs", () => <SessionLogsPanel />);
 
-  app.registerTab("session-logs", () => <SessionLogsPanel />, {
-    icon: ScrollText,
-    titleKey: "nav.sessionLogs",
-    hostless: true,
+  app.registerTab(
+    "session-logs",
+    ({ tab }: TabProps) => (
+      <SessionLogsPanel
+        initialLogId={
+          typeof tab.data?.logId === "number" ? tab.data.logId : undefined
+        }
+      />
+    ),
+    {
+      icon: ScrollText,
+      titleKey: "nav.sessionLogs",
+      hostless: true,
+    },
+  );
+
+  app.registerDashboardCard({
+    id: "session-recordings",
+    titleKey: "card.title",
+    defaultPanel: "side",
+    defaultHeight: 220,
+    frame: "framed",
+    component: RecordingsCard,
   });
 }
 

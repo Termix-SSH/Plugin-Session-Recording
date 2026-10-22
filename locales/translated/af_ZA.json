@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Sessieopname",
     "description": "Neem terminaal- en afgeleë burelusse op en speel hulle later af of laai hulle af."
+  },
+  "card": {
+    "title": "Onlangse opnames",
+    "loading": "Laai tans..."
   }
 }

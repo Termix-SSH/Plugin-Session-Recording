@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Perekaman Sesi",
     "description": "Rekam sesi terminal dan desktop jarak jauh, lalu putar ulang atau unduh rekaman tersebut nanti."
+  },
+  "card": {
+    "title": "Rekaman terbaru",
+    "loading": "Memuat..."
   }
 }

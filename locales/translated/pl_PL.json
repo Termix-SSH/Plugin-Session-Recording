@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Nagrywanie sesji",
     "description": "Nagrywaj sesje terminala i pulpitu zdalnego, odtwarzaj je lub pobieraj później."
+  },
+  "card": {
+    "title": "Ostatnie nagrania",
+    "loading": "Ładowanie..."
   }
 }

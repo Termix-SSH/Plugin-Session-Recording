@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Registrazione sessione",
     "description": "Registra le sessioni del terminale e del desktop remoto e riprodurle o scaricarle in seguito."
+  },
+  "card": {
+    "title": "Registrazioni recenti",
+    "loading": "Caricamento..."
   }
 }

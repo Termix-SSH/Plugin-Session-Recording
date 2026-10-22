@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Munkamenet-felvétel",
     "description": "Rögzítse a terminál- és távoli asztali munkameneteket, és játssza le őket, vagy töltse le őket később."
+  },
+  "card": {
+    "title": "Legutóbbi felvételek",
+    "loading": "Betöltés..."
   }
 }

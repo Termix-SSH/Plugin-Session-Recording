@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Sesijų įrašymas",
     "description": "Įrašykite terminalo ir nuotolinio darbalaukio sesijas, o vėliau jas atkurti arba atsisiųsti."
+  },
+  "card": {
+    "title": "Naujausi įrašai",
+    "loading": "Įkeliama..."
   }
 }

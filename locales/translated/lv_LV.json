@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Sesiju ierakstīšana",
     "description": "Ierakstiet termināļa un attālinātā darbvirsas sesijas, lai tās atskaņotu vai lejupielādētu vēlāk."
+  },
+  "card": {
+    "title": "Nesenās ieraksti",
+    "loading": "Ielādē..."
   }
 }

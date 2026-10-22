@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Session Recording",
     "description": "錄製終端機和遠端桌面工作階段，之後播放或下載。"
+  },
+  "card": {
+    "title": "最近錄製",
+    "loading": "載入中..."
   }
 }

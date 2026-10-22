@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Sessionsinspelning",
     "description": "Spela in terminal- och fjärrskrivbordsessioner och spela upp eller ladda ner dem senare."
+  },
+  "card": {
+    "title": "Senaste inspelningar",
+    "loading": "Laddar..."
   }
 }

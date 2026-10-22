@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Sitzungsaufzeichnung",
     "description": "Nehmen Sie Terminal- und Remote-Desktop-Sitzungen auf und spielen Sie sie später ab oder laden Sie sie herunter."
+  },
+  "card": {
+    "title": "Neueste Aufzeichnungen",
+    "loading": "Wird geladen..."
   }
 }

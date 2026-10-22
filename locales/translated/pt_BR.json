@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Gravação de Sessão",
     "description": "Grave sessões de terminal e desktop remoto e reproduza-as ou faça o download delas mais tarde."
+  },
+  "card": {
+    "title": "Gravações recentes",
+    "loading": "Carregando..."
   }
 }

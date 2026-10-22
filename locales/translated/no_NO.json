@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Sesjonsopptak",
     "description": "Spill inn terminal- og fjernskrivebordsøker og avspill dem eller last dem ned senere."
+  },
+  "card": {
+    "title": "Siste opptak",
+    "loading": "Laster inn..."
   }
 }

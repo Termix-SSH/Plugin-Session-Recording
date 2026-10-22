@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Istungite salvestamine",
     "description": "Salvesta terminali ja kauglaua sessioonid ning esita need hiljem uuesti või laadi alla."
+  },
+  "card": {
+    "title": "Viimased salvestised",
+    "loading": "Laadimine..."
   }
 }

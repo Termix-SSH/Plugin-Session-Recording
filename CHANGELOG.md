@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0
+
+### Added
+
+- Recent recordings dashboard card: your latest recordings, one click to play one
+
 ## 1.0.2
 
 ### Changed

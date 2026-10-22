@@ -1,7 +1,7 @@
 {
   "id": "session-recording",
   "name": "Session Recording",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Record terminal and remote desktop sessions and play them back or download them later.",
   "author": {
     "name": "Termix"
@@ -16,7 +16,8 @@
     "Record SSH, RDP and VNC sessions",
     "Play recordings back at any speed",
     "Download a recording as a file or plain text",
-    "Old recordings are removed after a number of days you choose"
+    "Old recordings are removed after a number of days you choose",
+    "A dashboard card with your latest recordings"
   ],
   "engine": {
     "termix": ">=26.10.0",
@@ -89,7 +90,14 @@
       "key": "enableSessionRecording",
       "labelKey": "hosts.enableSessionRecording",
       "editorTab": "general"
-    }
+    },
+    "dashboardCards": [
+      {
+        "id": "session-recordings",
+        "titleKey": "card.title",
+        "icon": "ScrollText"
+      }
+    ]
   },
   "locales": "locales",
   "platforms": ["linux", "win32", "darwin"]

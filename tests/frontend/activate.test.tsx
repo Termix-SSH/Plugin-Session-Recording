@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import type { PluginApiClient } from "@termix-ssh/plugin-sdk/frontend";
 import {
   renderWithApp,
@@ -107,5 +107,42 @@ describe(`${manifest.id} activate`, () => {
     rendered.renderPanel("session-logs");
     expect(await screen.findByText("web")).toBeTruthy();
     expect(screen.getByLabelText("Delete")).toBeTruthy();
+  });
+});
+
+describe("recent recordings card", () => {
+  it("lists recordings and opens one in the logs tab", async () => {
+    const log = {
+      id: 9,
+      hostId: 1,
+      userId: "u",
+      startedAt: "2026-10-20T10:00:00.000Z",
+      endedAt: "2026-10-20T10:05:00.000Z",
+      duration: 300,
+      recordingPath: null,
+      hostName: "web",
+      hostIp: "10.0.0.1",
+      sizeBytes: 2048,
+      protocol: "ssh",
+      format: "asciicast",
+      username: "root",
+    };
+    rendered = await renderWithApp(plugin, {
+      manifest,
+      locales,
+      permissions: ["session-recording.view"],
+      api: stubApi({
+        get: vi.fn(async () => ({ data: { logs: [log] } })) as never,
+      }),
+    });
+    expect(rendered.registered.dashboardCards()).toEqual([
+      "session-recordings",
+    ]);
+    rendered.renderDashboardCard("session-recordings");
+    fireEvent.click(await screen.findByText("web"));
+    expect(rendered.shellCalls).toContainEqual({
+      method: "openTab",
+      args: [null, "session-logs", { data: { logId: 9 } }],
+    });
   });
 });

@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Snimanje sesija",
     "description": "Snimajte sesije terminala i udaljenog desktopa te ih kasnije reproducirajte ili preuzmite."
+  },
+  "card": {
+    "title": "Nedavne snimke",
+    "loading": "Učitavanje..."
   }
 }

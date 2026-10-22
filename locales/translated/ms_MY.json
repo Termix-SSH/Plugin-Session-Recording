@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Rakaman Sesian",
     "description": "Rakam sesi terminal dan desktop jauh, kemudian main semula atau muat turun rakaman tersebut kemudian."
+  },
+  "card": {
+    "title": "Rakaman terkini",
+    "loading": "Memuatkan..."
   }
 }

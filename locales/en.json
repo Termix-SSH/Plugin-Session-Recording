@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Session Recording",
     "description": "Record terminal and remote desktop sessions and play them back or download them later."
+  },
+  "card": {
+    "title": "Recent recordings",
+    "loading": "Loading..."
   }
 }

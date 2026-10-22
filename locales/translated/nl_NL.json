@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Sessieopname",
     "description": "Neem terminal- en remote-desktopsessies op en speel ze later af of download ze."
+  },
+  "card": {
+    "title": "Recent opnames",
+    "loading": "Laden..."
   }
 }

@@ -65,5 +65,9 @@
   "plugin": {
     "name": "Nahrávání relací",
     "description": "Nahrávání relací terminálu a vzdálené plochy s možností jejich přehrávání nebo stažení později."
+  },
+  "card": {
+    "title": "Nedávné nahrávky",
+    "loading": "Načítání..."
   }
 }
