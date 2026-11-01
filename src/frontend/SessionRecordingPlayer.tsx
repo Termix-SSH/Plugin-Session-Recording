@@ -11,6 +11,7 @@ import { Terminal } from "@xterm/xterm";
 import Guacamole from "guacamole-common-js";
 import "@xterm/xterm/css/xterm.css";
 import { parseAsciicast, type Asciicast } from "./asciicast";
+import { createRecordingTunnel } from "./recording-tunnel";
 import type { SessionLogRecord } from "./session-recording-api";
 
 const SPEEDS = [0.5, 1, 2, 4];
@@ -402,7 +403,9 @@ function GuacamolePlayer({ blob }: { blob: Blob }) {
 
   useEffect(() => {
     if (!containerRef.current) return;
-    const recording = new Guacamole.SessionRecording(blob, 100);
+    const recording = new Guacamole.SessionRecording(
+      createRecordingTunnel(blob),
+    );
     recordingRef.current = recording;
     const display = recording.getDisplay();
     const element = display.getElement();
@@ -420,6 +423,8 @@ function GuacamolePlayer({ blob }: { blob: Blob }) {
     fitRef.current = fit;
     const observer = new ResizeObserver(fit);
     observer.observe(containerRef.current);
+    // onload only means parsed; the size is known once the first frame draws.
+    display.onresize = fit;
     recording.onload = () => {
       setDuration(recording.getDuration() / 1000);
       fit();
@@ -430,6 +435,7 @@ function GuacamolePlayer({ blob }: { blob: Blob }) {
       setPosition(positionRef.current);
     };
     recording.onerror = setError;
+    recording.connect();
 
     return () => {
       observer.disconnect();

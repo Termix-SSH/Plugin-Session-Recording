@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.1
+
+### Fixed
+
+- RDP, VNC and Telnet recordings play instead of showing a black screen
+- Remote desktop recordings fit the panel when you press play
+
 ## 1.1.0
 
 ### Added
