@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.2.0
+
+### Added
+
+- List a host's recordings through Termix actions, so they show on the host page
+
+### Changed
+
+- Needs Termix 26.11.1 or newer
+
 ## 1.1.1
 
 ### Fixed

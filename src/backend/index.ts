@@ -6,6 +6,7 @@ import { createSessionRecordingRepository } from "./repository.js";
 import { createRecordingsWriter, type RecordingsWriterV1 } from "./service.js";
 import { registerSessionRecordingRoutes } from "./routes.js";
 import { startRetentionSweep } from "./retention.js";
+import { registerOperations } from "./operations.js";
 
 export type { RecordingsWriterV1, RecordingSink } from "./service.js";
 
@@ -34,6 +35,7 @@ export async function activate(ctx: PluginContext) {
     void repository.anonymizeByUserId(userId);
   });
 
+  registerOperations(ctx, repository);
   startRetentionSweep(ctx, repository, () => ctx.files.dataDir());
 
   ctx.log.info(

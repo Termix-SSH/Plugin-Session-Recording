@@ -69,5 +69,10 @@
   "card": {
     "title": "Recent recordings",
     "loading": "Loading..."
+  },
+  "operations": {
+    "list": {
+      "title": "Session recordings"
+    }
   }
 }

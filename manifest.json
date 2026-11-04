@@ -1,7 +1,7 @@
 {
   "id": "session-recording",
   "name": "Session Recording",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Record terminal and remote desktop sessions and play them back or download them later.",
   "author": {
     "name": "Termix"
@@ -20,7 +20,7 @@
     "A dashboard card with your latest recordings"
   ],
   "engine": {
-    "termix": ">=26.10.0",
+    "termix": ">=26.11.1-0",
     "api": "^1.2"
   },
   "capabilities": [
@@ -30,7 +30,8 @@
     "network:serve",
     "ui:surface",
     "events:core",
-    "db:core-refs"
+    "db:core-refs",
+    "operations:provide"
   ],
   "provides": [
     {
@@ -97,7 +98,23 @@
         "titleKey": "card.title",
         "icon": "ScrollText"
       }
-    ]
+    ],
+    "operations": {
+      "actions": [
+        {
+          "id": "session-recording.list",
+          "titleKey": "operations.list.title",
+          "icon": "Film",
+          "scope": "host",
+          "risk": "read",
+          "permission": "view",
+          "hostAccess": "connect",
+          "surfaces": {
+            "palette": false
+          }
+        }
+      ]
+    }
   },
   "locales": "locales",
   "platforms": ["linux", "win32", "darwin"]
