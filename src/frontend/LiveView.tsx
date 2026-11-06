@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Terminal } from "@xterm/xterm";
 import "@xterm/xterm/css/xterm.css";
-import { ArrowLeft, Eye, Radio, Square } from "lucide-react";
+import { Eye, Radio, Square } from "lucide-react";
 import {
   useSlotContributions,
   useToast,
@@ -16,6 +16,7 @@ import {
   PanelList,
   pluginWsUrl,
   useConfirm,
+  BackButton,
 } from "@termix-ssh/plugin-sdk/ui";
 import type { LiveSession, SessionRecordingApi } from "./session-recording-api";
 import { formatDate } from "./format";
@@ -197,15 +198,13 @@ export function LiveView({ api }: { api: SessionRecordingApi }) {
   if (watching) {
     return (
       <div className="flex min-h-0 flex-1 flex-col">
-        <div className="flex shrink-0 items-center gap-2 border-b border-border px-2 py-2">
-          <button
-            type="button"
-            onClick={() => setWatching(null)}
-            aria-label={t("sessionLogs.back")}
-            className="flex size-6 items-center justify-center text-muted-foreground hover:bg-muted/60 hover:text-foreground"
-          >
-            <ArrowLeft className="size-3.5" />
-          </button>
+        <div className="flex h-12.5 shrink-0 items-center gap-2 border-b border-border pr-2">
+          <div className="flex h-full shrink-0 border-r border-border">
+            <BackButton
+              onClick={() => setWatching(null)}
+              label={t("sessionLogs.back")}
+            />
+          </div>
           <div className="flex min-w-0 flex-1 flex-col">
             <span className="truncate text-xs font-semibold">
               {watching.hostName}

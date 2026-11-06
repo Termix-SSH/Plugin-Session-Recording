@@ -6,7 +6,12 @@ import {
   useTranslation,
   type DashboardCardProps,
 } from "@termix-ssh/plugin-sdk/frontend";
-import { ListRow, ListRowAction, PanelList } from "@termix-ssh/plugin-sdk/ui";
+import {
+  ListRow,
+  ListRowAction,
+  PanelList,
+  LoadingState,
+} from "@termix-ssh/plugin-sdk/ui";
 import {
   createSessionRecordingApi,
   type SessionLogRecord,
@@ -49,9 +54,7 @@ export function RecordingsCard({ isVisible, shell }: DashboardCardProps) {
     );
   }
   if (!logs) {
-    return (
-      <p className="p-3 text-xs text-muted-foreground">{t("card.loading")}</p>
-    );
+    return <LoadingState compact label={t("card.loading")} />;
   }
 
   const open = (log: SessionLogRecord) =>

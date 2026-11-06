@@ -15,6 +15,7 @@ import {
   SwitchRow,
   TextField,
   useConfirm,
+  ToolbarBand,
 } from "@termix-ssh/plugin-sdk/ui";
 import type {
   RecordingRule,
@@ -203,7 +204,7 @@ export function RulesView({ api }: { api: SessionRecordingApi }) {
       </InlineView>
       {!draft && (
         <div className="flex min-h-0 flex-1 flex-col">
-          <div className="flex shrink-0 items-center gap-2 border-b border-border px-3 py-2">
+          <ToolbarBand>
             <span className="flex-1 text-xs text-muted-foreground">
               {t("rules.intro")}
             </span>
@@ -211,7 +212,7 @@ export function RulesView({ api }: { api: SessionRecordingApi }) {
               label={t("rules.add")}
               onClick={() => setDraft({ ...EMPTY })}
             />
-          </div>
+          </ToolbarBand>
           <PanelList
             empty={
               <EmptyState

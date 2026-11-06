@@ -19,6 +19,7 @@
 - Needs Termix 26.11.1 or newer
 - Settings use the Termix tile look
 - Admins can delete any recording, not only their own
+- Toolbars, loading screens, back buttons and Save bars match the rest of Termix
 
 ## 1.1.1
 

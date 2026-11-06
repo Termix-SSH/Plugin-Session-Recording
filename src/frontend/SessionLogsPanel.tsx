@@ -29,15 +29,16 @@ import {
   ListRowAction,
   PanelList,
   TabStrip,
+  ToolbarBand,
+  LoadingState,
+  BackButton,
 } from "@termix-ssh/plugin-sdk/ui";
 import {
-  ArrowLeft,
   Check,
   Copy,
   Download,
   Eye,
   FileText,
-  Loader2,
   Lock,
   LockOpen,
   ScrollText,
@@ -494,11 +495,7 @@ export function SessionLogsPanel({
   };
 
   if (loading && listing) {
-    return (
-      <div className="flex items-center justify-center flex-1 p-8">
-        <Loader2 className="size-5 text-muted-foreground animate-spin" />
-      </div>
-    );
+    return <LoadingState />;
   }
 
   // Inline log viewer
@@ -510,15 +507,13 @@ export function SessionLogsPanel({
     return (
       <div className="flex flex-col flex-1 min-h-0 overflow-hidden">
         {/* Viewer header */}
-        <div className="flex items-center gap-2 px-2 py-2 border-b border-border/60 bg-muted/20 shrink-0">
-          <button
-            type="button"
-            onClick={() => setViewLog(null)}
-            aria-label={t("sessionLogs.back")}
-            className={ACTION_BUTTON}
-          >
-            <ArrowLeft className="size-3.5" />
-          </button>
+        <div className="flex h-12.5 shrink-0 items-center gap-2 border-b border-border pr-2">
+          <div className="flex h-full shrink-0 border-r border-border">
+            <BackButton
+              onClick={() => setViewLog(null)}
+              label={t("sessionLogs.back")}
+            />
+          </div>
           <div className="flex flex-col flex-1 min-w-0">
             <span className="text-xs font-semibold truncate text-foreground">
               {hostLabel}
@@ -598,9 +593,7 @@ export function SessionLogsPanel({
           className={`flex-1 min-h-0 min-w-0 ${viewBlob ? "overflow-hidden" : "overflow-y-auto overflow-x-hidden"}`}
         >
           {viewLoading ? (
-            <div className="flex items-center justify-center py-16">
-              <Loader2 className="size-4 animate-spin text-muted-foreground" />
-            </div>
+            <LoadingState />
           ) : viewBlob ? (
             <SessionRecordingPlayer log={viewLog} blob={viewBlob} />
           ) : (
@@ -655,7 +648,7 @@ export function SessionLogsPanel({
     <div className="flex flex-col flex-1 min-h-0">
       {tabStrip}
       {logs.length > 0 && (
-        <div className="flex shrink-0 items-center gap-2 border-b border-border px-3 py-2">
+        <ToolbarBand>
           <PanelSearch
             value={filter}
             onChange={setFilter}
@@ -671,7 +664,7 @@ export function SessionLogsPanel({
           >
             <SlidersHorizontal className="size-3.5" />
           </Button>
-        </div>
+        </ToolbarBand>
       )}
       <PanelList
         empty={
