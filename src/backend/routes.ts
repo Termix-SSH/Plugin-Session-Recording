@@ -542,7 +542,16 @@ export function registerSessionRecordingRoutes(deps: RouteDeps): Router {
     try {
       const row = await allowed(req, res);
       if (!row) return;
-      res.json({ log: publicRow({ ...row }) });
+      res.json({
+        log: {
+          ...publicRow({ ...row }),
+          includeOutputTimestamps:
+            (await ctx.settings.getHost<boolean>(
+              row.hostId,
+              "includeOutputTimestamps",
+            )) === true,
+        },
+      });
     } catch (error) {
       fail(ctx, res, "fetch session recording", error);
     }

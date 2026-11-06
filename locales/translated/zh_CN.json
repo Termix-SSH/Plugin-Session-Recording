@@ -22,6 +22,10 @@
       "enable": {
         "label": "启用会话录制",
         "description": "录制此主机的终端输出，以便稍后回放或下载。"
+      },
+      "includeOutputTimestamps": {
+        "label": "包含输出时间戳",
+        "description": "将 SSH 文本日志下载为带 UTC 时间的输出事件记录，并转义控制字符。时间表示录制到输出的时刻，而非命令执行时间。原始录像和回放不变。"
       }
     },
     "alwaysShowActions": {
@@ -50,7 +54,8 @@
     "hostFallback": "主机 {{id}}",
     "sessionFallback": "会话 {{id}}",
     "settingsTitle": "会话日志设置",
-    "settingsDisplayTitle": "显示"
+    "settingsDisplayTitle": "显示",
+    "missingTimestamps": "此录像缺少有效的事件时间，无法导出带时间戳的日志。"
   },
   "player": {
     "timeline": "录制时间线",

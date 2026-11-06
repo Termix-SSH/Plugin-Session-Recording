@@ -144,7 +144,15 @@
         "enableKey": "enableSessionRecording",
         "enableLabelKey": "settings.host.enable.label",
         "enableDescriptionKey": "settings.host.enable.description",
-        "fields": []
+        "fields": [
+          {
+            "key": "includeOutputTimestamps",
+            "type": "boolean",
+            "labelKey": "settings.host.includeOutputTimestamps.label",
+            "descriptionKey": "settings.host.includeOutputTimestamps.description",
+            "default": false
+          }
+        ]
       },
       "user": [
         {

@@ -54,7 +54,12 @@ import {
   readSessionLogSettings,
   rowActionProps,
 } from "./SessionLogSettings";
-import { asciicastToPlainText, parseAsciicast } from "./asciicast";
+import {
+  asciicastToPlainText,
+  asciicastToTimestampedText,
+  parseAsciicast,
+  RecordingTimeError,
+} from "./asciicast";
 import { formatBytes, formatDate, formatDuration } from "./format";
 import {
   createSessionRecordingApi,
@@ -132,11 +137,15 @@ function buildTextFilename(log: SessionLogRecord): string {
 async function extractPlainText(
   log: SessionLogRecord,
   blob: Blob,
+  includeTimestamps = false,
 ): Promise<string | null> {
   if (log.format === "guacamole") return null;
   const source = await blob.text();
   if (log.format === "text") return source;
-  return asciicastToPlainText(parseAsciicast(source));
+  const recording = parseAsciicast(source, includeTimestamps);
+  return includeTimestamps
+    ? asciicastToTimestampedText(recording, log.startedAt)
+    : asciicastToPlainText(recording);
 }
 
 function LogMeta({
@@ -418,10 +427,12 @@ export function SessionLogsPanel({
 
   const handleDownloadText = async (log: SessionLogRecord) => {
     try {
-      const text =
-        log.id === viewLog?.id && viewText != null
-          ? viewText
-          : await extractPlainText(log, await api.getBlob(log.id, "download"));
+      const current = await api.get(log.id);
+      const text = await extractPlainText(
+        current,
+        await api.getBlob(log.id, "download"),
+        current.includeOutputTimestamps === true,
+      );
       if (text == null) {
         toast.error(t("sessionLogs.loadError"));
         return;
@@ -430,8 +441,14 @@ export function SessionLogsPanel({
         new Blob([text], { type: "text/plain" }),
         buildTextFilename(log),
       );
-    } catch {
-      toast.error(t("sessionLogs.loadError"));
+    } catch (error) {
+      toast.error(
+        t(
+          error instanceof RecordingTimeError
+            ? "sessionLogs.missingTimestamps"
+            : "sessionLogs.loadError",
+        ),
+      );
     }
   };
 
