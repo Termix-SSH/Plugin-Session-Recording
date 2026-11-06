@@ -1,8 +1,11 @@
+import fs from "node:fs/promises";
 import type {
   PluginContext,
   PluginOperationContext,
 } from "@termix-ssh/plugin-sdk/backend";
 import type { SessionRecordingRepository } from "./repository.js";
+
+const USAGE_WARN_BYTES = 1024 * 1024 * 1024;
 
 function requireHost(context: PluginOperationContext): number {
   if (context.hostId === undefined) throw new Error("This needs a host");
@@ -36,6 +39,32 @@ export function registerOperations(
               ended: String(record.endedAt ?? ""),
             };
           }),
+        },
+      };
+    },
+  });
+
+  ctx.operations.register("session-recording.usage", {
+    run: async (_input, context) => {
+      const userId = ctx.currentActor();
+      if (!userId) throw new Error("This needs a user");
+      const hostId = requireHost(context);
+      const rows = (await repository.listByUserIdWithHost(userId)).filter(
+        (row) => row.hostId === hostId,
+      );
+      let bytes = 0;
+      for (const row of rows) {
+        if (!row.recordingPath) continue;
+        const stat = await fs.stat(row.recordingPath).catch(() => null);
+        if (stat) bytes += stat.size;
+      }
+      const label = `${rows.length} recordings, ${Math.round(bytes / 1048576)} MB`;
+      return {
+        summary: label,
+        data: {
+          value: bytes,
+          status: bytes > USAGE_WARN_BYTES ? "warn" : "ok",
+          label,
         },
       };
     },

@@ -5,6 +5,7 @@
 ### Added
 
 - List a host's recordings through Termix actions, so they show on the host page
+- Recording storage tile and a recordings list on the host page, open to the assistant and MCP
 
 ### Changed
 

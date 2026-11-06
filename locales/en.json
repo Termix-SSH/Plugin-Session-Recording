@@ -73,6 +73,18 @@
   "operations": {
     "list": {
       "title": "Session recordings"
+    },
+    "usage": {
+      "title": "Recording storage"
+    },
+    "recording": {
+      "title": "Recordings",
+      "protocol": "Type",
+      "started": "Started",
+      "ended": "Ended"
+    },
+    "storage": {
+      "title": "Recording storage"
     }
   }
 }

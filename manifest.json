@@ -110,8 +110,57 @@
           "permission": "view",
           "hostAccess": "connect",
           "surfaces": {
+            "assistant": true,
+            "mcp": true,
             "palette": false
           }
+        },
+        {
+          "id": "session-recording.usage",
+          "titleKey": "operations.usage.title",
+          "icon": "HardDrive",
+          "scope": "host",
+          "risk": "read",
+          "permission": "view",
+          "hostAccess": "connect",
+          "surfaces": {
+            "palette": false
+          }
+        }
+      ],
+      "resources": [
+        {
+          "id": "session-recording.recording",
+          "titleKey": "operations.recording.title",
+          "icon": "Film",
+          "list": "session-recording.list",
+          "key": "id",
+          "name": "id",
+          "tab": "session-logs",
+          "columns": [
+            {
+              "key": "protocol",
+              "titleKey": "operations.recording.protocol"
+            },
+            {
+              "key": "started",
+              "titleKey": "operations.recording.started"
+            },
+            {
+              "key": "ended",
+              "titleKey": "operations.recording.ended"
+            }
+          ]
+        }
+      ],
+      "signals": [
+        {
+          "id": "session-recording.storage",
+          "titleKey": "operations.storage.title",
+          "read": "session-recording.usage",
+          "scope": "host",
+          "kind": "gauge",
+          "refreshSec": 300
         }
       ]
     }
