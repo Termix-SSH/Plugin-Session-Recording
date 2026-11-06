@@ -1,4 +1,4 @@
-import { and, desc, eq, lt } from "drizzle-orm";
+import { and, desc, eq, gte, like, lt, lte, type SQL } from "drizzle-orm";
 import type {
   PluginDatabase,
   PluginHosts,
@@ -24,6 +24,10 @@ export interface SessionRecordingRecord {
   format: string | null;
   terminatedByOwner: boolean | null;
   terminationReason: string | null;
+  wrappedKey: string | null;
+  sha256: string | null;
+  hold: boolean | null;
+  flags: string | null;
 }
 
 export interface SessionRecordingListRecord {
@@ -39,6 +43,22 @@ export interface SessionRecordingListRecord {
   username: string | null;
   hostName: string | null;
   hostIp: string | null;
+  hold?: boolean | null;
+  flags?: string | null;
+  sha256?: string | null;
+  wrappedKey?: string | null;
+  terminationReason?: string | null;
+}
+
+/** Filters for the auditor list of everyone's recordings. */
+export interface RecordingFilters {
+  userId?: string;
+  hostId?: number;
+  protocol?: string;
+  from?: string;
+  to?: string;
+  limit?: number;
+  offset?: number;
 }
 
 export interface SessionRecordingCreateInput {
@@ -53,6 +73,8 @@ export interface SessionRecordingCreateInput {
   format?: string | null;
   terminatedByOwner?: boolean | null;
   terminationReason?: string | null;
+  wrappedKey?: string | null;
+  sha256?: string | null;
 }
 
 export type SessionRecordingRepository = ReturnType<
@@ -122,6 +144,8 @@ export function createSessionRecordingRepository(
         duration: number | null;
         terminatedByOwner?: boolean;
         terminationReason?: string | null;
+        sha256?: string | null;
+        flags?: string | null;
       },
     ): Promise<void> {
       const drizzle = await client();
@@ -175,6 +199,81 @@ export function createSessionRecordingRepository(
       return withHostNames(rows);
     },
 
+    /** Everyone's recordings, newest first, for auditors. */
+    async listAll(
+      filters: RecordingFilters = {},
+    ): Promise<SessionRecordingListRecord[]> {
+      const drizzle = await client();
+      const where: SQL[] = [];
+      if (filters.userId) where.push(eq(table.userId, filters.userId));
+      if (filters.hostId) where.push(eq(table.hostId, filters.hostId));
+      if (filters.protocol) where.push(eq(table.protocol, filters.protocol));
+      if (filters.from) where.push(gte(table.startedAt, filters.from));
+      if (filters.to) where.push(lte(table.startedAt, filters.to));
+      const limit = Math.min(Math.max(filters.limit ?? 200, 1), 1000);
+      let query = drizzle.select().from(table);
+      if (where.length) query = query.where(and(...where));
+      const rows = (await query
+        .orderBy(desc(table.startedAt))
+        .limit(limit)
+        .offset(
+          Math.max(filters.offset ?? 0, 0),
+        )) as SessionRecordingListRecord[];
+      return withHostNames(rows);
+    },
+
+    async findById(id: number): Promise<SessionRecordingRecord | null> {
+      const drizzle = await client();
+      const rows = await drizzle
+        .select()
+        .from(table)
+        .where(eq(table.id, id))
+        .limit(1);
+      return rows[0] ?? null;
+    },
+
+    async setFlags(id: number, flags: string): Promise<void> {
+      const drizzle = await client();
+      await drizzle.update(table).set({ flags }).where(eq(table.id, id));
+      await db.persist({ lazy: true });
+    },
+
+    async setHash(id: number, sha256: string): Promise<void> {
+      const drizzle = await client();
+      await drizzle.update(table).set({ sha256 }).where(eq(table.id, id));
+      await db.persist();
+    },
+
+    async setHold(id: number, hold: boolean): Promise<void> {
+      const drizzle = await client();
+      await drizzle.update(table).set({ hold }).where(eq(table.id, id));
+      await db.persist();
+    },
+
+    async setTermination(id: number, reason: string): Promise<void> {
+      const drizzle = await client();
+      await drizzle
+        .update(table)
+        .set({ terminationReason: reason })
+        .where(eq(table.id, id));
+      await db.persist();
+    },
+
+    /** The recording a live session writes to, found by its file name. */
+    async findBySessionId(
+      sessionId: string,
+    ): Promise<SessionRecordingRecord | null> {
+      if (!/^[A-Za-z0-9-]+$/.test(sessionId)) return null;
+      const drizzle = await client();
+      const rows = await drizzle
+        .select()
+        .from(table)
+        .where(like(table.recordingPath, `%${sessionId}.cast`))
+        .orderBy(desc(table.id))
+        .limit(1);
+      return rows[0] ?? null;
+    },
+
     async listPathsOlderThan(
       cutoff: string,
     ): Promise<Array<{ id: number; recordingPath: string | null }>> {
@@ -182,7 +281,7 @@ export function createSessionRecordingRepository(
       return drizzle
         .select({ id: table.id, recordingPath: table.recordingPath })
         .from(table)
-        .where(lt(table.startedAt, cutoff));
+        .where(and(lt(table.startedAt, cutoff), eq(table.hold, false)));
     },
 
     async deleteForUser(userId: string, id: number): Promise<boolean> {

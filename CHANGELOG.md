@@ -6,11 +6,19 @@
 
 - List a host's recordings through Termix actions, so they show on the host page
 - Recording storage tile and a recordings list on the host page, open to the assistant and MCP
+- Admins can make recording required on every host or only on privileged ones. Users can't stop a required recording
+- New recordings are encrypted on disk, and each one keeps a fingerprint you can check for changes
+- Auditors, with the new Audit every session permission, see everyone's recordings and who opened each one
+- Every time a recording is watched or downloaded it goes to the audit log, and auditors can get an alert
+- Put a recording on hold so it is never deleted
+- Live tab: auditors see every open SSH and remote desktop session, watch it read only and end it
+- Rules tab: alert auditors, or end the session, when a typed or printed line matches a rule. Starter rules come turned off
 
 ### Changed
 
 - Needs Termix 26.11.1 or newer
 - Settings use the Termix tile look
+- Admins can delete any recording, not only their own
 
 ## 1.1.1
 

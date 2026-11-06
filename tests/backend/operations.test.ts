@@ -24,7 +24,7 @@ function setup(rows: unknown[]) {
   const repository = {
     listByUserIdWithHost: async () => rows,
   } as unknown as SessionRecordingRepository;
-  registerOperations(ctx, repository);
+  registerOperations(ctx, repository, async () => os.tmpdir());
   return handlers;
 }
 

@@ -9,6 +9,14 @@
     "view": {
       "title": "View session recordings",
       "description": "See and play back your own session recordings."
+    },
+    "audit": {
+      "title": "Audit every session",
+      "description": "See and play back everyone's recordings, see who opened each one, put recordings on hold and watch or end live sessions."
+    },
+    "rules": {
+      "title": "Manage command alert rules",
+      "description": "Add and change the rules that alert on, or end, a session when a command matches."
     }
   },
   "settings": {
@@ -16,6 +24,24 @@
       "retentionDays": {
         "label": "Retention (days)",
         "description": "How long a session recording is kept before it is deleted automatically."
+      },
+      "forceRecording": {
+        "label": "Require recording",
+        "description": "Record every session even when a host has recording turned off. Users can't stop a required recording.",
+        "off": "Off",
+        "privileged": "On privileged hosts",
+        "all": "On every host"
+      },
+      "encryptRecordings": {
+        "label": "Encrypt recordings",
+        "description": "Encrypt new recordings on disk. Recordings made before stay as they are."
+      },
+      "alertOnAccess": {
+        "label": "Alert when a recording is opened",
+        "description": "Send an alert to auditors when someone watches, downloads or live watches a session.",
+        "off": "Off",
+        "others": "When it is someone else's session",
+        "all": "Every time"
       }
     },
     "host": {
@@ -50,7 +76,24 @@
     "hostFallback": "Host {{id}}",
     "sessionFallback": "Session {{id}}",
     "settingsTitle": "Session log settings",
-    "settingsDisplayTitle": "Display"
+    "settingsDisplayTitle": "Display",
+    "tabMine": "Mine",
+    "tabAll": "All users",
+    "tabLive": "Live",
+    "tabRules": "Rules",
+    "onHold": "On hold",
+    "flagCount": "{{count}} alerts",
+    "verify": "Check for changes",
+    "verifyOk": "The recording is unchanged",
+    "verifyChanged": "The recording was changed after it was saved",
+    "verifyMissing": "The recording file is missing",
+    "verifyUnknown": "This recording has no saved fingerprint to compare with",
+    "verifyFailed": "Could not check the recording",
+    "putOnHold": "Put on hold",
+    "releaseHold": "Take off hold",
+    "holdOn": "Recording put on hold. It won't be deleted.",
+    "holdOff": "Recording taken off hold",
+    "holdFailed": "Could not change the hold"
   },
   "player": {
     "timeline": "Recording timeline",
@@ -64,7 +107,7 @@
   },
   "plugin": {
     "name": "Session Recording",
-    "description": "Record terminal and remote desktop sessions and play them back or download them later."
+    "description": "Record terminal and remote desktop sessions, watch them live, and keep an audited, encrypted record of who did what."
   },
   "card": {
     "title": "Recent recordings",
@@ -85,6 +128,75 @@
     },
     "storage": {
       "title": "Recording storage"
+    },
+    "verify": {
+      "title": "Check a recording for changes"
+    },
+    "alertEvent": {
+      "title": "A command alert rule matched"
     }
+  },
+  "details": {
+    "ended": "Ended: {{reason}}",
+    "flags": "Alerts ({{count}})",
+    "access": "Access history",
+    "noAccess": "Nobody opened this recording yet",
+    "someone": "Someone",
+    "actionViewed": "watched",
+    "actionDownloaded": "downloaded",
+    "actionVerified": "checked for changes",
+    "actionWatchedLive": "watched live",
+    "actionEndedLive": "ended the session",
+    "actionHoldOn": "put on hold",
+    "actionHoldOff": "took off hold"
+  },
+  "live": {
+    "loading": "Loading...",
+    "none": "No live sessions",
+    "noneHint": "Open SSH and remote desktop sessions of every user show here.",
+    "loadError": "Could not load live sessions",
+    "watch": "Watch",
+    "end": "End session",
+    "endConfirm": "End this session?",
+    "endDescription": "{{user}} on {{host}} is disconnected right away.",
+    "endReason": "Ended by an auditor",
+    "ended": "Session ended",
+    "endFailed": "Could not end the session",
+    "readOnly": "Read only",
+    "recording": "Recording",
+    "detached": "Detached",
+    "watchingAs": "Session of {{user}}",
+    "sessionEnded": "The session ended",
+    "watchFailed": "Could not watch this session",
+    "displayUnavailable": "Remote Desktop is needed to watch this session"
+  },
+  "rules": {
+    "intro": "Alert or end a session when someone types or sees a line that matches.",
+    "add": "Add rule",
+    "edit": "Edit rule",
+    "delete": "Delete rule",
+    "deleteConfirm": "Delete this rule?",
+    "none": "No rules yet",
+    "loadError": "Could not load rules",
+    "saveError": "Could not save the rule",
+    "name": "Name",
+    "pattern": "Match",
+    "patternHint": "Text to look for in one line. Case does not matter.",
+    "regex": "Regular expression",
+    "regexHint": "Treat the match as a regular expression.",
+    "target": "Look at",
+    "targetInput": "What is typed",
+    "targetOutput": "What the host prints",
+    "hosts": "Hosts",
+    "hostsAll": "Every host",
+    "hostsPrivileged": "Privileged hosts only",
+    "severity": "Alert level",
+    "severityInfo": "Info",
+    "severityWarning": "Warning",
+    "severityCritical": "Critical",
+    "action": "Then",
+    "actionAlert": "Alert auditors",
+    "actionEnd": "Alert and end the session",
+    "enabled": "On"
   }
 }

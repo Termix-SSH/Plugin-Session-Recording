@@ -28,6 +28,7 @@ import {
   ListRow,
   ListRowAction,
   PanelList,
+  TabStrip,
 } from "@termix-ssh/plugin-sdk/ui";
 import {
   ArrowLeft,
@@ -37,10 +38,16 @@ import {
   Eye,
   FileText,
   Loader2,
+  Lock,
+  LockOpen,
   ScrollText,
+  ShieldCheck,
   SlidersHorizontal,
   Trash2,
 } from "lucide-react";
+import { LiveView } from "./LiveView";
+import { RulesView } from "./RulesView";
+import { RecordingDetails } from "./RecordingDetails";
 import { SessionRecordingPlayer } from "./SessionRecordingPlayer";
 import {
   SessionLogSettings,
@@ -48,6 +55,7 @@ import {
   rowActionProps,
 } from "./SessionLogSettings";
 import { asciicastToPlainText, parseAsciicast } from "./asciicast";
+import { formatBytes, formatDate, formatDuration } from "./format";
 import {
   createSessionRecordingApi,
   type SessionLogRecord,
@@ -95,30 +103,7 @@ function useAdaptivePolling(
   }, [enabled, options.minIntervalMs, options.maxIntervalMs]);
 }
 
-export function formatDuration(seconds: number | null): string {
-  if (seconds == null) return "--";
-  if (seconds < 60) return `${seconds}s`;
-  const m = Math.floor(seconds / 60);
-  const s = seconds % 60;
-  return s > 0 ? `${m}m ${s}s` : `${m}m`;
-}
-
-export function formatBytes(bytes: number | null): string {
-  if (bytes == null || bytes === 0) return "--";
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-}
-
-export function formatDate(iso: string): string {
-  const d = new Date(iso);
-  return d.toLocaleString(undefined, {
-    month: "short",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
+export { formatBytes, formatDate, formatDuration } from "./format";
 
 function buildFilename(log: SessionLogRecord): string {
   const host = (log.hostName ?? log.hostIp ?? "session")
@@ -242,9 +227,17 @@ function LogRow({
       title={hostLabel}
       onClick={onView}
       badges={
-        <ListBadge className="ml-auto">
-          {(log.protocol ?? "ssh").toUpperCase()}
-        </ListBadge>
+        <>
+          {log.hold && <ListBadge>{t("sessionLogs.onHold")}</ListBadge>}
+          {(log.flags?.length ?? 0) > 0 && (
+            <ListBadge>
+              {t("sessionLogs.flagCount", { count: log.flags?.length ?? 0 })}
+            </ListBadge>
+          )}
+          <ListBadge className="ml-auto">
+            {(log.protocol ?? "ssh").toUpperCase()}
+          </ListBadge>
+        </>
       }
       meta={
         <Facts>
@@ -301,6 +294,11 @@ export function SessionLogsPanel({
   const api = useMemo(() => createSessionRecordingApi(pluginApi), [pluginApi]);
   const canView = usePermission("view");
   const canDelete = usePermission("admin.plugins.manage");
+  const canAudit = usePermission("audit");
+  const canRules = usePermission("rules");
+  const [view, setView] = useState<"mine" | "all" | "live" | "rules">("mine");
+  const scope = view === "all" ? "all" : "mine";
+  const listing = view === "mine" || view === "all";
   const [logs, setLogs] = useState<SessionLogRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState("");
@@ -321,7 +319,7 @@ export function SessionLogsPanel({
     async (initial = false) => {
       if (initial) setLoading(true);
       try {
-        const fresh = await api.list();
+        const fresh = await api.list(scope);
         const changed =
           logsRef.current.length !== fresh.length ||
           logsRef.current.some((log, i) => log.id !== fresh[i]?.id);
@@ -340,13 +338,15 @@ export function SessionLogsPanel({
         if (initial) setLoading(false);
       }
     },
-    [api, t, toast],
+    [api, scope, t, toast],
   );
 
   useEffect(() => {
-    if (!canView) return;
+    if (!canView || !listing) return;
+    logsRef.current = [];
+    setLogs([]);
     void load(true);
-  }, [canView, load]);
+  }, [canView, listing, load]);
 
   useAdaptivePolling(
     () => load(false),
@@ -354,7 +354,7 @@ export function SessionLogsPanel({
       minIntervalMs: 5_000,
       maxIntervalMs: 30_000,
     },
-    canView,
+    canView && listing,
   );
 
   const openedInitialRef = useRef<number | null>(null);
@@ -388,7 +388,7 @@ export function SessionLogsPanel({
         setViewContent(text);
         setViewText(text);
       } else {
-        const blob = await api.getBlob(log.id);
+        const blob = await api.getBlob(log.id, "view");
         setViewBlob(blob);
         setViewText(await extractPlainText(log, blob));
       }
@@ -410,7 +410,7 @@ export function SessionLogsPanel({
 
   const handleDownload = async (log: SessionLogRecord) => {
     try {
-      downloadBlob(await api.getBlob(log.id), buildFilename(log));
+      downloadBlob(await api.getBlob(log.id, "download"), buildFilename(log));
     } catch {
       toast.error(t("sessionLogs.loadError"));
     }
@@ -421,7 +421,7 @@ export function SessionLogsPanel({
       const text =
         log.id === viewLog?.id && viewText != null
           ? viewText
-          : await extractPlainText(log, await api.getBlob(log.id));
+          : await extractPlainText(log, await api.getBlob(log.id, "download"));
       if (text == null) {
         toast.error(t("sessionLogs.loadError"));
         return;
@@ -454,6 +454,34 @@ export function SessionLogsPanel({
     }
   };
 
+  const handleVerify = async (log: SessionLogRecord) => {
+    try {
+      const status = await api.verify(log.id);
+      if (status === "ok") toast.success(t("sessionLogs.verifyOk"));
+      else if (status === "changed")
+        toast.error(t("sessionLogs.verifyChanged"));
+      else if (status === "missing")
+        toast.error(t("sessionLogs.verifyMissing"));
+      else toast.info(t("sessionLogs.verifyUnknown"));
+    } catch {
+      toast.error(t("sessionLogs.verifyFailed"));
+    }
+  };
+
+  const handleHold = async (log: SessionLogRecord) => {
+    const hold = !log.hold;
+    try {
+      await api.setHold(log.id, hold);
+      const update = (entry: SessionLogRecord) =>
+        entry.id === log.id ? { ...entry, hold } : entry;
+      setLogs((prev) => prev.map(update));
+      setViewLog((prev) => (prev ? update(prev) : prev));
+      toast.success(t(hold ? "sessionLogs.holdOn" : "sessionLogs.holdOff"));
+    } catch {
+      toast.error(t("sessionLogs.holdFailed"));
+    }
+  };
+
   const handleCopy = async () => {
     if (!viewText) return;
     const ok = await copyToClipboard(viewText);
@@ -465,7 +493,7 @@ export function SessionLogsPanel({
     }
   };
 
-  if (loading) {
+  if (loading && listing) {
     return (
       <div className="flex items-center justify-center flex-1 p-8">
         <Loader2 className="size-5 text-muted-foreground animate-spin" />
@@ -539,6 +567,28 @@ export function SessionLogsPanel({
               >
                 <Download className="size-3" />
               </ActionButton>
+              <ActionButton
+                label={t("sessionLogs.verify")}
+                onClick={() => void handleVerify(viewLog)}
+              >
+                <ShieldCheck className="size-3" />
+              </ActionButton>
+              {canAudit && (
+                <ActionButton
+                  label={t(
+                    viewLog.hold
+                      ? "sessionLogs.releaseHold"
+                      : "sessionLogs.putOnHold",
+                  )}
+                  onClick={() => void handleHold(viewLog)}
+                >
+                  {viewLog.hold ? (
+                    <LockOpen className="size-3" />
+                  ) : (
+                    <Lock className="size-3" />
+                  )}
+                </ActionButton>
+              )}
             </div>
           </TooltipProvider>
         </div>
@@ -559,6 +609,7 @@ export function SessionLogsPanel({
             </pre>
           )}
         </div>
+        <RecordingDetails log={viewLog} api={api} canAudit={canAudit} />
       </div>
     );
   }
@@ -572,8 +623,37 @@ export function SessionLogsPanel({
     );
   }
 
+  const tabs = [
+    { id: "mine", label: t("sessionLogs.tabMine") },
+    ...(canAudit
+      ? [
+          { id: "all", label: t("sessionLogs.tabAll") },
+          { id: "live", label: t("sessionLogs.tabLive") },
+        ]
+      : []),
+    ...(canRules ? [{ id: "rules", label: t("sessionLogs.tabRules") }] : []),
+  ];
+  const tabStrip =
+    tabs.length > 1 ? (
+      <TabStrip
+        tabs={tabs}
+        activeTab={view}
+        onTabChange={(id) => setView(id as typeof view)}
+      />
+    ) : null;
+
+  if (view === "live" || view === "rules") {
+    return (
+      <div className="flex flex-col flex-1 min-h-0">
+        {tabStrip}
+        {view === "live" ? <LiveView api={api} /> : <RulesView api={api} />}
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col flex-1 min-h-0">
+      {tabStrip}
       {logs.length > 0 && (
         <div className="flex shrink-0 items-center gap-2 border-b border-border px-3 py-2">
           <PanelSearch
