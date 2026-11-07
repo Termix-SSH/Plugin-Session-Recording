@@ -22,10 +22,6 @@
       "enable": {
         "label": "Enable session recording",
         "description": "Record terminal output for this host so you can play it back or download it later."
-      },
-      "includeOutputTimestamps": {
-        "label": "包含輸出時間戳",
-        "description": "將 SSH 文字日誌下載為帶 UTC 時間的輸出事件記錄，並跳脫控制字元。時間表示錄製到輸出的時刻，而非命令執行時間。原始錄影和播放不變。"
       }
     },
     "alwaysShowActions": {
@@ -54,8 +50,7 @@
     "hostFallback": "Host {{id}}",
     "sessionFallback": "Session {{id}}",
     "settingsTitle": "Session log settings",
-    "settingsDisplayTitle": "Display",
-    "missingTimestamps": "此錄影缺少有效的事件時間，無法匯出帶時間戳的日誌。"
+    "settingsDisplayTitle": "Display"
   },
   "player": {
     "timeline": "Recording timeline",

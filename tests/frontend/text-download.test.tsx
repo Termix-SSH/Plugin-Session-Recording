@@ -79,9 +79,7 @@ async function download(
 describe("text download wiring", () => {
   it("reads the current host option and exports timed output events", async () => {
     const { text, get } = await download(true);
-    expect(text).toBe(
-      '[2026-11-06T12:00:00.248Z] "\\u001b[31mhello\\u001b[0m\\r\\n"',
-    );
+    expect(text).toBe("[2026-11-06T12:00:00.248Z] hello");
     expect(get).toHaveBeenCalledWith("/1");
     expect(get).toHaveBeenCalledWith("/1/content?purpose=download", {
       responseType: "blob",

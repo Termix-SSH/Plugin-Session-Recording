@@ -13,6 +13,7 @@
 - Put a recording on hold so it is never deleted
 - Live tab: auditors see every open SSH and remote desktop session, watch it read only and end it
 - Rules tab: alert auditors, or end the session, when a typed or printed line matches a rule. Starter rules come turned off
+- A host setting to put the time in front of each line of a text download
 
 ### Changed
 

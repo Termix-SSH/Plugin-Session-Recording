@@ -26,22 +26,14 @@ Open one to play it back. Drag the timeline, pause, and change the speed. Termin
 
 You only see your own recordings, unless you are an auditor.
 
-## Include output timestamps in text downloads
+## Timestamps in text downloads
 
-Turn on **Include output timestamps** in a host's Session Recording settings (or host defaults) to change **Download as text** for its SSH recordings. It is off by default. The current host setting is read when downloading, so it also applies to existing timed recordings.
-
-The download becomes an output-event transcript: one UTC timestamp and one JSON-quoted output chunk per line. The time is the recording server's stored start time plus the recorded event offset, to millisecond precision. It describes when output arrived at the recorder, not when a command executed on the remote host. Input and resize events are excluded.
+Turn on Timestamps in text downloads in a host's Session Recording settings to put a time in front of each line when you use Download as text on its SSH recordings. Each line gets the UTC time its first character was printed, to the millisecond. Colors and other terminal codes are left out, and a line redrawn in place, like a progress bar, shows only its last state. It also works for recordings made before you turned it on. Older plain text logs have no timing and download as plain text.
 
 ```text
-[2026-11-06T12:00:00.123Z] "hel"
-[2026-11-06T12:00:00.248Z] "lo\r\n"
-[2026-11-06T12:00:01.123Z] "\r50%"
-[2026-11-06T12:00:02.123Z] "\u001b[31mred\u001b[0m"
+[2026-11-06T12:00:00.123Z] hello
+[2026-11-06T12:00:01.123Z] 100%
 ```
-
-Event boundaries are preserved even when a line or an ANSI sequence spans chunks. Control characters are escaped so progress updates, cursor movement and terminal escape sequences cannot rewrite the transcript. Unicode text remains readable. This is a chronological event transcript, not a screenshot of the final terminal buffer.
-
-Original recording downloads, playback, copying the rendered screen, and default text exports stay unchanged. Older plain-text logs have no event timing and remain plain text. Timed recordings without a valid start time or output offset cannot be exported with timestamps; turn the option off to use the ordinary text export. No timestamps are inferred from download time.
 
 ## Encryption and changes
 
