@@ -35,6 +35,7 @@ Read the [docs](https://docs.termix.site/plugins/session-recording) to set it up
 - Auditors see every recording, with a history of who watched each one
 - Watch and end anyone's live session
 - Alert on, or end, a session when a typed command matches a rule
+- A host's recordings and storage on the host page
 
 <br />
 
