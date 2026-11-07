@@ -81,6 +81,38 @@ describe("session recording routes", () => {
     expect(res.body.logs[0].userId).toBe("user-1");
   });
 
+  it("reads the current host timestamp opt-in only for an authorized recording", async () => {
+    server = await startServer();
+    server.db.sqlite
+      .prepare(
+        `INSERT INTO p_session_recording_session_recordings
+      (host_id, user_id, recording_path, protocol, format, started_at)
+      VALUES (?, ?, ?, ?, ?, ?)`,
+      )
+      .run(
+        7,
+        "user-1",
+        "/tmp/a.cast",
+        "ssh",
+        "asciicast",
+        "2026-11-06T12:00:00.123Z",
+      );
+    expect(
+      (await server.request("GET", "/1")).body.log.includeOutputTimestamps,
+    ).toBe(false);
+    await server.mock.ctx.settings.setHost(7, "includeOutputTimestamps", true);
+    const enabled = await server.request("GET", "/1");
+    expect(enabled.body.log.includeOutputTimestamps).toBe(true);
+    expect(enabled.body.log.startedAt).toBe("2026-11-06T12:00:00.123Z");
+    expect((await server.request("GET", "/1", { user: "user-2" })).status).toBe(
+      404,
+    );
+    await server.mock.ctx.settings.setHost(7, "includeOutputTimestamps", false);
+    expect(
+      (await server.request("GET", "/1")).body.log.includeOutputTimestamps,
+    ).toBe(false);
+  });
+
   it("404s getting another user's recording", async () => {
     server = await startServer();
     server.db.sqlite

@@ -48,6 +48,10 @@
       "enable": {
         "label": "Enable session recording",
         "description": "Record terminal output for this host so you can play it back or download it later."
+      },
+      "includeOutputTimestamps": {
+        "label": "Include output timestamps",
+        "description": "Download SSH text logs as UTC output-event transcripts with escaped control characters. Times reflect recorded output arrival, not command execution. Original recordings and playback stay unchanged."
       }
     },
     "alwaysShowActions": {
@@ -93,7 +97,8 @@
     "releaseHold": "Take off hold",
     "holdOn": "Recording put on hold. It won't be deleted.",
     "holdOff": "Recording taken off hold",
-    "holdFailed": "Could not change the hold"
+    "holdFailed": "Could not change the hold",
+    "missingTimestamps": "This recording has no valid event timing for a timestamped export."
   },
   "player": {
     "timeline": "Recording timeline",

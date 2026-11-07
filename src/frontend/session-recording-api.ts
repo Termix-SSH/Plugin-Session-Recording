@@ -24,6 +24,7 @@ export type SessionLogRecord = {
   format: "text" | "asciicast" | "guacamole";
   username: string | null;
   encrypted?: boolean;
+  includeOutputTimestamps?: boolean;
   hold?: boolean;
   flags?: RecordingFlag[];
   terminationReason?: string | null;
@@ -71,6 +72,11 @@ export function createSessionRecordingApi(api: PluginApiClient) {
         scope === "all" ? "/?scope=all" : "/",
       );
       return response.data.logs;
+    },
+
+    async get(id: number): Promise<SessionLogRecord> {
+      const response = await api.get<{ log: SessionLogRecord }>(`/${id}`);
+      return response.data.log;
     },
 
     async getBlob(

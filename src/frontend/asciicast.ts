@@ -9,7 +9,12 @@ export type Asciicast = {
   events: AsciicastEvent[];
 };
 
-export function parseAsciicast(source: string): Asciicast {
+export class RecordingTimeError extends Error {}
+
+export function parseAsciicast(
+  source: string,
+  requireValidTimes = false,
+): Asciicast {
   const lines = source.trim().split("\n");
   const header = JSON.parse(lines.shift() || "{}") as {
     version?: number;
@@ -20,7 +25,17 @@ export function parseAsciicast(source: string): Asciicast {
 
   const events = lines
     .filter(Boolean)
-    .map((line) => JSON.parse(line) as AsciicastEvent)
+    .map((line) => {
+      const event = JSON.parse(line) as AsciicastEvent;
+      if (
+        requireValidTimes &&
+        event[1] === "o" &&
+        (!Number.isFinite(event[0]) || event[0] < 0)
+      ) {
+        throw new RecordingTimeError("Invalid output event time");
+      }
+      return event;
+    })
     .filter(
       ([time, type, data]) =>
         Number.isFinite(time) &&
@@ -71,4 +86,33 @@ export async function asciicastToPlainText(
   } finally {
     terminal.dispose();
   }
+}
+
+// An event transcript, not a reconstructed screen or a command execution log.
+export function asciicastToTimestampedText(
+  recording: Asciicast,
+  startedAt: string,
+): string {
+  const start = Date.parse(startedAt);
+  if (!/(?:Z|[+-]\d{2}:\d{2})$/i.test(startedAt) || !Number.isFinite(start)) {
+    throw new RecordingTimeError("Missing recording start time");
+  }
+  return recording.events
+    .filter(([, type]) => type === "o")
+    .map(([offset, , data]) => {
+      const time = start + Math.round(offset * 1000);
+      if (
+        !Number.isFinite(offset) ||
+        offset < 0 ||
+        !Number.isFinite(new Date(time).getTime())
+      ) {
+        throw new RecordingTimeError("Invalid output event time");
+      }
+      const text = JSON.stringify(data).replace(
+        /[\u007f-\u009f\u061c\u200e\u200f\u2028-\u202e\u2066-\u2069]/g,
+        (char) => `\\u${char.charCodeAt(0).toString(16).padStart(4, "0")}`,
+      );
+      return `[${new Date(time).toISOString()}] ${text}`;
+    })
+    .join("\n");
 }

@@ -26,6 +26,23 @@ Open one to play it back. Drag the timeline, pause, and change the speed. Termin
 
 You only see your own recordings, unless you are an auditor.
 
+## Include output timestamps in text downloads
+
+Turn on **Include output timestamps** in a host's Session Recording settings (or host defaults) to change **Download as text** for its SSH recordings. It is off by default. The current host setting is read when downloading, so it also applies to existing timed recordings.
+
+The download becomes an output-event transcript: one UTC timestamp and one JSON-quoted output chunk per line. The time is the recording server's stored start time plus the recorded event offset, to millisecond precision. It describes when output arrived at the recorder, not when a command executed on the remote host. Input and resize events are excluded.
+
+```text
+[2026-11-06T12:00:00.123Z] "hel"
+[2026-11-06T12:00:00.248Z] "lo\r\n"
+[2026-11-06T12:00:01.123Z] "\r50%"
+[2026-11-06T12:00:02.123Z] "\u001b[31mred\u001b[0m"
+```
+
+Event boundaries are preserved even when a line or an ANSI sequence spans chunks. Control characters are escaped so progress updates, cursor movement and terminal escape sequences cannot rewrite the transcript. Unicode text remains readable. This is a chronological event transcript, not a screenshot of the final terminal buffer.
+
+Original recording downloads, playback, copying the rendered screen, and default text exports stay unchanged. Older plain-text logs have no event timing and remain plain text. Timed recordings without a valid start time or output offset cannot be exported with timestamps; turn the option off to use the ordinary text export. No timestamps are inferred from download time.
+
 ## Encryption and changes
 
 New recordings are encrypted on disk with their own key, which is sealed with the server's encryption key. Turn this off with Encrypt recordings in Settings, Session Recording. Recordings made before stay as they are and still play.
