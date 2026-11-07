@@ -628,11 +628,13 @@ export function SessionLogsPanel({
   ];
   const tabStrip =
     tabs.length > 1 ? (
-      <TabStrip
-        tabs={tabs}
-        activeTab={view}
-        onTabChange={(id) => setView(id as typeof view)}
-      />
+      <div className="shrink-0 border-b border-border px-1">
+        <TabStrip
+          tabs={tabs}
+          activeTab={view}
+          onTabChange={(id) => setView(id as typeof view)}
+        />
+      </div>
     ) : null;
 
   if (view === "live" || view === "rules") {
