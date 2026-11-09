@@ -9,6 +9,14 @@
     "view": {
       "title": "Ogled posnetkov sej",
       "description": "Oglejte si in predvajajte svoje posnetke sej."
+    },
+    "audit": {
+      "title": "Preveri vsako sejo",
+      "description": "Oglejte si in predvajajte posnetke vseh uporabnikov, vidite, kdo je odprl posamezen posnetek, začasno ustavite brisanje posnetkov ter spremljajte ali končajte sejne preglede v živo."
+    },
+    "rules": {
+      "title": "Upravljajte pravila za opozorila ukazov",
+      "description": "Dodajajte in spreminjajte pravila, ki opozorijo ali končajo sejo, ko ustreza ukaz."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Obdobje shranjevanja (dni)",
         "description": "Kako dolgo se posnetek seje shrani, preden se samodejno izbriše."
+      },
+      "forceRecording": {
+        "label": "Zahtevaj posnetek",
+        "description": "Posnemajte vsako sejo, tudi če ima gost izklopljeno posnetje. Uporabniki ne morejo ustaviti zahtevanega posnetka.",
+        "off": "Izklopljeno",
+        "privileged": "Na privilegiranih gostih",
+        "all": "Na vseh gostih"
+      },
+      "encryptRecordings": {
+        "label": "Šifriraj posnetke",
+        "description": "Šifrirajte nove posnetke na disku. Posnetki, narejeni prej, ostanejo nespremenjeni."
+      },
+      "alertOnAccess": {
+        "label": "Opozori ob odprtju posnetka",
+        "description": "Pošljite opozorilo revizorjem, ko nekdo gleda, prenaša ali spremlja v živo sejo.",
+        "off": "Izklopljeno",
+        "others": "Ko gre za sejo druge osebe",
+        "all": "Vsakič"
       }
     },
     "host": {
       "enable": {
         "label": "Omogoči snemanje sej",
         "description": "Zabeležite izhod terminala za tega gostitelja, da ga lahko kasneje predvajate ali prenesete."
+      },
+      "includeOutputTimestamps": {
+        "label": "Časovni žigi v prenosih besedila",
+        "description": "Prenos kot besedilo doda čas tiskanja vsake vrstice na začetku, v UTC. Posnetki in predvajanje ostanejo enaki."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Gostitelj {{id}}",
     "sessionFallback": "Seja {{id}}",
     "settingsTitle": "Nastavitve dnevnika sej",
-    "settingsDisplayTitle": "Prikaz"
+    "settingsDisplayTitle": "Prikaz",
+    "tabMine": "Moje",
+    "tabAll": "Vsi uporabniki",
+    "tabLive": "V živo",
+    "tabRules": "Pravila",
+    "onHold": "Na čakanju",
+    "flagCount": "{{count}} opozoril",
+    "verify": "Preveri spremembe",
+    "verifyOk": "Posnetek ni spremenjen",
+    "verifyChanged": "Posnetek je bil spremenjen po shranjevanju",
+    "verifyMissing": "Datoteka posnetka manjka",
+    "verifyUnknown": "Ta posnetek nima shranjenega prstnega odtisa za primerjavo",
+    "verifyFailed": "Preverjanja posnetka ni bilo mogoče izvesti",
+    "putOnHold": "Postavi na čakanje",
+    "releaseHold": "Odstrani s čakanja",
+    "holdOn": "Posnetek je postavljen na čakanje. Ne bo izbrisan.",
+    "holdOff": "Posnetek je odstranjen s čakanja",
+    "holdFailed": "Spremembe čakanja ni bilo mogoče izvesti",
+    "missingTimestamps": "Ta posnetek nima časovnih podatkov, zato ga ni mogoče prenesti s časovnimi žigi."
   },
   "player": {
     "timeline": "Časovnica posnetka",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Snemanje sej",
-    "description": "Posnamej seje terminala in oddaljene namizne površine ter jih predvajaj ali prenesi kasneje."
+    "description": "Posnemajte seje terminala in oddaljene namizne površine, jih spremljajte v živo in ohranjajte pregledan, šifriran zapis o tem, kaj je kdo naredil."
   },
   "card": {
     "title": "Nedavne posnetke",
     "loading": "Nalaganje..."
+  },
+  "operations": {
+    "list": {
+      "title": "Posnetki sej"
+    },
+    "usage": {
+      "title": "Shramba posnetkov"
+    },
+    "recording": {
+      "title": "Posnetki",
+      "protocol": "Vrsta",
+      "started": "Začeto",
+      "ended": "Končano"
+    },
+    "storage": {
+      "title": "Shramba posnetkov"
+    },
+    "verify": {
+      "title": "Preveri posnetek na spremembe"
+    },
+    "alertEvent": {
+      "title": "Ujela se je pravila za opozorila ukazov"
+    }
+  },
+  "details": {
+    "ended": "Končano: {{reason}}",
+    "flags": "Opozorila ({{count}})",
+    "access": "Zgodovina dostopa",
+    "noAccess": "Nihče še ni odprl tega posnetka",
+    "someone": "Nekdo",
+    "actionViewed": "ogledal",
+    "actionDownloaded": "prenesel",
+    "actionVerified": "preveril spremembe",
+    "actionWatchedLive": "ogledal v živo",
+    "actionEndedLive": "končal sejo",
+    "actionHoldOn": "postavil na čakanje",
+    "actionHoldOff": "odstranil s čakanja"
+  },
+  "live": {
+    "loading": "Nalaganje...",
+    "none": "Ni sej v živo",
+    "noneHint": "Tukaj se prikažejo odprte SSH in oddaljene namizne seje vseh uporabnikov.",
+    "loadError": "Živih sej ni bilo mogoče naložiti",
+    "watch": "Spremljanje",
+    "end": "Končaj sejo",
+    "endConfirm": "Končati to sejo?",
+    "endDescription": "Uporabnik {{user}} na strežniku {{host}} bo takoj odklopljen.",
+    "endReason": "Končal revizor",
+    "ended": "Seja končana",
+    "endFailed": "Seje ni bilo mogoče končati",
+    "readOnly": "Samo za branje",
+    "recording": "Snemanje",
+    "detached": "Odklopljeno",
+    "watchingAs": "Seja uporabnika {{user}}",
+    "sessionEnded": "Seja je končana",
+    "watchFailed": "Te seje ni bilo mogoče spremljati",
+    "displayUnavailable": "Za spremljanje te seje je potreben Oddaljeni namizni dostop"
+  },
+  "rules": {
+    "intro": "Opozori ali končaj sejo, ko nekdo vtipka ali vidi vrstico, ki ustreza vzorcu.",
+    "add": "Dodaj pravilo",
+    "edit": "Uredi pravilo",
+    "delete": "Izbriši pravilo",
+    "deleteConfirm": "Izbrisati to pravilo?",
+    "none": "Še ni pravil",
+    "loadError": "Pravil ni bilo mogoče naložiti",
+    "saveError": "Pravila ni bilo mogoče shraniti",
+    "name": "Ime",
+    "pattern": "Ujemanje",
+    "patternHint": "Besedilo, ki ga iščete v eni vrstici. Velikost črk ni pomembna.",
+    "regex": "Redni izraz",
+    "regexHint": "Ujemanje obravnavaj kot redni izraz.",
+    "target": "Poglej",
+    "targetInput": "Kaj je vtipkano",
+    "targetOutput": "Kaj strežnik izpiše",
+    "hosts": "Strežniki",
+    "hostsAll": "Vsi strežniki",
+    "hostsPrivileged": "Samo privilegirani strežniki",
+    "severity": "Stopnja opozorila",
+    "severityInfo": "Informacija",
+    "severityWarning": "Opozorilo",
+    "severityCritical": "Kritično",
+    "action": "Nato",
+    "actionAlert": "Opozori revizorje",
+    "actionEnd": "Opozori in končaj sejo",
+    "enabled": "Vklopljeno"
   }
 }

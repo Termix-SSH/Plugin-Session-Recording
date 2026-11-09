@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   createMockCtx,
   createTestDb,
@@ -11,8 +11,11 @@ import {
 import manifestJson from "../../manifest.json";
 import { pluginDir } from "./helpers";
 import { createSessionRecordingRepository } from "../../src/backend/repository";
-import { sessionRecordings } from "../../src/backend/tables";
-import { createRecordingsWriter } from "../../src/backend/service";
+import { recordingRules, sessionRecordings } from "../../src/backend/tables";
+import { createRecordingsWriter, unwrapKey } from "../../src/backend/service";
+import { createRuleStore } from "../../src/backend/stores";
+import { createRuleEngine } from "../../src/backend/rule-engine";
+import { plainReadStream } from "../../src/backend/crypto";
 
 const manifest =
   manifestJson as unknown as import("@termix-ssh/plugin-sdk/manifest").PluginManifest;
@@ -30,9 +33,25 @@ afterEach(async () => {
   await fs.rm(dataDir, { recursive: true, force: true });
 });
 
-async function setup(): Promise<{
+async function readPlain(file: string, wrappedKey: string | null) {
+  const chunks: Buffer[] = [];
+  for await (const chunk of plainReadStream(
+    file,
+    await unwrapKey(lastMock!.ctx, wrappedKey),
+  )) {
+    chunks.push(chunk as Buffer);
+  }
+  return Buffer.concat(chunks).toString("utf8");
+}
+
+let lastMock: MockPluginContext | null = null;
+
+async function setup(options: { encrypt?: boolean } = {}): Promise<{
   mock: MockPluginContext;
   writer: ReturnType<typeof createRecordingsWriter>;
+  rules: ReturnType<typeof createRuleStore>;
+  engine: ReturnType<typeof createRuleEngine>;
+  repo: ReturnType<typeof createSessionRecordingRepository>;
 }> {
   db = await createTestDb(pluginDir);
   db.sqlite
@@ -77,8 +96,15 @@ async function setup(): Promise<{
       dataDir: async () => dataDir,
     };
 
-  const writer = createRecordingsWriter(mock.ctx, repo);
-  return { mock, writer };
+  await mock.ctx.settings.set("encryptRecordings", options.encrypt === true);
+  const rules = createRuleStore(
+    db.database,
+    await db.database.define(recordingRules),
+  );
+  const engine = createRuleEngine(mock.ctx, rules, repo);
+  const writer = createRecordingsWriter(mock.ctx, repo, engine);
+  lastMock = mock;
+  return { mock, writer, rules, engine, repo };
 }
 
 describe("recordings.writer", () => {
@@ -118,7 +144,18 @@ describe("recordings.writer", () => {
       table,
       mock.ctx.hosts,
     );
-    const reopened = createRecordingsWriter(mock.ctx, repository);
+    const reopened = createRecordingsWriter(
+      mock.ctx,
+      repository,
+      createRuleEngine(
+        mock.ctx,
+        createRuleStore(
+          db!.database,
+          await db!.database.define(recordingRules),
+        ),
+        repository,
+      ),
+    );
     for (const hostId of [7, 8]) {
       const sink = await reopened.open({
         sessionId: `host-${hostId}`,
@@ -263,5 +300,124 @@ describe("recordings.writer", () => {
     await expect(writer.enabledFor(7)).resolves.toBe(true);
     await mock.ctx.settings.setHost(7, "enableSessionRecording", false);
     await expect(writer.enabledFor(7)).resolves.toBe(false);
+  });
+
+  it("is on for every host when an admin makes recording required", async () => {
+    const { mock, writer } = await setup();
+    await mock.ctx.settings.setHost(7, "enableSessionRecording", false);
+    await mock.ctx.settings.set("forceRecording", "all");
+    await expect(writer.isForced(7)).resolves.toBe(true);
+    await expect(writer.enabledFor(7)).resolves.toBe(true);
+    await mock.ctx.settings.set("forceRecording", "privileged");
+    // No Privileged Access plugin: no host is privileged.
+    await expect(writer.isForced(7)).resolves.toBe(false);
+  });
+
+  it("encrypts a live recording and keeps its hash", async () => {
+    const { writer, repo } = await setup({ encrypt: true });
+    const sink = await writer.open({
+      sessionId: "enc-1",
+      hostId: 7,
+      userId: "user-1",
+      protocol: "ssh",
+      format: "asciicast",
+      startedAt: Date.now(),
+    });
+    await sink!.append('{"version":2}\n');
+    await sink!.append('[0.1,"o","secret output"]\n');
+    await sink!.persist({
+      endedAt: Date.now(),
+      durationSeconds: 1,
+      terminatedByOwner: false,
+      terminationReason: null,
+    });
+    const file = path.join(dataDir, "session_logs", "user-1", "enc-1.cast");
+    const raw = await fs.readFile(file);
+    expect(raw.toString("latin1")).not.toContain("secret output");
+    const row = await repo.findBySessionId("enc-1");
+    expect(row?.wrappedKey).toBeTruthy();
+    const plain = await readPlain(file, row!.wrappedKey);
+    expect(plain).toBe('{"version":2}\n[0.1,"o","secret output"]\n');
+    const crypto = await import("node:crypto");
+    expect(row?.sha256).toBe(
+      crypto.createHash("sha256").update(plain).digest("hex"),
+    );
+  });
+
+  it("encrypts a finished remote desktop recording", async () => {
+    const { writer, repo } = await setup({ encrypt: true });
+    const guacdDir = await fs.mkdtemp(path.join(os.tmpdir(), "guacd-"));
+    const source = path.join(guacdDir, "guacamole", "rdp-2.guac");
+    await fs.mkdir(path.dirname(source), { recursive: true });
+    await fs.writeFile(source, "4.size,1.0;");
+    const { id } = await writer.createFinished({
+      hostId: 7,
+      userId: "user-1",
+      startedAt: new Date().toISOString(),
+      endedAt: new Date().toISOString(),
+      duration: 3,
+      recordingPath: source,
+      protocol: "rdp",
+      format: "guacamole",
+    });
+    const row = await repo.findById(id);
+    expect(row?.wrappedKey).toBeTruthy();
+    expect(row?.sha256).toMatch(/^[0-9a-f]{64}$/);
+    const raw = await fs.readFile(row!.recordingPath!, "utf8");
+    expect(raw).not.toContain("size");
+    await expect(readPlain(row!.recordingPath!, row!.wrappedKey)).resolves.toBe(
+      "4.size,1.0;",
+    );
+    await fs.rm(guacdDir, { recursive: true, force: true });
+  });
+
+  it("flags a typed command that matches a rule and alerts auditors", async () => {
+    const { mock, writer, rules, repo } = await setup();
+    await rules.create(
+      {
+        name: "Switch to root",
+        pattern: "sudo su",
+        regex: false,
+        target: "input",
+        hosts: "all",
+        severity: "warning",
+        action: "alert",
+        enabled: true,
+      },
+      "admin",
+    );
+    const sink = await writer.open({
+      sessionId: "rule-1",
+      hostId: 7,
+      userId: "user-1",
+      protocol: "ssh",
+      format: "asciicast",
+      startedAt: Date.now(),
+    });
+    await sink!.append('{"version":2}\n');
+    for (const key of ["s", "u", "d", "o", " ", "s", "u", "\r"]) {
+      await sink!.append(`${JSON.stringify([1.5, "i", key])}\n`);
+    }
+    await sink!.persist({
+      endedAt: Date.now(),
+      durationSeconds: 2,
+      terminatedByOwner: false,
+      terminationReason: null,
+    });
+    const row = await repo.findBySessionId("rule-1");
+    const flags = JSON.parse(row!.flags ?? "[]");
+    expect(flags).toMatchObject([
+      { name: "Switch to root", text: "sudo su", t: 1.5 },
+    ]);
+    await vi.waitFor(() =>
+      expect(
+        mock.notifications.map((entry) => entry.notification),
+      ).toContainEqual(
+        expect.objectContaining({
+          category: "session-recording.rule",
+          audience: { permission: "session-recording.audit" },
+        }),
+      ),
+    );
   });
 });

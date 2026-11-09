@@ -9,6 +9,14 @@
     "view": {
       "title": "Se sessionsoptagelser",
       "description": "Se og afspil dine egne sessionsoptagelser."
+    },
+    "audit": {
+      "title": "Revisér hver session",
+      "description": "Se og afspil alle optagelser, se hvem der har åbnet hver enkelt, sæt optagelser på pause og se eller afslut live-sessioner."
+    },
+    "rules": {
+      "title": "Administrer regler for kommando-advarsler",
+      "description": "Tilføj og ændr de regler, der advarer om eller afslutter en session, når en kommando matcher."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Opbevaring (dage)",
         "description": "Hvor længe en sessionsoptagelse gemmes, før den slettes automatisk."
+      },
+      "forceRecording": {
+        "label": "Kræv optagelse",
+        "description": "Optag hver session, selv når en vært har optagelse slået fra. Brugere kan ikke stoppe en krævet optagelse.",
+        "off": "Fra",
+        "privileged": "På privilegerede værter",
+        "all": "På alle værter"
+      },
+      "encryptRecordings": {
+        "label": "Krypter optagelser",
+        "description": "Krypter nye optagelser på disken. Optagelser lavet tidligere forbliver uændrede."
+      },
+      "alertOnAccess": {
+        "label": "Advar, når en optagelse åbnes",
+        "description": "Send en advarsel til revisorer, når nogen ser, downloader eller ser live på en session.",
+        "off": "Fra",
+        "others": "Når det er en andens session",
+        "all": "Hver gang"
       }
     },
     "host": {
       "enable": {
         "label": "Aktivér sessionsoptagelse",
         "description": "Optag terminaloutput for denne vært, så du kan afspille eller downloade det senere."
+      },
+      "includeOutputTimestamps": {
+        "label": "Tidsstempler i tekstdownloads",
+        "description": "Download som tekst placerer tidspunktet for, hvornår hver linje blev udskrevet, i starten af linjen, i UTC. Optagelser og afspilning forbliver uændrede."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Vært {{id}}",
     "sessionFallback": "Session {{id}}",
     "settingsTitle": "Indstillinger for sessionslog",
-    "settingsDisplayTitle": "Visning"
+    "settingsDisplayTitle": "Visning",
+    "tabMine": "Mine",
+    "tabAll": "Alle brugere",
+    "tabLive": "Live",
+    "tabRules": "Regler",
+    "onHold": "På pause",
+    "flagCount": "{{count}} advarsler",
+    "verify": "Tjek for ændringer",
+    "verifyOk": "Optagelsen er uændret",
+    "verifyChanged": "Optagelsen blev ændret efter, at den blev gemt",
+    "verifyMissing": "Optagelsesfilen mangler",
+    "verifyUnknown": "Denne optagelse har ingen gemt fingeraftryk at sammenligne med",
+    "verifyFailed": "Kunne ikke tjekke optagelsen",
+    "putOnHold": "Sæt på pause",
+    "releaseHold": "Fjern fra pause",
+    "holdOn": "Optagelse sat på pause. Den vil ikke blive slettet.",
+    "holdOff": "Optagelse fjernet fra pause",
+    "holdFailed": "Kunne ikke ændre pausestatus",
+    "missingTimestamps": "Denne optagelse har ingen timing, så den kan ikke downloades med tidsstempler."
   },
   "player": {
     "timeline": "Optagelsens tidslinje",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Sessionsoptagelse",
-    "description": "Optag terminal- og fjernskrivebordsessioner og afspil dem eller download dem senere."
+    "description": "Optag terminal- og fjernskrivebordsessioner, se dem live og behold en reviseret, krypteret optegning af, hvem der gjorde hvad."
   },
   "card": {
     "title": "Seneste optagelser",
     "loading": "Indlæser..."
+  },
+  "operations": {
+    "list": {
+      "title": "Sessionsoptagelser"
+    },
+    "usage": {
+      "title": "Optagelsesopbevaring"
+    },
+    "recording": {
+      "title": "Optagelser",
+      "protocol": "Type",
+      "started": "Startet",
+      "ended": "Afsluttet"
+    },
+    "storage": {
+      "title": "Optagelsesopbevaring"
+    },
+    "verify": {
+      "title": "Tjek en optagelse for ændringer"
+    },
+    "alertEvent": {
+      "title": "En regel for kommando-advarsler matchede"
+    }
+  },
+  "details": {
+    "ended": "Afsluttet: {{reason}}",
+    "flags": "Advarsler ({{count}})",
+    "access": "Adgangshistorik",
+    "noAccess": "Ingen har åbnet denne optagelse endnu",
+    "someone": "Nogen",
+    "actionViewed": "så på",
+    "actionDownloaded": "downloadede",
+    "actionVerified": "tjekkede for ændringer",
+    "actionWatchedLive": "så live på",
+    "actionEndedLive": "afsluttede sessionen",
+    "actionHoldOn": "satte på pause",
+    "actionHoldOff": "fjernede fra pause"
+  },
+  "live": {
+    "loading": "Indlæser...",
+    "none": "Ingen live-sessioner",
+    "noneHint": "SSH- og fjernskrivebords-sessioner for alle brugere vises her.",
+    "loadError": "Kunne ikke indlæse live-sessioner",
+    "watch": "Se med",
+    "end": "Afslut session",
+    "endConfirm": "Vil du afslutte denne session?",
+    "endDescription": "{{user}} på {{host}} afbrydes med det samme.",
+    "endReason": "Afsluttet af en revisor",
+    "ended": "Sessionen er afsluttet",
+    "endFailed": "Kunne ikke afslutte sessionen",
+    "readOnly": "Skrivebeskyttet",
+    "recording": "Optager",
+    "detached": "Frakoblet",
+    "watchingAs": "Session for {{user}}",
+    "sessionEnded": "Sessionen er afsluttet",
+    "watchFailed": "Kunne ikke se med på denne session",
+    "displayUnavailable": "Fjernskrivebord er påkrævet for at se med på denne session"
+  },
+  "rules": {
+    "intro": "Send en advarsel eller afslut en session, når nogen skriver eller ser en linje, der matcher.",
+    "add": "Tilføj regel",
+    "edit": "Rediger regel",
+    "delete": "Slet regel",
+    "deleteConfirm": "Vil du slette denne regel?",
+    "none": "Ingen regler endnu",
+    "loadError": "Kunne ikke indlæse regler",
+    "saveError": "Kunne ikke gemme reglen",
+    "name": "Navn",
+    "pattern": "Match",
+    "patternHint": "Tekst, der skal søges efter i én linje. Store og små bogstaver skelnes ikke.",
+    "regex": "Regulært udtryk",
+    "regexHint": "Behandle matchen som et regulært udtryk.",
+    "target": "Kig på",
+    "targetInput": "Det, der skrives",
+    "targetOutput": "Det, værten skriver ud",
+    "hosts": "Værter",
+    "hostsAll": "Alle værter",
+    "hostsPrivileged": "Kun privilegerede værter",
+    "severity": "Advarelsesniveau",
+    "severityInfo": "Info",
+    "severityWarning": "Advarsel",
+    "severityCritical": "Kritisk",
+    "action": "Så",
+    "actionAlert": "Advar revisorer",
+    "actionEnd": "Advar og afslut sessionen",
+    "enabled": "Tændt"
   }
 }

@@ -9,6 +9,14 @@
     "view": {
       "title": "Bekyk sessieopnames",
       "description": "Sien en speel jou eie sessieopnames af."
+    },
+    "audit": {
+      "title": "Oudit elke sessie",
+      "description": "Sien en speel almal se opnames terug, sien wie elke een oopgemaak het, sit opnames op hou en kyk of beëindig lewende sessies."
+    },
+    "rules": {
+      "title": "Bestuur opdragwaarskuwingsreëls",
+      "description": "Voeg reëls by en verander hulle wat waarsku, of 'n sessie beëindig, wanneer 'n opdrag ooreenstem."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Behoud (dae)",
         "description": "Hoe lank 'n sessieopname gehou word voordat dit outomaties verwyder word."
+      },
+      "forceRecording": {
+        "label": "Vereis opname",
+        "description": "Neem elke sessie op, selfs wanneer 'n gasheer opname afgeskakel het. Gebruikers kan nie 'n vereiste opname stop nie.",
+        "off": "Af",
+        "privileged": "Op bevoorregde gasheer",
+        "all": "Op elke gasheer"
+      },
+      "encryptRecordings": {
+        "label": "Versleutel opnames",
+        "description": "Versleutel nuwe opnames op skyf. Opnames wat voorheen gemaak is, bly soos hulle is."
+      },
+      "alertOnAccess": {
+        "label": "Waarsku wanneer 'n opname oopgemaak word",
+        "description": "Stuur 'n waarskuwing aan ouditeure wanneer iemand 'n sessie kyk, aflaai of lewendig kyk.",
+        "off": "Af",
+        "others": "Wanneer dit iemand anders se sessie is",
+        "all": "Elke keer"
       }
     },
     "host": {
       "enable": {
         "label": "Aktiveer sessieopname",
         "description": "Neem terminaaluitvoer vir hierdie gasheer op sodat jy dit later kan afspeel of aflaai."
+      },
+      "includeOutputTimestamps": {
+        "label": "Tydstempels in teksaflaaisels",
+        "description": "Aflaai as teks plaas die tyd wat elke lyn gedruk is aan die begin, in UTC. Opnames en terugspeling bly dieselfde."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Gasheer {{id}}",
     "sessionFallback": "Sessie {{id}}",
     "settingsTitle": "Sessielogboek-instellings",
-    "settingsDisplayTitle": "Vertoning"
+    "settingsDisplayTitle": "Vertoning",
+    "tabMine": "Myne",
+    "tabAll": "Alle gebruikers",
+    "tabLive": "Lewendig",
+    "tabRules": "Reëls",
+    "onHold": "Op hou",
+    "flagCount": "{{count}} waarskuwings",
+    "verify": "Kontroleer vir veranderinge",
+    "verifyOk": "Die opname is onveranderd",
+    "verifyChanged": "Die opname is verander nadat dit gestoor is",
+    "verifyMissing": "Die opname lêer ontbreek",
+    "verifyUnknown": "Hierdie opname het geen gestoorde vingerafdruk om mee te vergelyk nie",
+    "verifyFailed": "Kon nie die opname kontroleer nie",
+    "putOnHold": "Sit op hou",
+    "releaseHold": "Haal van hou af",
+    "holdOn": "Opname op gehou. Dit sal nie verwyder word nie.",
+    "holdOff": "Opname van gehou gehaal",
+    "holdFailed": "Kon nie die hou verander nie",
+    "missingTimestamps": "Hierdie opname het geen tydsberekening nie, dus kan dit nie met tydstempels afgelaai word nie."
   },
   "player": {
     "timeline": "Opname-tydlyn",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Sessieopname",
-    "description": "Neem terminaal- en afgeleë burelusse op en speel hulle later af of laai hulle af."
+    "description": "Neem terminaal en afstandsbureaublad-sessies op, kyk hulle lewendig, en hou 'n geoutiteerde, versleutelde rekord van wie wat gedoen het."
   },
   "card": {
     "title": "Onlangse opnames",
     "loading": "Laai tans..."
+  },
+  "operations": {
+    "list": {
+      "title": "Sessie-opnames"
+    },
+    "usage": {
+      "title": "Opname-opberging"
+    },
+    "recording": {
+      "title": "Opnames",
+      "protocol": "Tipe",
+      "started": "Begin",
+      "ended": "Beëindig"
+    },
+    "storage": {
+      "title": "Opname-opberging"
+    },
+    "verify": {
+      "title": "Kontroleer 'n opname vir veranderinge"
+    },
+    "alertEvent": {
+      "title": "'n Opdragwaarskuwingsreël het ooreengestem"
+    }
+  },
+  "details": {
+    "ended": "Beëindig: {{reason}}",
+    "flags": "Waarskuwings ({{count}})",
+    "access": "Toegangsgeskiedenis",
+    "noAccess": "Niemand het nog hierdie opname oopgemaak nie",
+    "someone": "Iemand",
+    "actionViewed": "gekyk",
+    "actionDownloaded": "afgelaai",
+    "actionVerified": "gekontroleer vir veranderinge",
+    "actionWatchedLive": "lewendig gekyk",
+    "actionEndedLive": "het die sessie beëindig",
+    "actionHoldOn": "op gehou",
+    "actionHoldOff": "van gehou gehaal"
+  },
+  "live": {
+    "loading": "Laai...",
+    "none": "Geen lewende sessies nie",
+    "noneHint": "SSH- en afstandsdesktopsessies van alle gebruikers word hier vertoon.",
+    "loadError": "Kon nie lewende sessies laai nie",
+    "watch": "Bekyk",
+    "end": "Beëindig sessie",
+    "endConfirm": "Beëindig hierdie sessie?",
+    "endDescription": "{{user}} op {{host}} word dadelik ontkoppel.",
+    "endReason": "Beëindig deur 'n ouditeur",
+    "ended": "Sessie beëindig",
+    "endFailed": "Kon nie die sessie beëindig nie",
+    "readOnly": "Slegs lees",
+    "recording": "Opname",
+    "detached": "Ontkoppel",
+    "watchingAs": "Sessie van {{user}}",
+    "sessionEnded": "Die sessie is beëindig",
+    "watchFailed": "Kon nie hierdie sessie bekyk nie",
+    "displayUnavailable": "Afstandsdesktop is nodig om hierdie sessie te bekyk"
+  },
+  "rules": {
+    "intro": "Stuur 'n waarskuwing of beëindig 'n sessie wanneer iemand 'n lyn tik of sien wat ooreenstem.",
+    "add": "Voeg reël by",
+    "edit": "Wysig reël",
+    "delete": "Verwyder reël",
+    "deleteConfirm": "Verwyder hierdie reël?",
+    "none": "Nog geen reëls nie",
+    "loadError": "Kon nie reëls laai nie",
+    "saveError": "Kon nie die reël stoor nie",
+    "name": "Naam",
+    "pattern": "Ooreenkoms",
+    "patternHint": "Teks om te soek in een lyn. Hooflettergevoeligheid maak nie saak nie.",
+    "regex": "Gewone uitdrukking",
+    "regexHint": "Beskou die ooreenkoms as 'n gewone uitdrukking.",
+    "target": "Kyk na",
+    "targetInput": "Wat getik word",
+    "targetOutput": "Wat die gasheer druk",
+    "hosts": "Gasheer",
+    "hostsAll": "Elke gasheer",
+    "hostsPrivileged": "Slegs bevoorregte gasheer",
+    "severity": "Waarskuwingsvlak",
+    "severityInfo": "Inligting",
+    "severityWarning": "Waarskuwing",
+    "severityCritical": "Krities",
+    "action": "Dan",
+    "actionAlert": "Waarsku ouditeure",
+    "actionEnd": "Waarsku en beëindig die sessie",
+    "enabled": "Aan"
   }
 }

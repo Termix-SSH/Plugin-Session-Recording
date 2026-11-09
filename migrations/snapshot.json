@@ -58,19 +58,135 @@
         },
         "terminationReason": {
           "type": "text"
+        },
+        "wrappedKey": {
+          "type": "text"
+        },
+        "sha256": {
+          "type": "text"
+        },
+        "hold": {
+          "type": "boolean",
+          "notNull": true,
+          "defaultValue": false
+        },
+        "flags": {
+          "type": "text"
         }
       },
       "indexes": [
         {
           "name": "idx_session_recordings_user_started",
-          "columns": ["userId", "startedAt"]
+          "columns": [
+            "userId",
+            "startedAt"
+          ]
         },
         {
           "name": "idx_session_recordings_host",
-          "columns": ["hostId"]
+          "columns": [
+            "hostId"
+          ]
         }
       ],
       "adopts": "session_recordings"
+    },
+    "access": {
+      "columns": {
+        "id": {
+          "type": "id",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "recordingId": {
+          "type": "integer",
+          "notNull": true
+        },
+        "userId": {
+          "type": "varchar",
+          "length": 255
+        },
+        "username": {
+          "type": "text"
+        },
+        "action": {
+          "type": "text",
+          "notNull": true
+        },
+        "at": {
+          "type": "timestamp",
+          "notNull": true,
+          "defaultNow": true
+        },
+        "ip": {
+          "type": "text"
+        }
+      },
+      "indexes": [
+        {
+          "name": "idx_session_recording_access_rec",
+          "columns": [
+            "recordingId"
+          ]
+        }
+      ]
+    },
+    "rules": {
+      "columns": {
+        "id": {
+          "type": "id",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "type": "text",
+          "notNull": true
+        },
+        "pattern": {
+          "type": "text",
+          "notNull": true
+        },
+        "regex": {
+          "type": "boolean",
+          "notNull": true,
+          "defaultValue": false
+        },
+        "target": {
+          "type": "text",
+          "notNull": true,
+          "defaultValue": "input"
+        },
+        "hosts": {
+          "type": "text",
+          "notNull": true,
+          "defaultValue": "all"
+        },
+        "severity": {
+          "type": "text",
+          "notNull": true,
+          "defaultValue": "warning"
+        },
+        "action": {
+          "type": "text",
+          "notNull": true,
+          "defaultValue": "alert"
+        },
+        "enabled": {
+          "type": "boolean",
+          "notNull": true,
+          "defaultValue": true
+        },
+        "createdBy": {
+          "type": "varchar",
+          "length": 255
+        },
+        "createdAt": {
+          "type": "timestamp",
+          "notNull": true,
+          "defaultNow": true
+        }
+      },
+      "indexes": []
     }
   }
 }

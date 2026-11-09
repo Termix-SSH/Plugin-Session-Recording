@@ -9,6 +9,14 @@
     "view": {
       "title": "Lihat rekaman sesi",
       "description": "Lihat dan putar ulang rekaman sesi Anda sendiri."
+    },
+    "audit": {
+      "title": "Audit setiap sesi",
+      "description": "Lihat dan putar ulang rekaman semua orang, lihat siapa yang membuka masing-masing rekaman, tahan rekaman, dan tonton atau akhiri sesi langsung."
+    },
+    "rules": {
+      "title": "Kelola aturan peringatan perintah",
+      "description": "Tambahkan dan ubah aturan yang memberikan peringatan atau mengakhiri sesi ketika sebuah perintah cocok."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Retensi (hari)",
         "description": "Seberapa lama rekaman sesi disimpan sebelum dihapus secara otomatis."
+      },
+      "forceRecording": {
+        "label": "Wajibkan rekaman",
+        "description": "Rekam setiap sesi bahkan ketika host memiliki rekaman yang dimatikan. Pengguna tidak dapat menghentikan rekaman yang diwajibkan.",
+        "off": "Mati",
+        "privileged": "Pada host istimewa",
+        "all": "Pada setiap host"
+      },
+      "encryptRecordings": {
+        "label": "Enkripsi rekaman",
+        "description": "Enkripsi rekaman baru di disk. Rekaman yang dibuat sebelumnya tetap seperti semula."
+      },
+      "alertOnAccess": {
+        "label": "Berikan peringatan ketika rekaman dibuka",
+        "description": "Kirim peringatan ke auditor ketika seseorang menonton, mengunduh, atau menonton langsung sebuah sesi.",
+        "off": "Mati",
+        "others": "Ketika itu adalah sesi orang lain",
+        "all": "Setiap kali"
       }
     },
     "host": {
       "enable": {
         "label": "Aktifkan perekaman sesi",
         "description": "Rekam output terminal untuk host ini agar dapat diputar ulang atau diunduh nanti."
+      },
+      "includeOutputTimestamps": {
+        "label": "Stempel waktu dalam unduhan teks",
+        "description": "Unduh sebagai teks menempatkan waktu setiap baris dicetak di awal, dalam UTC. Rekaman dan pemutaran ulang tetap sama."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Host {{id}}",
     "sessionFallback": "Sesi {{id}}",
     "settingsTitle": "Pengaturan log sesi",
-    "settingsDisplayTitle": "Tampilan"
+    "settingsDisplayTitle": "Tampilan",
+    "tabMine": "Milik Saya",
+    "tabAll": "Semua Pengguna",
+    "tabLive": "Langsung",
+    "tabRules": "Aturan",
+    "onHold": "Ditahan",
+    "flagCount": "{{count}} peringatan",
+    "verify": "Periksa perubahan",
+    "verifyOk": "Rekaman tidak berubah",
+    "verifyChanged": "Rekaman diubah setelah disimpan",
+    "verifyMissing": "File rekaman hilang",
+    "verifyUnknown": "Rekaman ini tidak memiliki sidik jari yang disimpan untuk dibandingkan",
+    "verifyFailed": "Tidak dapat memeriksa rekaman",
+    "putOnHold": "Tahan",
+    "releaseHold": "Lepaskan tahan",
+    "holdOn": "Rekaman ditahan. Tidak akan dihapus.",
+    "holdOff": "Rekaman dilepaskan dari tahan",
+    "holdFailed": "Tidak dapat mengubah status tahan",
+    "missingTimestamps": "Rekaman ini tidak memiliki waktu, sehingga tidak dapat diunduh dengan stempel waktu."
   },
   "player": {
     "timeline": "Garis waktu rekaman",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Perekaman Sesi",
-    "description": "Rekam sesi terminal dan desktop jarak jauh, lalu putar ulang atau unduh rekaman tersebut nanti."
+    "description": "Rekam sesi terminal dan desktop jarak jauh, tonton secara langsung, dan simpan catatan yang diaudit dan terenkripsi tentang siapa yang melakukan apa."
   },
   "card": {
     "title": "Rekaman terbaru",
     "loading": "Memuat..."
+  },
+  "operations": {
+    "list": {
+      "title": "Rekaman sesi"
+    },
+    "usage": {
+      "title": "Penyimpanan rekaman"
+    },
+    "recording": {
+      "title": "Rekaman",
+      "protocol": "Tipe",
+      "started": "Dimulai",
+      "ended": "Berakhir"
+    },
+    "storage": {
+      "title": "Penyimpanan rekaman"
+    },
+    "verify": {
+      "title": "Periksa rekaman untuk perubahan"
+    },
+    "alertEvent": {
+      "title": "Aturan peringatan perintah cocok"
+    }
+  },
+  "details": {
+    "ended": "Berakhir: {{reason}}",
+    "flags": "Peringatan ({{count}})",
+    "access": "Riwayat akses",
+    "noAccess": "Belum ada yang membuka rekaman ini",
+    "someone": "Seseorang",
+    "actionViewed": "menonton",
+    "actionDownloaded": "mengunduh",
+    "actionVerified": "memeriksa perubahan",
+    "actionWatchedLive": "menonton langsung",
+    "actionEndedLive": "mengakhiri sesi",
+    "actionHoldOn": "menahan",
+    "actionHoldOff": "melepaskan tahan"
+  },
+  "live": {
+    "loading": "Memuat...",
+    "none": "Tidak ada sesi langsung",
+    "noneHint": "Sesi SSH dan remote desktop dari setiap pengguna ditampilkan di sini.",
+    "loadError": "Gagal memuat sesi langsung",
+    "watch": "Amati",
+    "end": "Akhiri sesi",
+    "endConfirm": "Akhiri sesi ini?",
+    "endDescription": "{{user}} di {{host}} akan terputus segera.",
+    "endReason": "Diakhiri oleh auditor",
+    "ended": "Sesi berakhir",
+    "endFailed": "Gagal mengakhiri sesi",
+    "readOnly": "Hanya baca",
+    "recording": "Merekam",
+    "detached": "Terlepas",
+    "watchingAs": "Sesi dari {{user}}",
+    "sessionEnded": "Sesi telah berakhir",
+    "watchFailed": "Gagal mengamati sesi ini",
+    "displayUnavailable": "Remote Desktop diperlukan untuk mengamati sesi ini"
+  },
+  "rules": {
+    "intro": "Beri peringatan atau akhiri sesi ketika seseorang mengetik atau melihat baris yang cocok.",
+    "add": "Tambah aturan",
+    "edit": "Sunting aturan",
+    "delete": "Hapus aturan",
+    "deleteConfirm": "Hapus aturan ini?",
+    "none": "Belum ada aturan",
+    "loadError": "Gagal memuat aturan",
+    "saveError": "Gagal menyimpan aturan",
+    "name": "Nama",
+    "pattern": "Cocokkan",
+    "patternHint": "Teks yang dicari dalam satu baris. Tidak peka huruf besar/kecil.",
+    "regex": "Ekspresi reguler",
+    "regexHint": "Anggap pencocokan sebagai ekspresi reguler.",
+    "target": "Periksa",
+    "targetInput": "Yang diketik",
+    "targetOutput": "Yang dicetak oleh host",
+    "hosts": "Host",
+    "hostsAll": "Semua host",
+    "hostsPrivileged": "Hanya host berprivilese",
+    "severity": "Tingkat peringatan",
+    "severityInfo": "Info",
+    "severityWarning": "Peringatan",
+    "severityCritical": "Kritis",
+    "action": "Kemudian",
+    "actionAlert": "Peringatkan auditor",
+    "actionEnd": "Peringatkan dan akhiri sesi",
+    "enabled": "Aktif"
   }
 }

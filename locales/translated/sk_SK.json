@@ -9,6 +9,14 @@
     "view": {
       "title": "Zobraziť nahrávky relácií",
       "description": "Zobrazte a prehrávajte vlastné nahrávky relácií."
+    },
+    "audit": {
+      "title": "Auditovať každú reláciu",
+      "description": "Zobraziť a prehrať nahrávky všetkých používateľov, zistiť, kto ktorú otvoril, pozastaviť nahrávky a sledovať alebo ukončiť živé relácie."
+    },
+    "rules": {
+      "title": "Spravovať pravidlá upozornení na príkazy",
+      "description": "Pridávať a meniť pravidlá, ktoré upozornia alebo ukončia reláciu pri zhode príkazu."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Uchovávanie (dni)",
         "description": "Ako dlho sa nahrávka relácie uchováva, kým sa automaticky nevymaže."
+      },
+      "forceRecording": {
+        "label": "Povinne nahrávať",
+        "description": "Nahrávať každú reláciu, aj keď je na hostiteľovi nahrávanie vypnuté. Používatelia nemôžu zastaviť povinné nahrávanie.",
+        "off": "Vypnuté",
+        "privileged": "Na privilégiovaných hostiteľoch",
+        "all": "Na všetkých hostiteľoch"
+      },
+      "encryptRecordings": {
+        "label": "Šifrovať nahrávky",
+        "description": "Šifrovať nové nahrávky na disku. Nahrávky vytvorené predtým zostanú nezmenené."
+      },
+      "alertOnAccess": {
+        "label": "Upozorniť pri otvorení nahrávky",
+        "description": "Poslať upozornenie audítorom, keď niekto sleduje, sťahuje alebo sleduje naživo reláciu.",
+        "off": "Vypnuté",
+        "others": "Keď je to relácia niekoho iného",
+        "all": "Vždy"
       }
     },
     "host": {
       "enable": {
         "label": "Povoliť nahrávanie relácií",
         "description": "Nahrávajte výstup terminálu pre tento hostiteľ, aby ste ho mohli neskôr prehrať alebo stiahnuť."
+      },
+      "includeOutputTimestamps": {
+        "label": "Časové značky v textových sťahovaniach",
+        "description": "Pri sťahovaní ako text sa na začiatok každého riadku pridá čas jeho vytlačenia v UTC. Nahrávky a prehrávanie zostávajú nezmenené."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Hostiteľ {{id}}",
     "sessionFallback": "Relácia {{id}}",
     "settingsTitle": "Nastavenia protokolov relácií",
-    "settingsDisplayTitle": "Zobrazenie"
+    "settingsDisplayTitle": "Zobrazenie",
+    "tabMine": "Moje",
+    "tabAll": "Všetci používatelia",
+    "tabLive": "Naživo",
+    "tabRules": "Pravidlá",
+    "onHold": "Pozastavené",
+    "flagCount": "{{count}} upozornení",
+    "verify": "Skontrolovať zmeny",
+    "verifyOk": "Nahrávka je nezmenená",
+    "verifyChanged": "Nahrávka bola zmenená po uložení",
+    "verifyMissing": "Súbor nahrávky chýba",
+    "verifyUnknown": "Táto nahrávka nemá uložený odtlačok na porovnanie",
+    "verifyFailed": "Nepodarilo sa skontrolovať nahrávku",
+    "putOnHold": "Pozastaviť",
+    "releaseHold": "Zrušiť pozastavenie",
+    "holdOn": "Nahrávka bola pozastavená. Nebude vymazaná.",
+    "holdOff": "Pozastavenie nahrávky bolo zrušené",
+    "holdFailed": "Nepodarilo sa zmeniť pozastavenie",
+    "missingTimestamps": "Táto nahrávka nemá časovanie, preto ju nemožno stiahnuť s časovými značkami."
   },
   "player": {
     "timeline": "Časová os nahrávky",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Nahrávanie relácií",
-    "description": "Nahrávajte relácie terminálu a vzdialenej plochy a prehrávajte ich alebo si ich neskôr sťahujte."
+    "description": "Nahrávať relácie terminálu a vzdialenej plochy, sledovať ich naživo a viesť auditovaný, šifrovaný záznam o tom, kto čo urobil."
   },
   "card": {
     "title": "Nedávne nahrávky",
     "loading": "Načítava sa..."
+  },
+  "operations": {
+    "list": {
+      "title": "Nahrávky relácií"
+    },
+    "usage": {
+      "title": "Úložisko nahrávok"
+    },
+    "recording": {
+      "title": "Nahrávky",
+      "protocol": "Typ",
+      "started": "Začiatok",
+      "ended": "Koniec"
+    },
+    "storage": {
+      "title": "Úložisko nahrávok"
+    },
+    "verify": {
+      "title": "Skontrolovať nahrávku na zmeny"
+    },
+    "alertEvent": {
+      "title": "Zhoda pravidla upozornenia na príkaz"
+    }
+  },
+  "details": {
+    "ended": "Koniec: {{reason}}",
+    "flags": "Upozornenia ({{count}})",
+    "access": "História prístupu",
+    "noAccess": "Túto nahrávku zatiaľ nikto neotvoril",
+    "someone": "Niekto",
+    "actionViewed": "sledoval",
+    "actionDownloaded": "stiahol",
+    "actionVerified": "skontroloval zmeny",
+    "actionWatchedLive": "sledoval naživo",
+    "actionEndedLive": "ukončil reláciu",
+    "actionHoldOn": "pozastavil",
+    "actionHoldOff": "zrušil pozastavenie"
+  },
+  "live": {
+    "loading": "Načítava sa...",
+    "none": "Žiadne živé relácie",
+    "noneHint": "Tu sa zobrazia otvorené SSH a vzdialené plošné relácie všetkých používateľov.",
+    "loadError": "Nepodarilo sa načítať aktívne relácie",
+    "watch": "Sledovať",
+    "end": "Ukončiť reláciu",
+    "endConfirm": "Ukončiť túto reláciu?",
+    "endDescription": "{{user}} na {{host}} bude okamžite odpojený.",
+    "endReason": "Ukončené auditorm",
+    "ended": "Relácia ukončená",
+    "endFailed": "Nepodarilo sa ukončiť reláciu",
+    "readOnly": "Iba na čítanie",
+    "recording": "Nahrávanie",
+    "detached": "Oddelené",
+    "watchingAs": "Relácia používateľa {{user}}",
+    "sessionEnded": "Relácia bola ukončená",
+    "watchFailed": "Nepodarilo sa sledovať túto reláciu",
+    "displayUnavailable": "Na sledovanie tejto relácie je potrebná Vzdialená plocha"
+  },
+  "rules": {
+    "intro": "Upozornenie alebo ukončenie relácie, keď niekto napíše alebo uvidí riadok, ktorý zodpovedá nastaveniu.",
+    "add": "Pridať pravidlo",
+    "edit": "Upraviť pravidlo",
+    "delete": "Odstrániť pravidlo",
+    "deleteConfirm": "Odstrániť toto pravidlo?",
+    "none": "Zatiaľ žiadne pravidlá",
+    "loadError": "Nepodarilo sa načítať pravidlá",
+    "saveError": "Nepodarilo sa uložiť pravidlo",
+    "name": "Názov",
+    "pattern": "Zodpovedajúci text",
+    "patternHint": "Text, ktorý sa má hľadať v jednom riadku. Veľké a malé písmená sa nerozlišujú.",
+    "regex": "Regulárny výraz",
+    "regexHint": "Zobrať zodpovedajúci text ako regulárny výraz.",
+    "target": "Sledovať",
+    "targetInput": "Čo sa píše",
+    "targetOutput": "Čo hostiteľ vypisuje",
+    "hosts": "Hostitelia",
+    "hostsAll": "Všetci hostitelia",
+    "hostsPrivileged": "Iba privilégi hostitelia",
+    "severity": "Úroveň upozornenia",
+    "severityInfo": "Informácia",
+    "severityWarning": "Varovanie",
+    "severityCritical": "Kritické",
+    "action": "Potom",
+    "actionAlert": "Upozorniť auditorov",
+    "actionEnd": "Upozorniť a ukončiť reláciu",
+    "enabled": "Zapnuté"
   }
 }

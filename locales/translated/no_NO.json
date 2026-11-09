@@ -9,6 +9,14 @@
     "view": {
       "title": "Vis sesjonsopptak",
       "description": "Se og spill av dine egne sesjonsopptak."
+    },
+    "audit": {
+      "title": "Reviser alle økter",
+      "description": "Se og avspill alle opptak, se hvem som åpnet hvert enkelt, sett opptak på vent og se eller avslutt økter i sanntid."
+    },
+    "rules": {
+      "title": "Administrer regler for kommandovarsler",
+      "description": "Legg til og endre reglene som varsler om, eller avslutter, en økt når en kommando matcher."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Oppbevaring (dager)",
         "description": "Hvor lenge et sesjonsopptak beholdes før det slettes automatisk."
+      },
+      "forceRecording": {
+        "label": "Krev opptak",
+        "description": "Ta opp alle økter selv når en vert har opptak slått av. Brukere kan ikke stoppe et påkrevd opptak.",
+        "off": "Av",
+        "privileged": "På privilegerte verter",
+        "all": "På alle verter"
+      },
+      "encryptRecordings": {
+        "label": "Krypter opptak",
+        "description": "Krypter nye opptak på disken. Opptak laget tidligere forblir uendret."
+      },
+      "alertOnAccess": {
+        "label": "Varsle når et opptak åpnes",
+        "description": "Send et varsel til revisorer når noen ser, laster ned eller ser på en økt i sanntid.",
+        "off": "Av",
+        "others": "Når det er en andres økt",
+        "all": "Hver gang"
       }
     },
     "host": {
       "enable": {
         "label": "Aktiver sesjonsopptak",
         "description": "Ta opp terminalutdata for denne verten slik at du kan spille dem av eller laste dem ned senere."
+      },
+      "includeOutputTimestamps": {
+        "label": "Tidsstempler i tekstnedlastinger",
+        "description": "Nedlasting som tekst legger til tiden hver linje ble skrevet ut i starten, i UTC. Opptak og avspilling forblir uendret."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Vert {{id}}",
     "sessionFallback": "Sesjon {{id}}",
     "settingsTitle": "Innstillinger for sesjonslogger",
-    "settingsDisplayTitle": "Visning"
+    "settingsDisplayTitle": "Visning",
+    "tabMine": "Mine",
+    "tabAll": "Alle brukere",
+    "tabLive": "Sanntid",
+    "tabRules": "Regler",
+    "onHold": "På vent",
+    "flagCount": "{{count}} varsler",
+    "verify": "Sjekk for endringer",
+    "verifyOk": "Opptaket er uendret",
+    "verifyChanged": "Opptaket ble endret etter det ble lagret",
+    "verifyMissing": "Opptaksfilen mangler",
+    "verifyUnknown": "Dette opptaket har ingen lagret fingeravtrykk å sammenligne med",
+    "verifyFailed": "Kunne ikke sjekke opptaket",
+    "putOnHold": "Sett på vent",
+    "releaseHold": "Fjern fra vent",
+    "holdOn": "Opptak satt på vent. Det vil ikke bli slettet.",
+    "holdOff": "Opptak fjernet fra vent",
+    "holdFailed": "Kunne ikke endre vent-status",
+    "missingTimestamps": "Dette opptaket har ingen timing, så det kan ikke lastes ned med tidsstempler."
   },
   "player": {
     "timeline": "Opptakstidslinje",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Sesjonsopptak",
-    "description": "Spill inn terminal- og fjernskrivebordsøker og avspill dem eller last dem ned senere."
+    "description": "Ta opp terminal- og fjernskrivebordsøkter, se dem i sanntid, og behold et revisert, kryptert register over hva som ble gjort."
   },
   "card": {
     "title": "Siste opptak",
     "loading": "Laster inn..."
+  },
+  "operations": {
+    "list": {
+      "title": "Øktsopptak"
+    },
+    "usage": {
+      "title": "Lagring av opptak"
+    },
+    "recording": {
+      "title": "Opptak",
+      "protocol": "Type",
+      "started": "Startet",
+      "ended": "Avsluttet"
+    },
+    "storage": {
+      "title": "Lagring av opptak"
+    },
+    "verify": {
+      "title": "Sjekk et opptak for endringer"
+    },
+    "alertEvent": {
+      "title": "En regel for kommandovarsling matchet"
+    }
+  },
+  "details": {
+    "ended": "Avsluttet: {{reason}}",
+    "flags": "Varsler ({{count}})",
+    "access": "Tilgangshistorikk",
+    "noAccess": "Ingen har åpnet dette opptaket ennå",
+    "someone": "Noen",
+    "actionViewed": "så på",
+    "actionDownloaded": "lastet ned",
+    "actionVerified": "sjekket for endringer",
+    "actionWatchedLive": "så på i sanntid",
+    "actionEndedLive": "avsluttet økten",
+    "actionHoldOn": "satte på vent",
+    "actionHoldOff": "fjernet fra vent"
+  },
+  "live": {
+    "loading": "Laster inn...",
+    "none": "Ingen økter i sanntid",
+    "noneHint": "SSH- og fjernskrivebordsøker for alle brukere vises her.",
+    "loadError": "Kunne ikke laste inn aktive øker",
+    "watch": "Se på",
+    "end": "Avslutt økt",
+    "endConfirm": "Vil du avslutte denne økten?",
+    "endDescription": "{{user}} på {{host}} kobles fra med en gang.",
+    "endReason": "Avsluttet av en revisor",
+    "ended": "Økten er avsluttet",
+    "endFailed": "Kunne ikke avslutte økten",
+    "readOnly": "Skrivebeskyttet",
+    "recording": "Opptak",
+    "detached": "Frakoblet",
+    "watchingAs": "Økt for {{user}}",
+    "sessionEnded": "Økten er avsluttet",
+    "watchFailed": "Kunne ikke se på denne økten",
+    "displayUnavailable": "Fjernskrivebord er nødvendig for å se på denne økten"
+  },
+  "rules": {
+    "intro": "Varsle eller avslutt en økt når noen skriver eller ser en linje som matcher.",
+    "add": "Legg til regel",
+    "edit": "Rediger regel",
+    "delete": "Slett regel",
+    "deleteConfirm": "Vil du slette denne regelen?",
+    "none": "Ingen regler ennå",
+    "loadError": "Kunne ikke laste inn regler",
+    "saveError": "Kunne ikke lagre regelen",
+    "name": "Navn",
+    "pattern": "Matcher",
+    "patternHint": "Tekst som skal søkes etter i én linje. Store og små bokstaver skiller ikke.",
+    "regex": "Regulært uttrykk",
+    "regexHint": "Behandle mønsteret som et regulært uttrykk.",
+    "target": "Se etter",
+    "targetInput": "Det som skrives",
+    "targetOutput": "Det verten skriver ut",
+    "hosts": "Verter",
+    "hostsAll": "Alle verter",
+    "hostsPrivileged": "Kun privilegerte verter",
+    "severity": "Varselnivå",
+    "severityInfo": "Info",
+    "severityWarning": "Advarsel",
+    "severityCritical": "Kritisk",
+    "action": "Deretter",
+    "actionAlert": "Varsle revisorer",
+    "actionEnd": "Varsle og avslutt økten",
+    "enabled": "På"
   }
 }

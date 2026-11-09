@@ -9,6 +9,14 @@
     "view": {
       "title": "View session recordings",
       "description": "See and play back your own session recordings."
+    },
+    "audit": {
+      "title": "稽核所有工作階段",
+      "description": "查看並播放所有人的錄製檔案，查看誰開啟了每個檔案，將錄製檔案暫停刪除，或觀看及結束即時工作階段。"
+    },
+    "rules": {
+      "title": "管理命令警示規則",
+      "description": "新增與修改規則，當命令符合條件時警示或結束工作階段。"
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Retention (days)",
         "description": "How long a session recording is kept before it is deleted automatically."
+      },
+      "forceRecording": {
+        "label": "強制錄製",
+        "description": "即使主機已關閉錄製功能，仍錄製所有工作階段。使用者無法停止強制錄製。",
+        "off": "關閉",
+        "privileged": "僅限特權主機",
+        "all": "所有主機"
+      },
+      "encryptRecordings": {
+        "label": "加密錄製檔案",
+        "description": "加密磁碟上的新錄製檔案。先前建立的錄製檔案保持不變。"
+      },
+      "alertOnAccess": {
+        "label": "開啟錄製檔案時警示",
+        "description": "當有人觀看、下載或即時觀看工作階段時，向稽核人員發送警示。",
+        "off": "關閉",
+        "others": "僅限他人工作階段",
+        "all": "每次皆警示"
       }
     },
     "host": {
       "enable": {
         "label": "Enable session recording",
         "description": "Record terminal output for this host so you can play it back or download it later."
+      },
+      "includeOutputTimestamps": {
+        "label": "文字下載包含時間戳記",
+        "description": "下載為文字時，會在每行開頭加上該行列印的時間（UTC）。錄製檔案與播放內容保持不變。"
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Host {{id}}",
     "sessionFallback": "Session {{id}}",
     "settingsTitle": "Session log settings",
-    "settingsDisplayTitle": "Display"
+    "settingsDisplayTitle": "Display",
+    "tabMine": "我的",
+    "tabAll": "所有使用者",
+    "tabLive": "即時",
+    "tabRules": "規則",
+    "onHold": "暫停刪除",
+    "flagCount": "{{count}} 則警示",
+    "verify": "檢查是否有變更",
+    "verifyOk": "錄製檔案未變更",
+    "verifyChanged": "錄製檔案在儲存後已被變更",
+    "verifyMissing": "錄製檔案遺失",
+    "verifyUnknown": "此錄製檔案沒有儲存的指紋可供比對",
+    "verifyFailed": "無法檢查錄製檔案",
+    "putOnHold": "暫停刪除",
+    "releaseHold": "解除暫停刪除",
+    "holdOn": "錄製檔案已暫停刪除，不會被刪除。",
+    "holdOff": "錄製檔案已解除暫停刪除",
+    "holdFailed": "無法變更暫停刪除狀態",
+    "missingTimestamps": "此錄製檔案沒有時間資訊，因此無法下載帶時間戳記的版本。"
   },
   "player": {
     "timeline": "Recording timeline",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Session Recording",
-    "description": "錄製終端機和遠端桌面工作階段，之後播放或下載。"
+    "description": "錄製終端機與遠端桌面工作階段，即時觀看，並保留經稽核、加密的記錄，追蹤誰執行了什麼操作。"
   },
   "card": {
     "title": "最近錄製",
     "loading": "載入中..."
+  },
+  "operations": {
+    "list": {
+      "title": "工作階段錄製檔案"
+    },
+    "usage": {
+      "title": "錄製儲存空間"
+    },
+    "recording": {
+      "title": "錄製檔案",
+      "protocol": "類型",
+      "started": "開始時間",
+      "ended": "結束時間"
+    },
+    "storage": {
+      "title": "錄製儲存空間"
+    },
+    "verify": {
+      "title": "檢查錄製檔案是否有變更"
+    },
+    "alertEvent": {
+      "title": "符合命令警示規則"
+    }
+  },
+  "details": {
+    "ended": "結束原因：{{reason}}",
+    "flags": "警示（{{count}}）",
+    "access": "存取歷史記錄",
+    "noAccess": "尚無人開啟此錄製檔案",
+    "someone": "某人",
+    "actionViewed": "觀看",
+    "actionDownloaded": "下載",
+    "actionVerified": "檢查是否有變更",
+    "actionWatchedLive": "即時觀看",
+    "actionEndedLive": "結束工作階段",
+    "actionHoldOn": "暫停刪除",
+    "actionHoldOff": "解除暫停刪除"
+  },
+  "live": {
+    "loading": "載入中...",
+    "none": "沒有即時工作階段",
+    "noneHint": "所有使用者的 SSH 與遠端桌面工作階段都會顯示在此處。",
+    "loadError": "無法載入即時工作階段",
+    "watch": "監看",
+    "end": "結束工作階段",
+    "endConfirm": "要結束此工作階段嗎？",
+    "endDescription": "{{user}} 在 {{host}} 上的連線將立即中斷。",
+    "endReason": "由稽核人員結束",
+    "ended": "工作階段已結束",
+    "endFailed": "無法結束工作階段",
+    "readOnly": "唯讀",
+    "recording": "錄製中",
+    "detached": "已分離",
+    "watchingAs": "{{user}} 的工作階段",
+    "sessionEnded": "工作階段已結束",
+    "watchFailed": "無法監看此工作階段",
+    "displayUnavailable": "需要遠端桌面才能監看此工作階段"
+  },
+  "rules": {
+    "intro": "當有人輸入或看到符合條件的列時，發出警示或結束工作階段。",
+    "add": "新增規則",
+    "edit": "編輯規則",
+    "delete": "刪除規則",
+    "deleteConfirm": "要刪除此規則嗎？",
+    "none": "尚無規則",
+    "loadError": "無法載入規則",
+    "saveError": "無法儲存規則",
+    "name": "名稱",
+    "pattern": "比對",
+    "patternHint": "要在單行中尋找的文字。不區分大小寫。",
+    "regex": "正規表示式",
+    "regexHint": "將比對內容視為正規表示式。",
+    "target": "檢視目標",
+    "targetInput": "輸入內容",
+    "targetOutput": "主機輸出內容",
+    "hosts": "主機",
+    "hostsAll": "所有主機",
+    "hostsPrivileged": "僅限特權主機",
+    "severity": "警示等級",
+    "severityInfo": "資訊",
+    "severityWarning": "警告",
+    "severityCritical": "嚴重",
+    "action": "動作",
+    "actionAlert": "警示稽核人員",
+    "actionEnd": "警示並結束工作階段",
+    "enabled": "開啟"
   }
 }

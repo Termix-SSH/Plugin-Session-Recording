@@ -59,7 +59,7 @@ describe("adopting session_recordings", () => {
       },
     });
 
-    expect(db.applied).toEqual(["0001_adopt_session_recordings"]);
+    expect(db.applied).toEqual(["0001_adopt_session_recordings", "0002_pam"]);
     expect(tableExists("session_recordings")).toBe(false);
     expect(tableExists("p_session_recording_session_recordings")).toBe(true);
 

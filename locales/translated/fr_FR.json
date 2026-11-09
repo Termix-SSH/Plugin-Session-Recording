@@ -9,6 +9,14 @@
     "view": {
       "title": "Voir les enregistrements de session",
       "description": "Voir et lire vos propres enregistrements de session."
+    },
+    "audit": {
+      "title": "Auditer chaque session",
+      "description": "Voir et rejouer les enregistrements de tout le monde, voir qui a ouvert chaque enregistrement, mettre les enregistrements en attente et surveiller ou terminer les sessions en direct."
+    },
+    "rules": {
+      "title": "Gérer les règles d'alerte de commande",
+      "description": "Ajouter et modifier les règles qui alertent ou terminent une session lorsqu'une commande correspond."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Conservation (jours)",
         "description": "Durée de conservation d'un enregistrement de session avant sa suppression automatique."
+      },
+      "forceRecording": {
+        "label": "Exiger l'enregistrement",
+        "description": "Enregistrer chaque session même si l'hôte a désactivé l'enregistrement. Les utilisateurs ne peuvent pas arrêter un enregistrement obligatoire.",
+        "off": "Désactivé",
+        "privileged": "Sur les hôtes privilégiés",
+        "all": "Sur tous les hôtes"
+      },
+      "encryptRecordings": {
+        "label": "Chiffrer les enregistrements",
+        "description": "Chiffrer les nouveaux enregistrements sur le disque. Les enregistrements effectués auparavant restent inchangés."
+      },
+      "alertOnAccess": {
+        "label": "Alerter lorsqu'un enregistrement est ouvert",
+        "description": "Envoyer une alerte aux auditeurs lorsque quelqu'un regarde, télécharge ou regarde en direct une session.",
+        "off": "Désactivé",
+        "others": "Lorsqu'il s'agit de la session d'une autre personne",
+        "all": "À chaque fois"
       }
     },
     "host": {
       "enable": {
         "label": "Activer l'enregistrement de session",
         "description": "Enregistrer la sortie du terminal pour cet hôte afin de pouvoir la lire ou la télécharger ultérieurement."
+      },
+      "includeOutputTimestamps": {
+        "label": "Horodatages dans les téléchargements de texte",
+        "description": "Le téléchargement au format texte place l'heure à laquelle chaque ligne a été imprimée au début, en UTC. Les enregistrements et la lecture restent inchangés."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Hôte {{id}}",
     "sessionFallback": "Session {{id}}",
     "settingsTitle": "Paramètres des journaux de session",
-    "settingsDisplayTitle": "Affichage"
+    "settingsDisplayTitle": "Affichage",
+    "tabMine": "Les miennes",
+    "tabAll": "Tous les utilisateurs",
+    "tabLive": "En direct",
+    "tabRules": "Règles",
+    "onHold": "En attente",
+    "flagCount": "{{count}} alertes",
+    "verify": "Vérifier les modifications",
+    "verifyOk": "L'enregistrement est inchangé",
+    "verifyChanged": "L'enregistrement a été modifié après sa sauvegarde",
+    "verifyMissing": "Le fichier d'enregistrement est manquant",
+    "verifyUnknown": "Cet enregistrement n'a pas d'empreinte sauvegardée pour comparaison",
+    "verifyFailed": "Impossible de vérifier l'enregistrement",
+    "putOnHold": "Mettre en attente",
+    "releaseHold": "Retirer de l'attente",
+    "holdOn": "Enregistrement mis en attente. Il ne sera pas supprimé.",
+    "holdOff": "Enregistrement retiré de l'attente",
+    "holdFailed": "Impossible de modifier l'attente",
+    "missingTimestamps": "Cet enregistrement n'a pas de chronométrage, il ne peut donc pas être téléchargé avec des horodatages."
   },
   "player": {
     "timeline": "Chronologie de l'enregistrement",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Enregistrement de session",
-    "description": "Enregistrez les sessions du terminal et du bureau à distance, puis rejouez-les ou téléchargez-les ultérieurement."
+    "description": "Enregistrer les sessions de terminal et de bureau à distance, les regarder en direct et conserver un historique audité et chiffré des actions effectuées."
   },
   "card": {
     "title": "Enregistrements récents",
     "loading": "Chargement..."
+  },
+  "operations": {
+    "list": {
+      "title": "Enregistrements de session"
+    },
+    "usage": {
+      "title": "Stockage des enregistrements"
+    },
+    "recording": {
+      "title": "Enregistrements",
+      "protocol": "Type",
+      "started": "Début",
+      "ended": "Fin"
+    },
+    "storage": {
+      "title": "Stockage des enregistrements"
+    },
+    "verify": {
+      "title": "Vérifier un enregistrement pour les modifications"
+    },
+    "alertEvent": {
+      "title": "Une règle d'alerte de commande a correspondu"
+    }
+  },
+  "details": {
+    "ended": "Terminé : {{reason}}",
+    "flags": "Alertes ({{count}})",
+    "access": "Historique d'accès",
+    "noAccess": "Personne n'a encore ouvert cet enregistrement",
+    "someone": "Quelqu'un",
+    "actionViewed": "a regardé",
+    "actionDownloaded": "a téléchargé",
+    "actionVerified": "a vérifié les modifications",
+    "actionWatchedLive": "a regardé en direct",
+    "actionEndedLive": "a terminé la session",
+    "actionHoldOn": "a mis en attente",
+    "actionHoldOff": "a retiré de l'attente"
+  },
+  "live": {
+    "loading": "Chargement...",
+    "none": "Aucune session en direct",
+    "noneHint": "Les sessions SSH et bureau à distance de tous les utilisateurs s'affichent ici.",
+    "loadError": "Impossible de charger les sessions en direct",
+    "watch": "Surveiller",
+    "end": "Terminer la session",
+    "endConfirm": "Terminer cette session ?",
+    "endDescription": "{{user}} sur {{host}} est déconnecté immédiatement.",
+    "endReason": "Terminé par un auditeur",
+    "ended": "Session terminée",
+    "endFailed": "Impossible de terminer la session",
+    "readOnly": "Lecture seule",
+    "recording": "Enregistrement",
+    "detached": "Détaché",
+    "watchingAs": "Session de {{user}}",
+    "sessionEnded": "La session est terminée",
+    "watchFailed": "Impossible de surveiller cette session",
+    "displayUnavailable": "Le bureau à distance est requis pour surveiller cette session"
+  },
+  "rules": {
+    "intro": "Envoyer une alerte ou terminer une session lorsqu'une ligne tapée ou affichée correspond.",
+    "add": "Ajouter une règle",
+    "edit": "Modifier la règle",
+    "delete": "Supprimer la règle",
+    "deleteConfirm": "Supprimer cette règle ?",
+    "none": "Aucune règle pour le moment",
+    "loadError": "Impossible de charger les règles",
+    "saveError": "Impossible d'enregistrer la règle",
+    "name": "Nom",
+    "pattern": "Correspondance",
+    "patternHint": "Texte à rechercher sur une ligne. La casse n'a pas d'importance.",
+    "regex": "Expression régulière",
+    "regexHint": "Interpréter la correspondance comme une expression régulière.",
+    "target": "Observer",
+    "targetInput": "Ce qui est tapé",
+    "targetOutput": "Ce que l'hôte affiche",
+    "hosts": "Hôtes",
+    "hostsAll": "Tous les hôtes",
+    "hostsPrivileged": "Hôtes privilégiés uniquement",
+    "severity": "Niveau d'alerte",
+    "severityInfo": "Info",
+    "severityWarning": "Avertissement",
+    "severityCritical": "Critique",
+    "action": "Alors",
+    "actionAlert": "Alerter les auditeurs",
+    "actionEnd": "Alerter et terminer la session",
+    "enabled": "Activé"
   }
 }

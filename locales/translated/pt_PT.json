@@ -9,6 +9,14 @@
     "view": {
       "title": "Ver gravações de sessão",
       "description": "Ver e reproduzir as suas próprias gravações de sessão."
+    },
+    "audit": {
+      "title": "Auditar todas as sessões",
+      "description": "Ver e reproduzir as gravações de todos, ver quem abriu cada uma, colocar gravações em espera e ver ou terminar sessões em direto."
+    },
+    "rules": {
+      "title": "Gerir regras de alerta de comandos",
+      "description": "Adicionar e alterar as regras que alertam ou terminam uma sessão quando um comando corresponde."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Retenção (dias)",
         "description": "Tempo que uma gravação de sessão é mantida antes de ser eliminada automaticamente."
+      },
+      "forceRecording": {
+        "label": "Obrigar a gravação",
+        "description": "Gravar todas as sessões, mesmo quando um host tem a gravação desativada. Os utilizadores não podem parar uma gravação obrigatória.",
+        "off": "Desativado",
+        "privileged": "Em hosts privilegiados",
+        "all": "Em todos os hosts"
+      },
+      "encryptRecordings": {
+        "label": "Criptografar gravações",
+        "description": "Criptografar novas gravações no disco. As gravações feitas anteriormente mantêm-se inalteradas."
+      },
+      "alertOnAccess": {
+        "label": "Alertar quando uma gravação é aberta",
+        "description": "Enviar um alerta aos auditores quando alguém vê, descarrega ou vê em direto uma sessão.",
+        "off": "Desativado",
+        "others": "Quando é a sessão de outra pessoa",
+        "all": "Sempre"
       }
     },
     "host": {
       "enable": {
         "label": "Ativar gravação de sessão",
         "description": "Gravar a saída do terminal para este host para poder reproduzi-la ou descarregá-la mais tarde."
+      },
+      "includeOutputTimestamps": {
+        "label": "Carimbos de tempo nas descargas de texto",
+        "description": "A descarga como texto coloca a hora em que cada linha foi impressa no início, em UTC. As gravações e a reprodução mantêm-se inalteradas."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Host {{id}}",
     "sessionFallback": "Sessão {{id}}",
     "settingsTitle": "Definições de registo de sessão",
-    "settingsDisplayTitle": "Exibição"
+    "settingsDisplayTitle": "Exibição",
+    "tabMine": "Minhas",
+    "tabAll": "Todos os utilizadores",
+    "tabLive": "Em direto",
+    "tabRules": "Regras",
+    "onHold": "Em espera",
+    "flagCount": "{{count}} alertas",
+    "verify": "Verificar alterações",
+    "verifyOk": "A gravação está inalterada",
+    "verifyChanged": "A gravação foi alterada após ser guardada",
+    "verifyMissing": "O ficheiro da gravação está em falta",
+    "verifyUnknown": "Esta gravação não tem impressão digital guardada para comparar",
+    "verifyFailed": "Não foi possível verificar a gravação",
+    "putOnHold": "Colocar em espera",
+    "releaseHold": "Retirar da espera",
+    "holdOn": "Gravação colocada em espera. Não será eliminada.",
+    "holdOff": "Gravação retirada da espera",
+    "holdFailed": "Não foi possível alterar o estado de espera",
+    "missingTimestamps": "Esta gravação não tem temporização, por isso não pode ser descarregada com carimbos de tempo."
   },
   "player": {
     "timeline": "Linha temporal da gravação",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Gravação de Sessão",
-    "description": "Gravar sessões do terminal e do ambiente desktop remoto e reproduzi-las ou descarregá-las mais tarde."
+    "description": "Gravar sessões de terminal e ambiente de trabalho remoto, vê-las em direto e manter um registo auditado e criptografado do que foi feito."
   },
   "card": {
     "title": "Gravações recentes",
     "loading": "A carregar..."
+  },
+  "operations": {
+    "list": {
+      "title": "Gravações de sessões"
+    },
+    "usage": {
+      "title": "Armazenamento de gravações"
+    },
+    "recording": {
+      "title": "Gravações",
+      "protocol": "Tipo",
+      "started": "Início",
+      "ended": "Fim"
+    },
+    "storage": {
+      "title": "Armazenamento de gravações"
+    },
+    "verify": {
+      "title": "Verificar uma gravação em busca de alterações"
+    },
+    "alertEvent": {
+      "title": "Uma regra de alerta de comando correspondeu"
+    }
+  },
+  "details": {
+    "ended": "Terminou: {{reason}}",
+    "flags": "Alertas ({{count}})",
+    "access": "Histórico de acesso",
+    "noAccess": "Ninguém abriu esta gravação ainda",
+    "someone": "Alguém",
+    "actionViewed": "viu",
+    "actionDownloaded": "descarregou",
+    "actionVerified": "verificou alterações",
+    "actionWatchedLive": "viu em direto",
+    "actionEndedLive": "terminou a sessão",
+    "actionHoldOn": "colocou em espera",
+    "actionHoldOff": "retirou da espera"
+  },
+  "live": {
+    "loading": "A carregar...",
+    "none": "Sem sessões em direto",
+    "noneHint": "As sessões SSH e de ambiente de trabalho remoto de todos os utilizadores aparecem aqui.",
+    "loadError": "Não foi possível carregar as sessões ativas",
+    "watch": "Observar",
+    "end": "Terminar sessão",
+    "endConfirm": "Terminar esta sessão?",
+    "endDescription": "{{user}} em {{host}} será desconetado imediatamente.",
+    "endReason": "Terminado por um auditor",
+    "ended": "Sessão terminada",
+    "endFailed": "Não foi possível terminar a sessão",
+    "readOnly": "Apenas leitura",
+    "recording": "A gravar",
+    "detached": "Desligado",
+    "watchingAs": "Sessão de {{user}}",
+    "sessionEnded": "A sessão terminou",
+    "watchFailed": "Não foi possível observar esta sessão",
+    "displayUnavailable": "É necessário o Ambiente de Trabalho Remoto para observar esta sessão"
+  },
+  "rules": {
+    "intro": "Alertar ou terminar uma sessão quando alguém digitar ou visualizar uma linha que corresponda.",
+    "add": "Adicionar regra",
+    "edit": "Editar regra",
+    "delete": "Eliminar regra",
+    "deleteConfirm": "Eliminar esta regra?",
+    "none": "Ainda não há regras",
+    "loadError": "Não foi possível carregar as regras",
+    "saveError": "Não foi possível guardar a regra",
+    "name": "Nome",
+    "pattern": "Correspondência",
+    "patternHint": "Texto a procurar numa linha. Não distingue maiúsculas de minúsculas.",
+    "regex": "Expressão regular",
+    "regexHint": "Tratar a correspondência como uma expressão regular.",
+    "target": "Observar",
+    "targetInput": "O que é digitado",
+    "targetOutput": "O que o host imprime",
+    "hosts": "Hosts",
+    "hostsAll": "Todos os hosts",
+    "hostsPrivileged": "Apenas hosts privilegiados",
+    "severity": "Nível de alerta",
+    "severityInfo": "Informação",
+    "severityWarning": "Aviso",
+    "severityCritical": "Crítico",
+    "action": "Então",
+    "actionAlert": "Alertar auditores",
+    "actionEnd": "Alertar e terminar a sessão",
+    "enabled": "Ativado"
   }
 }

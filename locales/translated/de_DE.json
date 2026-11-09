@@ -9,6 +9,14 @@
     "view": {
       "title": "Sitzungsaufzeichnungen ansehen",
       "description": "Eigene Sitzungsaufzeichnungen ansehen und abspielen."
+    },
+    "audit": {
+      "title": "Jede Sitzung prüfen",
+      "description": "Alle Aufzeichnungen ansehen und abspielen, nachsehen, wer welche geöffnet hat, Aufzeichnungen vorübergehend schützen und Live-Sitzungen beobachten oder beenden."
+    },
+    "rules": {
+      "title": "Regeln für Befehlsbenachrichtigungen verwalten",
+      "description": "Regeln hinzufügen und ändern, die bei einem Treffer eines Befehls eine Benachrichtigung auslösen oder eine Sitzung beenden."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Aufbewahrung (Tage)",
         "description": "Wie lange eine Sitzungsaufzeichnung aufbewahrt wird, bevor sie automatisch gelöscht wird."
+      },
+      "forceRecording": {
+        "label": "Aufzeichnungspflicht",
+        "description": "Jede Sitzung aufzeichnen, auch wenn die Aufzeichnung auf dem Host deaktiviert ist. Benutzer können eine vorgeschriebene Aufzeichnung nicht stoppen.",
+        "off": "Aus",
+        "privileged": "Auf privilegierten Hosts",
+        "all": "Auf allen Hosts"
+      },
+      "encryptRecordings": {
+        "label": "Aufzeichnungen verschlüsseln",
+        "description": "Neue Aufzeichnungen auf der Festplatte verschlüsseln. Bereits erstellte Aufzeichnungen bleiben unverändert."
+      },
+      "alertOnAccess": {
+        "label": "Benachrichtigen, wenn eine Aufzeichnung geöffnet wird",
+        "description": "Prüfer benachrichtigen, wenn jemand eine Sitzung ansieht, herunterlädt oder live verfolgt.",
+        "off": "Aus",
+        "others": "Bei Sitzungen anderer Benutzer",
+        "all": "Jedes Mal"
       }
     },
     "host": {
       "enable": {
         "label": "Sitzungsaufzeichnung aktivieren",
         "description": "Terminalausgabe für diesen Host aufzeichnen, damit sie später abgespielt oder heruntergeladen werden kann."
+      },
+      "includeOutputTimestamps": {
+        "label": "Zeitstempel in Textdownloads",
+        "description": "Beim Download als Text wird die Uhrzeit (UTC), zu der jede Zeile ausgegeben wurde, am Anfang eingefügt. Aufzeichnungen und Wiedergaben bleiben unverändert."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Host {{id}}",
     "sessionFallback": "Sitzung {{id}}",
     "settingsTitle": "Einstellungen für Sitzungsprotokolle",
-    "settingsDisplayTitle": "Darstellung"
+    "settingsDisplayTitle": "Darstellung",
+    "tabMine": "Meine",
+    "tabAll": "Alle Benutzer",
+    "tabLive": "Live",
+    "tabRules": "Regeln",
+    "onHold": "Vorübergehend geschützt",
+    "flagCount": "{{count}} Benachrichtigungen",
+    "verify": "Auf Änderungen prüfen",
+    "verifyOk": "Die Aufzeichnung ist unverändert",
+    "verifyChanged": "Die Aufzeichnung wurde nach dem Speichern geändert",
+    "verifyMissing": "Die Aufzeichnungsdatei fehlt",
+    "verifyUnknown": "Für diese Aufzeichnung wurde kein Fingerabdruck gespeichert, mit dem ein Vergleich möglich wäre",
+    "verifyFailed": "Die Aufzeichnung konnte nicht geprüft werden",
+    "putOnHold": "Vorübergehend schützen",
+    "releaseHold": "Schutz aufheben",
+    "holdOn": "Aufzeichnung vorübergehend geschützt. Sie wird nicht gelöscht.",
+    "holdOff": "Schutz der Aufzeichnung aufgehoben",
+    "holdFailed": "Der Schutzstatus konnte nicht geändert werden",
+    "missingTimestamps": "Diese Aufzeichnung enthält keine Zeitinformationen und kann daher nicht mit Zeitstempeln heruntergeladen werden."
   },
   "player": {
     "timeline": "Aufzeichnung-Zeitachse",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Sitzungsaufzeichnung",
-    "description": "Nehmen Sie Terminal- und Remote-Desktop-Sitzungen auf und spielen Sie sie später ab oder laden Sie sie herunter."
+    "description": "Terminal- und Remote-Desktop-Sitzungen aufzeichnen, live verfolgen und ein geprüftes, verschlüsseltes Protokoll darüber führen, wer was getan hat."
   },
   "card": {
     "title": "Neueste Aufzeichnungen",
     "loading": "Wird geladen..."
+  },
+  "operations": {
+    "list": {
+      "title": "Sitzungsaufzeichnungen"
+    },
+    "usage": {
+      "title": "Aufzeichnungsspeicher"
+    },
+    "recording": {
+      "title": "Aufzeichnungen",
+      "protocol": "Typ",
+      "started": "Gestartet",
+      "ended": "Beendet"
+    },
+    "storage": {
+      "title": "Aufzeichnungsspeicher"
+    },
+    "verify": {
+      "title": "Aufzeichnung auf Änderungen prüfen"
+    },
+    "alertEvent": {
+      "title": "Eine Regel für Befehlsbenachrichtigungen wurde ausgelöst"
+    }
+  },
+  "details": {
+    "ended": "Beendet: {{reason}}",
+    "flags": "Benachrichtigungen ({{count}})",
+    "access": "Zugriffshistorie",
+    "noAccess": "Diese Aufzeichnung wurde noch nicht geöffnet",
+    "someone": "Jemand",
+    "actionViewed": "hat angesehen",
+    "actionDownloaded": "hat heruntergeladen",
+    "actionVerified": "hat auf Änderungen geprüft",
+    "actionWatchedLive": "hat live verfolgt",
+    "actionEndedLive": "hat die Sitzung beendet",
+    "actionHoldOn": "hat vorübergehend geschützt",
+    "actionHoldOff": "hat den Schutz aufgehoben"
+  },
+  "live": {
+    "loading": "Wird geladen...",
+    "none": "Keine Live-Sitzungen",
+    "noneHint": "Hier werden SSH- und Remote-Desktop-Sitzungen aller Benutzer angezeigt.",
+    "loadError": "Live-Sitzungen konnten nicht geladen werden",
+    "watch": "Beobachten",
+    "end": "Sitzung beenden",
+    "endConfirm": "Diese Sitzung beenden?",
+    "endDescription": "{{user}} auf {{host}} wird sofort getrennt.",
+    "endReason": "Beendet von einem Prüfer",
+    "ended": "Sitzung beendet",
+    "endFailed": "Sitzung konnte nicht beendet werden",
+    "readOnly": "Schreibgeschützt",
+    "recording": "Aufzeichnung",
+    "detached": "Getrennt",
+    "watchingAs": "Sitzung von {{user}}",
+    "sessionEnded": "Die Sitzung wurde beendet",
+    "watchFailed": "Diese Sitzung konnte nicht beobachtet werden",
+    "displayUnavailable": "Zum Beobachten dieser Sitzung ist Remote Desktop erforderlich"
+  },
+  "rules": {
+    "intro": "Benachrichtigen oder Sitzung beenden, wenn jemand eine Zeile eingibt oder sieht, die übereinstimmt.",
+    "add": "Regel hinzufügen",
+    "edit": "Regel bearbeiten",
+    "delete": "Regel löschen",
+    "deleteConfirm": "Diese Regel löschen?",
+    "none": "Noch keine Regeln",
+    "loadError": "Regeln konnten nicht geladen werden",
+    "saveError": "Regel konnte nicht gespeichert werden",
+    "name": "Name",
+    "pattern": "Übereinstimmung",
+    "patternHint": "Text, der in einer Zeile gesucht wird. Groß-/Kleinschreibung wird ignoriert.",
+    "regex": "Regulärer Ausdruck",
+    "regexHint": "Die Übereinstimmung als regulären Ausdruck behandeln.",
+    "target": "Überprüfen",
+    "targetInput": "Eingegebener Text",
+    "targetOutput": "Ausgabe des Hosts",
+    "hosts": "Hosts",
+    "hostsAll": "Alle Hosts",
+    "hostsPrivileged": "Nur privilegierte Hosts",
+    "severity": "Warnstufe",
+    "severityInfo": "Info",
+    "severityWarning": "Warnung",
+    "severityCritical": "Kritisch",
+    "action": "Dann",
+    "actionAlert": "Prüfer benachrichtigen",
+    "actionEnd": "Prüfer benachrichtigen und Sitzung beenden",
+    "enabled": "Aktiv"
   }
 }

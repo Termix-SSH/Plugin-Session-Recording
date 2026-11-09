@@ -9,6 +9,14 @@
     "view": {
       "title": "Istungisalvestiste vaatamine",
       "description": "Vaata ja esita oma istungisalvestisi."
+    },
+    "audit": {
+      "title": "Audit iga sessioon",
+      "description": "Vaata ja esita kõigi salvestisi, näe, kes igaühe avas, pane salvestised ootele ning vaata või lõpeta otseülekanded."
+    },
+    "rules": {
+      "title": "Halda käsu hoiatusreegleid",
+      "description": "Lisa ja muuda reegleid, mis hoiatavad või lõpetavad sessiooni, kui käsk ühtib."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Säilitusaeg (päevi)",
         "description": "Kui kaua istungisalvestist hoitakse, enne kui see automaatselt kustutatakse."
+      },
+      "forceRecording": {
+        "label": "Salvestamine kohustuslik",
+        "description": "Salvesta iga sessioon, isegi kui perel on salvestamine välja lülitatud. Kasutajad ei saa kohustuslikku salvestamist peatada.",
+        "off": "Väljas",
+        "privileged": "Privelegieritud peredel",
+        "all": "Kõikidel peredel"
+      },
+      "encryptRecordings": {
+        "label": "Salvestiste krüpteerimine",
+        "description": "Krüpteeri uued salvestised kettal. Varasemad salvestised jäävad muutumatuks."
+      },
+      "alertOnAccess": {
+        "label": "Hoiatus, kui salvestist avatakse",
+        "description": "Saada auditeerijatele hoiatus, kui keegi vaatab, laeb alla või jälgib otseülekannet.",
+        "off": "Väljas",
+        "others": "Kui tegemist on kellegi teise sessiooniga",
+        "all": "Iga kord"
       }
     },
     "host": {
       "enable": {
         "label": "Luba istungite salvestamine",
         "description": "Salvesta selle hosti terminali väljund, et saaksid seda hiljem esitada või alla laadida."
+      },
+      "includeOutputTimestamps": {
+        "label": "Aeglid teksti allalaadimisel",
+        "description": "Tekstina allalaadimisel lisatakse iga rea algusesse UTC aja järgi aeg, mil see trükiti. Salvestised ja esitus jäävad samaks."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Host {{id}}",
     "sessionFallback": "Istung {{id}}",
     "settingsTitle": "Istungipäevikute seaded",
-    "settingsDisplayTitle": "Kuvamine"
+    "settingsDisplayTitle": "Kuvamine",
+    "tabMine": "Minu",
+    "tabAll": "Kõik kasutajad",
+    "tabLive": "Otse",
+    "tabRules": "Reeglid",
+    "onHold": "Ootel",
+    "flagCount": "{{count}} hoiatust",
+    "verify": "Kontrolli muutusi",
+    "verifyOk": "Salvestis on muutumatu",
+    "verifyChanged": "Salvestist muudeti pärast salvestamist",
+    "verifyMissing": "Salvestisefail puudub",
+    "verifyUnknown": "Sellel salvestisel puudub võrdlemiseks salvestatud sõrmejälgi",
+    "verifyFailed": "Salvestise kontrollimine ei õnnestunud",
+    "putOnHold": "Pane ootele",
+    "releaseHold": "Eemalda ootel olek",
+    "holdOn": "Salvestis pandi ootele. Seda ei kustutata.",
+    "holdOff": "Salvestiselt eemaldati ootel olek",
+    "holdFailed": "Ootel oleku muutmine ei õnnestunud",
+    "missingTimestamps": "Sellel salvestisel puuduvad ajamärgid, seega ei saa seda aeglidega alla laadida."
   },
   "player": {
     "timeline": "Salvestise ajajoon",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Istungite salvestamine",
-    "description": "Salvesta terminali ja kauglaua sessioonid ning esita need hiljem uuesti või laadi alla."
+    "description": "Salvesta terminali ja kauglaua sessioone, vaata neid otse ja hoia auditeeritud, krüpteeritud logi sellest, kes mida tegi."
   },
   "card": {
     "title": "Viimased salvestised",
     "loading": "Laadimine..."
+  },
+  "operations": {
+    "list": {
+      "title": "Sessioonide salvestised"
+    },
+    "usage": {
+      "title": "Salvestiste hoidla"
+    },
+    "recording": {
+      "title": "Salvestised",
+      "protocol": "Tüüp",
+      "started": "Alustatud",
+      "ended": "Lõpetatud"
+    },
+    "storage": {
+      "title": "Salvestiste hoidla"
+    },
+    "verify": {
+      "title": "Kontrolli salvestist muutuste osas"
+    },
+    "alertEvent": {
+      "title": "Käsu hoiatusreegel ühtis"
+    }
+  },
+  "details": {
+    "ended": "Lõpetatud: {{reason}}",
+    "flags": "Hoiatused ({{count}})",
+    "access": "Juurdepääsu ajalugu",
+    "noAccess": "Keegi pole seda salvestist veel avanud",
+    "someone": "Keegi",
+    "actionViewed": "vaatas",
+    "actionDownloaded": "laadis alla",
+    "actionVerified": "kontrollis muutusi",
+    "actionWatchedLive": "vaatas otse",
+    "actionEndedLive": "lõpetas sessiooni",
+    "actionHoldOn": "pani ootele",
+    "actionHoldOff": "eemaldas ootel oleku"
+  },
+  "live": {
+    "loading": "Laadimine...",
+    "none": "Otseülekandeid pole",
+    "noneHint": "Siin kuvatakse kõigi kasutajate SSH- ja kauglaua sessioonid.",
+    "loadError": "Ei õnnestunud laadida otseülekande sessioone",
+    "watch": "Jälgi",
+    "end": "Lõpeta sessioon",
+    "endConfirm": "Kas soovid selle sessiooni lõpetada?",
+    "endDescription": "{{user}} ühendus hostiga {{host}} katkestatakse kohe.",
+    "endReason": "Lõpetatud auditi poolt",
+    "ended": "Sessioon lõpetatud",
+    "endFailed": "Ei õnnestunud sessiooni lõpetada",
+    "readOnly": "Ainult lugemiseks",
+    "recording": "Salvestamine",
+    "detached": "Ühendus katkestatud",
+    "watchingAs": "Kasutaja {{user}} sessioon",
+    "sessionEnded": "Sessioon on lõppenud",
+    "watchFailed": "Ei õnnestunud seda sessiooni jälgida",
+    "displayUnavailable": "Selle sessiooni jälgimiseks on vaja Kauglauda"
+  },
+  "rules": {
+    "intro": "Teavita või lõpeta sessioon, kui keegi trükkib või näeb rida, mis vastab reeglile.",
+    "add": "Lisa reegel",
+    "edit": "Muuda reeglit",
+    "delete": "Kustuta reegel",
+    "deleteConfirm": "Kas soovid selle reegli kustutada?",
+    "none": "Reegleid pole veel",
+    "loadError": "Ei õnnestunud laadida reegleid",
+    "saveError": "Ei õnnestunud reeglit salvestada",
+    "name": "Nimi",
+    "pattern": "Sobivus",
+    "patternHint": "Ühes reas otsitav tekst. Suurtähtede kasutamine ei ole oluline.",
+    "regex": "Regulaaravaldis",
+    "regexHint": "Tõlgenda sobivust regulaaravaldisena.",
+    "target": "Vaata",
+    "targetInput": "Mis on trükitud",
+    "targetOutput": "Mida host kuvab",
+    "hosts": "Hostid",
+    "hostsAll": "Kõik hostid",
+    "hostsPrivileged": "Ainult privileegiga hostid",
+    "severity": "Teavituse tase",
+    "severityInfo": "Info",
+    "severityWarning": "Hoiatus",
+    "severityCritical": "Kriitiline",
+    "action": "Siis",
+    "actionAlert": "Teavita auditeerijaid",
+    "actionEnd": "Teavita ja lõpeta sessioon",
+    "enabled": "Sees"
   }
 }

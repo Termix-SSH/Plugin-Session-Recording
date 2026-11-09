@@ -4,7 +4,7 @@
 
 <h1>Session Recording</h1>
 
-<p>Record terminal and remote desktop sessions and play them back or download them later</p>
+<p>Record terminal and remote desktop sessions, watch them live, and keep an audited, encrypted record of who did what</p>
 
 <!-- VIDEO:START -->
 
@@ -18,7 +18,7 @@
 
 ## Overview
 
-Session Recording records your terminal and remote desktop sessions so you can watch them again later.
+Session Recording records your terminal and remote desktop sessions so you can watch them again later. For teams that need an audit trail, it can make recording required, encrypt recordings, show auditors every session live or recorded, log who opened each one, and alert on risky commands.
 
 Read the [docs](https://docs.termix.site/plugins/session-recording) to set it up and use it.
 
@@ -30,6 +30,12 @@ Read the [docs](https://docs.termix.site/plugins/session-recording) to set it up
 - Play recordings back at any speed
 - Download a recording as a file or plain text
 - Old recordings are removed after a number of days you choose
+- Make recording required on every host, or only on privileged ones
+- Recordings are encrypted on disk and can be checked for changes
+- Auditors see every recording, with a history of who watched each one
+- Watch and end anyone's live session
+- Alert on, or end, a session when a typed command matches a rule
+- A host's recordings and storage on the host page
 
 <br />
 

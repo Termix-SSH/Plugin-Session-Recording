@@ -9,6 +9,14 @@
     "view": {
       "title": "Pregled snimki sesija",
       "description": "Pregledajte i reproducirajte vlastite snimke sesija."
+    },
+    "audit": {
+      "title": "Pregledajte svaku sesiju",
+      "description": "Pregledajte i reproducirajte snimke svih korisnika, vidite tko je otvorio svaku snimku, stavite snimke na čekanje te pratite ili prekinite sesije uživo."
+    },
+    "rules": {
+      "title": "Upravljajte pravilima upozorenja za naredbe",
+      "description": "Dodajte i mijenjajte pravila koja upozoravaju ili prekidaju sesiju kada naredba odgovara."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Rok zadržavanja (dani)",
         "description": "Koliko dugo se snimka sesije čuva prije automatskog brisanja."
+      },
+      "forceRecording": {
+        "label": "Zahtijevaj snimanje",
+        "description": "Snimajte svaku sesiju čak i kada je snimanje na hostu isključeno. Korisnici ne mogu zaustaviti obavezno snimanje.",
+        "off": "Isključeno",
+        "privileged": "Na privilegiranim hostovima",
+        "all": "Na svim hostovima"
+      },
+      "encryptRecordings": {
+        "label": "Šifriraj snimke",
+        "description": "Šifrirajte nove snimke na disku. Snimke napravljene prije ostaju nepromijenjene."
+      },
+      "alertOnAccess": {
+        "label": "Upozori kada se snimka otvori",
+        "description": "Pošaljite upozorenje revizorima kada netko gleda, preuzima ili uživo prati sesiju.",
+        "off": "Isključeno",
+        "others": "Kada je u pitanju tuđa sesija",
+        "all": "Svaki put"
       }
     },
     "host": {
       "enable": {
         "label": "Omogući snimanje sesija",
         "description": "Snimajte izlaz terminala za ovog hosta kako biste ga kasnije mogli reproducirati ili preuzeti."
+      },
+      "includeOutputTimestamps": {
+        "label": "Vremenske oznake u tekstualnim preuzimanjima",
+        "description": "Preuzimanje kao tekst dodaje vrijeme ispisivanja svake retke na njegov početak, u UTC vremenu. Snimke i reprodukcija ostaju nepromijenjene."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Host {{id}}",
     "sessionFallback": "Sesija {{id}}",
     "settingsTitle": "Postavke zapisnika sesija",
-    "settingsDisplayTitle": "Prikaz"
+    "settingsDisplayTitle": "Prikaz",
+    "tabMine": "Moje",
+    "tabAll": "Svi korisnici",
+    "tabLive": "Uživo",
+    "tabRules": "Pravila",
+    "onHold": "Na čekanju",
+    "flagCount": "Upozorenja: {{count}}",
+    "verify": "Provjeri promjene",
+    "verifyOk": "Snimka je nepromijenjena",
+    "verifyChanged": "Snimka je promijenjena nakon spremanja",
+    "verifyMissing": "Datoteka snimke nedostaje",
+    "verifyUnknown": "Ova snimka nema spremljeni otisak za usporedbu",
+    "verifyFailed": "Nije moguće provjeriti snimku",
+    "putOnHold": "Stavi na čekanje",
+    "releaseHold": "Ukloni s čekanja",
+    "holdOn": "Snimka stavljena na čekanje. Neće biti obrisana.",
+    "holdOff": "Snimka uklonjena s čekanja",
+    "holdFailed": "Nije moguće promijeniti status čekanja",
+    "missingTimestamps": "Ova snimka nema vremenske podatke, stoga se ne može preuzeti s vremenskim oznakama."
   },
   "player": {
     "timeline": "Vremenska crta snimke",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Snimanje sesija",
-    "description": "Snimajte sesije terminala i udaljenog desktopa te ih kasnije reproducirajte ili preuzmite."
+    "description": "Snimajte terminalne i sesije udaljenog desktopa, pratite ih uživo i vodite šifrirani, revidirani zapis o tome što je tko radio."
   },
   "card": {
     "title": "Nedavne snimke",
     "loading": "Učitavanje..."
+  },
+  "operations": {
+    "list": {
+      "title": "Snimke sesija"
+    },
+    "usage": {
+      "title": "Skladište snimki"
+    },
+    "recording": {
+      "title": "Snimke",
+      "protocol": "Vrsta",
+      "started": "Započeto",
+      "ended": "Završeno"
+    },
+    "storage": {
+      "title": "Skladište snimki"
+    },
+    "verify": {
+      "title": "Provjeri snimku na promjene"
+    },
+    "alertEvent": {
+      "title": "Pravilo upozorenja za naredbu je odgovaralo"
+    }
+  },
+  "details": {
+    "ended": "Završeno: {{reason}}",
+    "flags": "Upozorenja ({{count}})",
+    "access": "Povijest pristupa",
+    "noAccess": "Nitko još nije otvorio ovu snimku",
+    "someone": "Netko",
+    "actionViewed": "gledao",
+    "actionDownloaded": "preuzeo",
+    "actionVerified": "provjerio promjene",
+    "actionWatchedLive": "gledao uživo",
+    "actionEndedLive": "prekinuo sesiju",
+    "actionHoldOn": "stavio na čekanje",
+    "actionHoldOff": "uklonio s čekanja"
+  },
+  "live": {
+    "loading": "Učitavanje...",
+    "none": "Nema sesija uživo",
+    "noneHint": "Ovdje se prikazuju SSH i sesije udaljenog desktopa svih korisnika.",
+    "loadError": "Nije moguće učitati aktivne sesije",
+    "watch": "Promatraj",
+    "end": "Završi sesiju",
+    "endConfirm": "Završiti ovu sesiju?",
+    "endDescription": "Korisnik {{user}} na hostu {{host}} odmah se odjava.",
+    "endReason": "Završeno od strane revizora",
+    "ended": "Sesija je završena",
+    "endFailed": "Nije moguće završiti sesiju",
+    "readOnly": "Samo za čitanje",
+    "recording": "Snimanje",
+    "detached": "Odspojeno",
+    "watchingAs": "Sesija korisnika {{user}}",
+    "sessionEnded": "Sesija je završena",
+    "watchFailed": "Nije moguće promatrati ovu sesiju",
+    "displayUnavailable": "Za promatranje ove sesije potreban je Udaljeni desktop"
+  },
+  "rules": {
+    "intro": "Upozori ili završi sesiju kada netko upiše ili vidi redak koji odgovara.",
+    "add": "Dodaj pravilo",
+    "edit": "Uredi pravilo",
+    "delete": "Izbriši pravilo",
+    "deleteConfirm": "Izbrisati ovo pravilo?",
+    "none": "Još nema pravila",
+    "loadError": "Nije moguće učitati pravila",
+    "saveError": "Nije moguće spremiti pravilo",
+    "name": "Naziv",
+    "pattern": "Uslaga",
+    "patternHint": "Tekst za pretraživanje u jednom retku. Velika i mala slova nisu važna.",
+    "regex": "Regularni izraz",
+    "regexHint": "Tretiraj uslov kao regularni izraz.",
+    "target": "Gledaj",
+    "targetInput": "Što se upisuje",
+    "targetOutput": "Što host ispisuje",
+    "hosts": "Hostovi",
+    "hostsAll": "Svi hostovi",
+    "hostsPrivileged": "Samo privilegirani hostovi",
+    "severity": "Razina upozorenja",
+    "severityInfo": "Info",
+    "severityWarning": "Upozorenje",
+    "severityCritical": "Kritično",
+    "action": "Zatim",
+    "actionAlert": "Upozori revizore",
+    "actionEnd": "Upozori i završi sesiju",
+    "enabled": "Uključeno"
   }
 }

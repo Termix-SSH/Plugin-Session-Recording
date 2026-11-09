@@ -9,6 +9,14 @@
     "view": {
       "title": "세션 녹화 보기",
       "description": "자신의 세션 녹화 파일을 확인하고 재생합니다."
+    },
+    "audit": {
+      "title": "모든 세션 감사",
+      "description": "모든 사용자의 녹화 파일을 확인하고 재생하며, 각 파일을 누가 열었는지 확인하고, 녹화 파일을 보존 처리하거나 라이브 세션을 시청하거나 종료합니다."
+    },
+    "rules": {
+      "title": "명령 경고 규칙 관리",
+      "description": "명령이 일치할 때 세션에 경고를 보내거나 세션을 종료하는 규칙을 추가하고 수정합니다."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "보관 기간 (일)",
         "description": "세션 녹화 파일이 자동으로 삭제되기 전까지 보관되는 기간입니다."
+      },
+      "forceRecording": {
+        "label": "녹화 필수",
+        "description": "호스트에서 녹화가 꺼져 있더라도 모든 세션을 녹화합니다. 사용자는 필수 녹화를 중지할 수 없습니다.",
+        "off": "꺼짐",
+        "privileged": "권한 있는 호스트에서만",
+        "all": "모든 호스트에서"
+      },
+      "encryptRecordings": {
+        "label": "녹화 파일 암호화",
+        "description": "디스크에 새 녹화 파일을 암호화합니다. 이전에 생성된 녹화 파일은 변경되지 않습니다."
+      },
+      "alertOnAccess": {
+        "label": "녹화 파일 열림 시 경고",
+        "description": "누군가 세션을 시청하거나 다운로드하거나 라이브 시청할 때 감사자에게 경고를 보냅니다.",
+        "off": "꺼짐",
+        "others": "다른 사람의 세션일 때",
+        "all": "매번"
       }
     },
     "host": {
       "enable": {
         "label": "세션 녹화 활성화",
         "description": "이 호스트의 터미널 출력을 기록하여 나중에 재생하거나 다운로드할 수 있습니다."
+      },
+      "includeOutputTimestamps": {
+        "label": "텍스트 다운로드에 시간 표시",
+        "description": "텍스트로 다운로드하면 각 줄이 인쇄된 시간(UTC)이 맨 앞에 표시됩니다. 녹화 파일과 재생에는 영향을 주지 않습니다."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "호스트 {{id}}",
     "sessionFallback": "세션 {{id}}",
     "settingsTitle": "세션 로그 설정",
-    "settingsDisplayTitle": "표시"
+    "settingsDisplayTitle": "표시",
+    "tabMine": "내 세션",
+    "tabAll": "모든 사용자",
+    "tabLive": "라이브",
+    "tabRules": "규칙",
+    "onHold": "보존 처리됨",
+    "flagCount": "{{count}}개 경고",
+    "verify": "변경 사항 확인",
+    "verifyOk": "녹화 파일이 변경되지 않았습니다",
+    "verifyChanged": "녹화 파일이 저장된 후 변경되었습니다",
+    "verifyMissing": "녹화 파일이 누락되었습니다",
+    "verifyUnknown": "비교할 수 있는 저장된 지문 정보가 없습니다",
+    "verifyFailed": "녹화 파일을 확인할 수 없습니다",
+    "putOnHold": "보존 처리",
+    "releaseHold": "보존 해제",
+    "holdOn": "녹화 파일이 보존 처리되었습니다. 삭제되지 않습니다.",
+    "holdOff": "녹화 파일의 보존이 해제되었습니다",
+    "holdFailed": "보존 상태를 변경할 수 없습니다",
+    "missingTimestamps": "이 녹화 파일에는 시간 정보가 없으므로 시간 표시와 함께 다운로드할 수 없습니다."
   },
   "player": {
     "timeline": "녹화 타임라인",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "세션 녹화",
-    "description": "터미널 및 원격 데스크톱 세션을 녹화하고 나중에 재생하거나 다운로드할 수 있습니다."
+    "description": "터미널 및 원격 데스크톱 세션을 녹화하고 라이브로 시청하며, 누가 무엇을 했는지 감사 및 암호화된 기록을 유지합니다."
   },
   "card": {
     "title": "최근 녹화",
     "loading": "로딩 중..."
+  },
+  "operations": {
+    "list": {
+      "title": "세션 녹화 파일"
+    },
+    "usage": {
+      "title": "녹화 저장소"
+    },
+    "recording": {
+      "title": "녹화 파일",
+      "protocol": "유형",
+      "started": "시작 시간",
+      "ended": "종료 시간"
+    },
+    "storage": {
+      "title": "녹화 저장소"
+    },
+    "verify": {
+      "title": "녹화 파일 변경 사항 확인"
+    },
+    "alertEvent": {
+      "title": "명령 경고 규칙이 일치했습니다"
+    }
+  },
+  "details": {
+    "ended": "종료: {{reason}}",
+    "flags": "경고 ({{count}}개)",
+    "access": "접근 기록",
+    "noAccess": "아직 이 녹화 파일을 연 사람이 없습니다",
+    "someone": "누군가",
+    "actionViewed": "시청함",
+    "actionDownloaded": "다운로드함",
+    "actionVerified": "변경 사항 확인함",
+    "actionWatchedLive": "라이브 시청함",
+    "actionEndedLive": "세션 종료함",
+    "actionHoldOn": "보존 처리함",
+    "actionHoldOff": "보존 해제함"
+  },
+  "live": {
+    "loading": "로딩 중...",
+    "none": "라이브 세션 없음",
+    "noneHint": "모든 사용자의 SSH 및 원격 데스크톱 세션이 여기에 표시됩니다.",
+    "loadError": "실시간 세션을 로드할 수 없습니다",
+    "watch": "감시",
+    "end": "세션 종료",
+    "endConfirm": "이 세션을 종료하시겠습니까?",
+    "endDescription": "{{host}}의 {{user}}가 즉시 연결 해제됩니다.",
+    "endReason": "감시자에 의해 종료됨",
+    "ended": "세션이 종료되었습니다",
+    "endFailed": "세션을 종료할 수 없습니다",
+    "readOnly": "읽기 전용",
+    "recording": "녹화 중",
+    "detached": "분리됨",
+    "watchingAs": "{{user}}의 세션",
+    "sessionEnded": "세션이 종료되었습니다",
+    "watchFailed": "이 세션을 감시할 수 없습니다",
+    "displayUnavailable": "이 세션을 감시하려면 원격 데스크톱이 필요합니다"
+  },
+  "rules": {
+    "intro": "누군가 일치하는 줄을 입력하거나 볼 때 알림을 보내거나 세션을 종료합니다.",
+    "add": "규칙 추가",
+    "edit": "규칙 편집",
+    "delete": "규칙 삭제",
+    "deleteConfirm": "이 규칙을 삭제하시겠습니까?",
+    "none": "아직 규칙이 없습니다",
+    "loadError": "규칙을 로드할 수 없습니다",
+    "saveError": "규칙을 저장할 수 없습니다",
+    "name": "이름",
+    "pattern": "일치 조건",
+    "patternHint": "한 줄에서 찾을 텍스트입니다. 대소문자를 구분하지 않습니다.",
+    "regex": "정규 표현식",
+    "regexHint": "일치 조건을 정규 표현식으로 처리합니다.",
+    "target": "대상",
+    "targetInput": "입력된 내용",
+    "targetOutput": "호스트가 출력한 내용",
+    "hosts": "호스트",
+    "hostsAll": "모든 호스트",
+    "hostsPrivileged": "권한 있는 호스트만",
+    "severity": "알림 수준",
+    "severityInfo": "정보",
+    "severityWarning": "경고",
+    "severityCritical": "심각",
+    "action": "동작",
+    "actionAlert": "감시자에게 알림",
+    "actionEnd": "알림 및 세션 종료",
+    "enabled": "활성화"
   }
 }

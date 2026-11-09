@@ -54,6 +54,8 @@ export async function startServer(
     permissions?: string[];
     users?: string[];
     hosts?: PluginHostSummary[];
+    services?: Record<string, object>;
+    dataDir?: string;
   } = {},
 ): Promise<TestServer> {
   const db = await createTestDb(pluginDir);
@@ -75,7 +77,14 @@ export async function startServer(
     router: () => (router = express.Router()),
     permissions: options.permissions ?? ["session-recording.view"],
     hosts: options.hosts ?? [host()],
+    services: options.services,
   });
+  if (options.dataDir) {
+    const dir = options.dataDir;
+    (
+      mock.ctx as unknown as { files: { dataDir: () => Promise<string> } }
+    ).files = { dataDir: async () => dir };
+  }
 
   const { activate } = await import("../../src/backend/index.js");
   await activate(mock.ctx);

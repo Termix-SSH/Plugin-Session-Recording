@@ -9,6 +9,14 @@
     "view": {
       "title": "Zobrazovat nahrávky relací",
       "description": "Zobrazujte a přehrávejte vlastní nahrávky relací."
+    },
+    "audit": {
+      "title": "Auditovat každou relaci",
+      "description": "Zobrazit a přehrávat nahrávky všech uživatelů, vidět, kdo kterou otevřel, pozastavit nahrávky a sledovat nebo ukončit živé relace."
+    },
+    "rules": {
+      "title": "Spravovat pravidla pro upozornění na příkazy",
+      "description": "Přidávat a měnit pravidla, která upozorní nebo ukončí relaci při shodě příkazu."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Doba uchování (dny)",
         "description": "Jak dlouho se bude nahrávka relace uchovávat, než bude automaticky smazána."
+      },
+      "forceRecording": {
+        "label": "Povinné nahrávání",
+        "description": "Nahrávat každou relaci, i když je na hostiteli nahrávání vypnuto. Uživatelé nemohou zastavit povinné nahrávání.",
+        "off": "Vypnuto",
+        "privileged": "Na privilegovaných hostitelích",
+        "all": "Na všech hostitelích"
+      },
+      "encryptRecordings": {
+        "label": "Šifrovat nahrávky",
+        "description": "Šifrovat nové nahrávky na disku. Nahrávky vytvořené dříve zůstanou nezměněny."
+      },
+      "alertOnAccess": {
+        "label": "Upozornit při otevření nahrávky",
+        "description": "Poslat upozornění auditorům, když někdo sleduje, stáhne nebo živě sleduje relaci.",
+        "off": "Vypnuto",
+        "others": "Když jde o relaci někoho jiného",
+        "all": "Vždy"
       }
     },
     "host": {
       "enable": {
         "label": "Povolit nahrávání relací",
         "description": "Nahrávejte výstup terminálu pro tohoto hostitele, abyste jej mohli později přehrát nebo stáhnout."
+      },
+      "includeOutputTimestamps": {
+        "label": "Časová razítka ve staženém textu",
+        "description": "Stahování jako text přidá čas tisku každého řádku na jeho začátek v UTC. Nahrávky a přehrávání zůstanou stejné."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Hostitel {{id}}",
     "sessionFallback": "Relace {{id}}",
     "settingsTitle": "Nastavení protokolů relací",
-    "settingsDisplayTitle": "Zobrazení"
+    "settingsDisplayTitle": "Zobrazení",
+    "tabMine": "Moje",
+    "tabAll": "Všichni uživatelé",
+    "tabLive": "Živé",
+    "tabRules": "Pravidla",
+    "onHold": "Pozastaveno",
+    "flagCount": "{{count}} upozornění",
+    "verify": "Zkontrolovat změny",
+    "verifyOk": "Nahrávka nebyla změněna",
+    "verifyChanged": "Nahrávka byla změněna po uložení",
+    "verifyMissing": "Soubor nahrávky chybí",
+    "verifyUnknown": "Tato nahrávka nemá uložený otisk pro porovnání",
+    "verifyFailed": "Nelze zkontrolovat nahrávku",
+    "putOnHold": "Pozastavit",
+    "releaseHold": "Zrušit pozastavení",
+    "holdOn": "Nahrávka byla pozastavena. Nebude smazána.",
+    "holdOff": "Pozastavení nahrávky zrušeno",
+    "holdFailed": "Nelze změnit pozastavení",
+    "missingTimestamps": "Tato nahrávka nemá časování, takže ji nelze stáhnout s časovými razítky."
   },
   "player": {
     "timeline": "Časová osa nahrávky",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Nahrávání relací",
-    "description": "Nahrávání relací terminálu a vzdálené plochy s možností jejich přehrávání nebo stažení později."
+    "description": "Nahrávat relace terminálu a vzdálené plochy, sledovat je živě a vést auditovanou, šifrovanou evidenci toho, kdo co dělal."
   },
   "card": {
     "title": "Nedávné nahrávky",
     "loading": "Načítání..."
+  },
+  "operations": {
+    "list": {
+      "title": "Nahrávky relací"
+    },
+    "usage": {
+      "title": "Úložiště nahrávek"
+    },
+    "recording": {
+      "title": "Nahrávky",
+      "protocol": "Typ",
+      "started": "Začátek",
+      "ended": "Konec"
+    },
+    "storage": {
+      "title": "Úložiště nahrávek"
+    },
+    "verify": {
+      "title": "Zkontrolovat nahrávku na změny"
+    },
+    "alertEvent": {
+      "title": "Shoda s pravidlem upozornění na příkaz"
+    }
+  },
+  "details": {
+    "ended": "Konec: {{reason}}",
+    "flags": "Upozornění ({{count}})",
+    "access": "Historie přístupu",
+    "noAccess": "Tuto nahrávku ještě nikdo neotevřel",
+    "someone": "Někdo",
+    "actionViewed": "sledoval",
+    "actionDownloaded": "stáhl",
+    "actionVerified": "zkontroloval změny",
+    "actionWatchedLive": "sledoval živě",
+    "actionEndedLive": "ukončil relaci",
+    "actionHoldOn": "pozastavil",
+    "actionHoldOff": "zrušil pozastavení"
+  },
+  "live": {
+    "loading": "Načítání...",
+    "none": "Žádné živé relace",
+    "noneHint": "Zde se zobrazují SSH relace a relace vzdálené plochy všech uživatelů.",
+    "loadError": "Nelze načíst živé relace",
+    "watch": "Sledovat",
+    "end": "Ukončit relaci",
+    "endConfirm": "Ukončit tuto relaci?",
+    "endDescription": "Uživatel {{user}} na hostiteli {{host}} bude okamžitě odpojen.",
+    "endReason": "Ukončeno auditorem",
+    "ended": "Relace ukončena",
+    "endFailed": "Nelze ukončit relaci",
+    "readOnly": "Pouze pro čtení",
+    "recording": "Nahrávání",
+    "detached": "Odděleno",
+    "watchingAs": "Relace uživatele {{user}}",
+    "sessionEnded": "Relace byla ukončena",
+    "watchFailed": "Nelze sledovat tuto relaci",
+    "displayUnavailable": "Pro sledování této relace je vyžadována Vzdálená plocha"
+  },
+  "rules": {
+    "intro": "Upozornit nebo ukončit relaci, když někdo napíše nebo uvidí řádek, který odpovídá zadanému vzoru.",
+    "add": "Přidat pravidlo",
+    "edit": "Upravit pravidlo",
+    "delete": "Smazat pravidlo",
+    "deleteConfirm": "Smazat toto pravidlo?",
+    "none": "Zatím žádná pravidla",
+    "loadError": "Nelze načíst pravidla",
+    "saveError": "Nelze uložit pravidlo",
+    "name": "Název",
+    "pattern": "Vzor",
+    "patternHint": "Text, který se má hledat v jednom řádku. Velikost písmen se nebere v úvahu.",
+    "regex": "Regulární výraz",
+    "regexHint": "Považovat vzor za regulární výraz.",
+    "target": "Sledovat",
+    "targetInput": "Co je psáno",
+    "targetOutput": "Co hostitel vypisuje",
+    "hosts": "Hostitelé",
+    "hostsAll": "Všichni hostitelé",
+    "hostsPrivileged": "Pouze oprávnění hostitelé",
+    "severity": "Úroveň upozornění",
+    "severityInfo": "Informace",
+    "severityWarning": "Varování",
+    "severityCritical": "Kritické",
+    "action": "Pak",
+    "actionAlert": "Upozornit auditory",
+    "actionEnd": "Upozornit a ukončit relaci",
+    "enabled": "Zapnuto"
   }
 }

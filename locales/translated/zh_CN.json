@@ -9,6 +9,14 @@
     "view": {
       "title": "查看会话录制",
       "description": "查看并回放您自己的会话录制。"
+    },
+    "audit": {
+      "title": "审计所有会话",
+      "description": "查看并回放所有用户的录制文件，查看谁打开了每个文件，将录制文件挂起，以及观看或结束实时会话。"
+    },
+    "rules": {
+      "title": "管理命令告警规则",
+      "description": "添加和修改规则，当命令匹配时触发告警或结束会话。"
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "保留天数",
         "description": "会话录制在自动删除前的保留时长。"
+      },
+      "forceRecording": {
+        "label": "强制录制",
+        "description": "即使主机禁用了录制，也录制所有会话。用户无法停止强制录制。",
+        "off": "关闭",
+        "privileged": "仅在特权主机上",
+        "all": "在所有主机上"
+      },
+      "encryptRecordings": {
+        "label": "加密录制文件",
+        "description": "加密磁盘上的新录制文件。之前的录制文件保持不变。"
+      },
+      "alertOnAccess": {
+        "label": "打开录制文件时告警",
+        "description": "当有人观看、下载或实时观看会话时，向审计员发送告警。",
+        "off": "关闭",
+        "others": "当是其他人的会话时",
+        "all": "每次"
       }
     },
     "host": {
       "enable": {
         "label": "启用会话录制",
         "description": "录制此主机的终端输出，以便稍后回放或下载。"
+      },
+      "includeOutputTimestamps": {
+        "label": "文本下载中包含时间戳",
+        "description": "以文本格式下载时，会在每行开头添加该行打印的时间（UTC）。录制文件和回放保持不变。"
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "主机 {{id}}",
     "sessionFallback": "会话 {{id}}",
     "settingsTitle": "会话日志设置",
-    "settingsDisplayTitle": "显示"
+    "settingsDisplayTitle": "显示",
+    "tabMine": "我的",
+    "tabAll": "所有用户",
+    "tabLive": "实时",
+    "tabRules": "规则",
+    "onHold": "已挂起",
+    "flagCount": "{{count}} 个告警",
+    "verify": "检查是否有更改",
+    "verifyOk": "录制文件未更改",
+    "verifyChanged": "录制文件在保存后已被更改",
+    "verifyMissing": "录制文件丢失",
+    "verifyUnknown": "此录制文件没有保存的指纹可供比较",
+    "verifyFailed": "无法检查录制文件",
+    "putOnHold": "挂起",
+    "releaseHold": "取消挂起",
+    "holdOn": "录制文件已挂起，不会被删除。",
+    "holdOff": "录制文件已取消挂起",
+    "holdFailed": "无法更改挂起状态",
+    "missingTimestamps": "此录制文件没有时间信息，因此无法下载带时间戳的版本。"
   },
   "player": {
     "timeline": "录制时间线",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "会话录制",
-    "description": "录制终端和远程桌面会话，之后回放或下载。"
+    "description": "录制终端和远程桌面会话，实时观看，并保留经过审计的加密记录，记录谁做了什么。"
   },
   "card": {
     "title": "最近录制",
     "loading": "加载中..."
+  },
+  "operations": {
+    "list": {
+      "title": "会话录制"
+    },
+    "usage": {
+      "title": "录制存储"
+    },
+    "recording": {
+      "title": "录制文件",
+      "protocol": "类型",
+      "started": "开始时间",
+      "ended": "结束时间"
+    },
+    "storage": {
+      "title": "录制存储"
+    },
+    "verify": {
+      "title": "检查录制文件是否有更改"
+    },
+    "alertEvent": {
+      "title": "命令告警规则匹配"
+    }
+  },
+  "details": {
+    "ended": "结束原因：{{reason}}",
+    "flags": "告警（{{count}}）",
+    "access": "访问历史",
+    "noAccess": "尚无任何人打开此录制文件",
+    "someone": "某人",
+    "actionViewed": "观看",
+    "actionDownloaded": "下载",
+    "actionVerified": "检查是否有更改",
+    "actionWatchedLive": "实时观看",
+    "actionEndedLive": "结束会话",
+    "actionHoldOn": "挂起",
+    "actionHoldOff": "取消挂起"
+  },
+  "live": {
+    "loading": "加载中...",
+    "none": "无实时会话",
+    "noneHint": "所有用户的 SSH 和远程桌面会话将显示在这里。",
+    "loadError": "无法加载实时会话",
+    "watch": "监视",
+    "end": "结束会话",
+    "endConfirm": "结束此会话？",
+    "endDescription": "{{user}} 在 {{host}} 上的连接将立即断开。",
+    "endReason": "由审计员结束",
+    "ended": "会话已结束",
+    "endFailed": "无法结束会话",
+    "readOnly": "只读",
+    "recording": "正在录制",
+    "detached": "已分离",
+    "watchingAs": "{{user}} 的会话",
+    "sessionEnded": "会话已结束",
+    "watchFailed": "无法监视此会话",
+    "displayUnavailable": "需要远程桌面才能监视此会话"
+  },
+  "rules": {
+    "intro": "当有人输入或看到匹配的行时，发出警报或结束会话。",
+    "add": "添加规则",
+    "edit": "编辑规则",
+    "delete": "删除规则",
+    "deleteConfirm": "删除此规则？",
+    "none": "暂无规则",
+    "loadError": "无法加载规则",
+    "saveError": "无法保存规则",
+    "name": "名称",
+    "pattern": "匹配",
+    "patternHint": "在单行中查找的文本。不区分大小写。",
+    "regex": "正则表达式",
+    "regexHint": "将匹配内容视为正则表达式。",
+    "target": "查看",
+    "targetInput": "输入内容",
+    "targetOutput": "主机输出内容",
+    "hosts": "主机",
+    "hostsAll": "所有主机",
+    "hostsPrivileged": "仅限特权主机",
+    "severity": "警报级别",
+    "severityInfo": "信息",
+    "severityWarning": "警告",
+    "severityCritical": "严重",
+    "action": "然后",
+    "actionAlert": "通知审计员",
+    "actionEnd": "通知并结束会话",
+    "enabled": "启用"
   }
 }

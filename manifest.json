@@ -1,8 +1,8 @@
 {
   "id": "session-recording",
   "name": "Session Recording",
-  "version": "1.1.1",
-  "description": "Record terminal and remote desktop sessions and play them back or download them later.",
+  "version": "1.2.0",
+  "description": "Record terminal and remote desktop sessions, watch them live, and keep an audited, encrypted record of who did what.",
   "author": {
     "name": "Termix"
   },
@@ -17,11 +17,16 @@
     "Play recordings back at any speed",
     "Download a recording as a file or plain text",
     "Old recordings are removed after a number of days you choose",
-    "A dashboard card with your latest recordings"
+    "A dashboard card with your latest recordings",
+    "Make recording required on every host or only on privileged ones",
+    "Recordings are encrypted on disk and checked for changes",
+    "Auditors see every recording, with a history of who watched each one",
+    "Watch and end anyone's live session",
+    "Alert or end a session when a typed command matches a rule"
   ],
   "engine": {
-    "termix": ">=26.10.0",
-    "api": "^1.2"
+    "termix": ">=26.11.1-0",
+    "api": "^1.15"
   },
   "capabilities": [
     "hosts:read",
@@ -30,12 +35,16 @@
     "network:serve",
     "ui:surface",
     "events:core",
-    "db:core-refs"
+    "db:core-refs",
+    "operations:provide",
+    "secrets:own",
+    "notify:send",
+    "kv:own"
   ],
   "provides": [
     {
       "service": "recordings.writer",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "permission": "session-recording.view"
     }
   ],
@@ -54,6 +63,18 @@
         "titleKey": "permissions.view.title",
         "descriptionKey": "permissions.view.description",
         "defaultRoles": ["admin", "user"]
+      },
+      {
+        "name": "audit",
+        "titleKey": "permissions.audit.title",
+        "descriptionKey": "permissions.audit.description",
+        "defaultRoles": ["admin"]
+      },
+      {
+        "name": "rules",
+        "titleKey": "permissions.rules.title",
+        "descriptionKey": "permissions.rules.description",
+        "defaultRoles": ["admin"]
       }
     ],
     "settings": {
@@ -66,6 +87,55 @@
           "min": 1,
           "max": 3650,
           "default": 30
+        },
+        {
+          "key": "forceRecording",
+          "type": "select",
+          "labelKey": "settings.admin.forceRecording.label",
+          "descriptionKey": "settings.admin.forceRecording.description",
+          "default": "off",
+          "options": [
+            {
+              "value": "off",
+              "labelKey": "settings.admin.forceRecording.off"
+            },
+            {
+              "value": "privileged",
+              "labelKey": "settings.admin.forceRecording.privileged"
+            },
+            {
+              "value": "all",
+              "labelKey": "settings.admin.forceRecording.all"
+            }
+          ]
+        },
+        {
+          "key": "encryptRecordings",
+          "type": "boolean",
+          "labelKey": "settings.admin.encryptRecordings.label",
+          "descriptionKey": "settings.admin.encryptRecordings.description",
+          "default": true
+        },
+        {
+          "key": "alertOnAccess",
+          "type": "select",
+          "labelKey": "settings.admin.alertOnAccess.label",
+          "descriptionKey": "settings.admin.alertOnAccess.description",
+          "default": "off",
+          "options": [
+            {
+              "value": "off",
+              "labelKey": "settings.admin.alertOnAccess.off"
+            },
+            {
+              "value": "others",
+              "labelKey": "settings.admin.alertOnAccess.others"
+            },
+            {
+              "value": "all",
+              "labelKey": "settings.admin.alertOnAccess.all"
+            }
+          ]
         }
       ],
       "host": {
@@ -74,7 +144,15 @@
         "enableKey": "enableSessionRecording",
         "enableLabelKey": "settings.host.enable.label",
         "enableDescriptionKey": "settings.host.enable.description",
-        "fields": []
+        "fields": [
+          {
+            "key": "includeOutputTimestamps",
+            "type": "boolean",
+            "labelKey": "settings.host.includeOutputTimestamps.label",
+            "descriptionKey": "settings.host.includeOutputTimestamps.description",
+            "default": false
+          }
+        ]
       },
       "user": [
         {
@@ -97,8 +175,108 @@
         "titleKey": "card.title",
         "icon": "ScrollText"
       }
-    ]
+    ],
+    "operations": {
+      "actions": [
+        {
+          "id": "session-recording.list",
+          "titleKey": "operations.list.title",
+          "icon": "Film",
+          "scope": "host",
+          "risk": "read",
+          "permission": "view",
+          "hostAccess": "connect",
+          "surfaces": {
+            "assistant": true,
+            "mcp": true,
+            "palette": false
+          }
+        },
+        {
+          "id": "session-recording.usage",
+          "titleKey": "operations.usage.title",
+          "icon": "HardDrive",
+          "scope": "host",
+          "risk": "read",
+          "permission": "view",
+          "hostAccess": "connect",
+          "surfaces": {
+            "palette": false
+          }
+        },
+        {
+          "id": "session-recording.verify",
+          "titleKey": "operations.verify.title",
+          "icon": "ShieldCheck",
+          "scope": "resource",
+          "resource": "session-recording.recording",
+          "risk": "read",
+          "permission": "view",
+          "hostAccess": "connect",
+          "surfaces": {
+            "assistant": true,
+            "mcp": true,
+            "palette": false
+          }
+        }
+      ],
+      "resources": [
+        {
+          "id": "session-recording.recording",
+          "titleKey": "operations.recording.title",
+          "icon": "Film",
+          "list": "session-recording.list",
+          "key": "id",
+          "name": "id",
+          "tab": "session-logs",
+          "columns": [
+            {
+              "key": "protocol",
+              "titleKey": "operations.recording.protocol"
+            },
+            {
+              "key": "started",
+              "titleKey": "operations.recording.started"
+            },
+            {
+              "key": "ended",
+              "titleKey": "operations.recording.ended"
+            }
+          ]
+        }
+      ],
+      "signals": [
+        {
+          "id": "session-recording.storage",
+          "titleKey": "operations.storage.title",
+          "read": "session-recording.usage",
+          "scope": "host",
+          "kind": "gauge",
+          "refreshSec": 300
+        }
+      ],
+      "events": [
+        {
+          "id": "session-recording.alert",
+          "titleKey": "operations.alertEvent.title",
+          "severity": "warning",
+          "scope": "host"
+        }
+      ]
+    }
   },
   "locales": "locales",
-  "platforms": ["linux", "win32", "darwin"]
+  "platforms": ["linux", "win32", "darwin"],
+  "requires": [
+    {
+      "service": "sessions.live",
+      "versionRange": "^1.0.0",
+      "optional": true
+    },
+    {
+      "service": "privileged-access.hosts",
+      "versionRange": "^1.0.0",
+      "optional": true
+    }
+  ]
 }

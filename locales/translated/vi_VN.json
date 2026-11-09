@@ -9,6 +9,14 @@
     "view": {
       "title": "Xem các bản ghi phiên làm việc",
       "description": "Xem và phát lại các bản ghi phiên làm việc của bạn."
+    },
+    "audit": {
+      "title": "Kiểm toán mọi phiên làm việc",
+      "description": "Xem và phát lại các bản ghi của mọi người, xem ai đã mở từng bản ghi, tạm giữ các bản ghi và xem hoặc kết thúc các phiên làm việc trực tiếp."
+    },
+    "rules": {
+      "title": "Quản lý quy tắc cảnh báo lệnh",
+      "description": "Thêm và thay đổi các quy tắc cảnh báo hoặc kết thúc phiên làm việc khi một lệnh khớp với quy tắc."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Thời gian lưu trữ (ngày)",
         "description": "Thời gian lưu trữ bản ghi phiên làm việc trước khi bị xóa tự động."
+      },
+      "forceRecording": {
+        "label": "Bắt buộc ghi lại",
+        "description": "Ghi lại mọi phiên làm việc ngay cả khi máy chủ đã tắt tính năng ghi lại. Người dùng không thể dừng một bản ghi bắt buộc.",
+        "off": "Tắt",
+        "privileged": "Bật trên máy chủ đặc quyền",
+        "all": "Bật trên mọi máy chủ"
+      },
+      "encryptRecordings": {
+        "label": "Mã hóa bản ghi",
+        "description": "Mã hóa các bản ghi mới trên ổ đĩa. Các bản ghi được tạo trước đó sẽ giữ nguyên."
+      },
+      "alertOnAccess": {
+        "label": "Cảnh báo khi một bản ghi được mở",
+        "description": "Gửi cảnh báo cho người kiểm toán khi ai đó xem, tải xuống hoặc xem trực tiếp một phiên làm việc.",
+        "off": "Tắt",
+        "others": "Khi đó là phiên làm việc của người khác",
+        "all": "Mọi lúc"
       }
     },
     "host": {
       "enable": {
         "label": "Bật ghi lại phiên làm việc",
         "description": "Ghi lại đầu ra của terminal cho host này để bạn có thể phát lại hoặc tải xuống sau."
+      },
+      "includeOutputTimestamps": {
+        "label": "Dấu thời gian trong tải xuống văn bản",
+        "description": "Tải xuống dưới dạng văn bản sẽ đặt thời gian mỗi dòng được in ở đầu dòng, theo giờ UTC. Bản ghi và phát lại sẽ giữ nguyên."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Host {{id}}",
     "sessionFallback": "Phiên làm việc {{id}}",
     "settingsTitle": "Cài đặt nhật ký phiên làm việc",
-    "settingsDisplayTitle": "Hiển thị"
+    "settingsDisplayTitle": "Hiển thị",
+    "tabMine": "Của tôi",
+    "tabAll": "Tất cả người dùng",
+    "tabLive": "Trực tiếp",
+    "tabRules": "Quy tắc",
+    "onHold": "Đang tạm giữ",
+    "flagCount": "{{count}} cảnh báo",
+    "verify": "Kiểm tra thay đổi",
+    "verifyOk": "Bản ghi không thay đổi",
+    "verifyChanged": "Bản ghi đã bị thay đổi sau khi lưu",
+    "verifyMissing": "Tệp bản ghi bị thiếu",
+    "verifyUnknown": "Bản ghi này không có dấu vân tay đã lưu để so sánh",
+    "verifyFailed": "Không thể kiểm tra bản ghi",
+    "putOnHold": "Tạm giữ",
+    "releaseHold": "Hủy tạm giữ",
+    "holdOn": "Bản ghi đã được tạm giữ. Nó sẽ không bị xóa.",
+    "holdOff": "Bản ghi đã được hủy tạm giữ",
+    "holdFailed": "Không thể thay đổi trạng thái tạm giữ",
+    "missingTimestamps": "Bản ghi này không có thời gian, vì vậy không thể tải xuống với dấu thời gian."
   },
   "player": {
     "timeline": "Dòng thời gian bản ghi",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Ghi lại phiên làm việc",
-    "description": "Ghi lại các phiên terminal và máy tính từ xa, sau đó phát lại hoặc tải xuống sau."
+    "description": "Ghi lại các phiên làm việc của terminal và máy từ xa, xem chúng trực tiếp và lưu trữ bản ghi kiểm toán, mã hóa về việc ai đã làm gì."
   },
   "card": {
     "title": "Các bản ghi gần đây",
     "loading": "Đang tải..."
+  },
+  "operations": {
+    "list": {
+      "title": "Bản ghi phiên làm việc"
+    },
+    "usage": {
+      "title": "Lưu trữ bản ghi"
+    },
+    "recording": {
+      "title": "Bản ghi",
+      "protocol": "Loại",
+      "started": "Bắt đầu",
+      "ended": "Kết thúc"
+    },
+    "storage": {
+      "title": "Lưu trữ bản ghi"
+    },
+    "verify": {
+      "title": "Kiểm tra bản ghi xem có thay đổi không"
+    },
+    "alertEvent": {
+      "title": "Một quy tắc cảnh báo lệnh đã khớp"
+    }
+  },
+  "details": {
+    "ended": "Kết thúc: {{reason}}",
+    "flags": "Cảnh báo ({{count}})",
+    "access": "Lịch sử truy cập",
+    "noAccess": "Chưa ai mở bản ghi này",
+    "someone": "Ai đó",
+    "actionViewed": "đã xem",
+    "actionDownloaded": "đã tải xuống",
+    "actionVerified": "đã kiểm tra thay đổi",
+    "actionWatchedLive": "đã xem trực tiếp",
+    "actionEndedLive": "đã kết thúc phiên làm việc",
+    "actionHoldOn": "đã tạm giữ",
+    "actionHoldOff": "đã hủy tạm giữ"
+  },
+  "live": {
+    "loading": "Đang tải...",
+    "none": "Không có phiên làm việc trực tiếp",
+    "noneHint": "Các phiên SSH và máy tính từ xa của tất cả người dùng sẽ hiển thị ở đây.",
+    "loadError": "Không thể tải các phiên trực tiếp",
+    "watch": "Xem",
+    "end": "Kết thúc phiên",
+    "endConfirm": "Kết thúc phiên này?",
+    "endDescription": "{{user}} trên {{host}} sẽ bị ngắt kết nối ngay lập tức.",
+    "endReason": "Được kết thúc bởi người kiểm toán",
+    "ended": "Phiên đã kết thúc",
+    "endFailed": "Không thể kết thúc phiên",
+    "readOnly": "Chỉ đọc",
+    "recording": "Đang ghi lại",
+    "detached": "Đã ngắt kết nối",
+    "watchingAs": "Phiên của {{user}}",
+    "sessionEnded": "Phiên đã kết thúc",
+    "watchFailed": "Không thể xem phiên này",
+    "displayUnavailable": "Cần Remote Desktop để xem phiên này"
+  },
+  "rules": {
+    "intro": "Cảnh báo hoặc kết thúc phiên khi ai đó nhập hoặc thấy một dòng khớp với điều kiện.",
+    "add": "Thêm quy tắc",
+    "edit": "Chỉnh sửa quy tắc",
+    "delete": "Xóa quy tắc",
+    "deleteConfirm": "Xóa quy tắc này?",
+    "none": "Chưa có quy tắc nào",
+    "loadError": "Không thể tải quy tắc",
+    "saveError": "Không thể lưu quy tắc",
+    "name": "Tên",
+    "pattern": "Khớp",
+    "patternHint": "Văn bản cần tìm trong một dòng. Không phân biệt chữ hoa chữ thường.",
+    "regex": "Biểu thức chính quy",
+    "regexHint": "Xử lý điều kiện khớp như một biểu thức chính quy.",
+    "target": "Kiểm tra",
+    "targetInput": "Nội dung được nhập",
+    "targetOutput": "Nội dung máy chủ in ra",
+    "hosts": "Máy chủ",
+    "hostsAll": "Tất cả máy chủ",
+    "hostsPrivileged": "Chỉ máy chủ đặc quyền",
+    "severity": "Mức độ cảnh báo",
+    "severityInfo": "Thông tin",
+    "severityWarning": "Cảnh báo",
+    "severityCritical": "Nghiêm trọng",
+    "action": "Sau đó",
+    "actionAlert": "Cảnh báo người kiểm toán",
+    "actionEnd": "Cảnh báo và kết thúc phiên",
+    "enabled": "Bật"
   }
 }

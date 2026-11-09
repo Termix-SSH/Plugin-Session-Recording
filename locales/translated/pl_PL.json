@@ -9,6 +9,14 @@
     "view": {
       "title": "Podgląd nagrań sesji",
       "description": "Podgląd i odtwarzanie własnych nagrań sesji."
+    },
+    "audit": {
+      "title": "Audytuj każdą sesję",
+      "description": "Przeglądaj i odtwarzaj nagrania wszystkich użytkowników, sprawdzaj, kto je otworzył, wstrzymuj usuwanie nagrań oraz oglądaj lub kończ sesje na żywo."
+    },
+    "rules": {
+      "title": "Zarządzaj regułami alertów poleceń",
+      "description": "Dodawaj i modyfikuj reguły, które generują alerty lub kończą sesję po dopasowaniu polecenia."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Czas przechowywania (dni)",
         "description": "Okres, przez który nagranie sesji jest przechowywane przed automatycznym usunięciem."
+      },
+      "forceRecording": {
+        "label": "Wymagaj nagrywania",
+        "description": "Nagrywaj każdą sesję, nawet jeśli host ma nagrywanie wyłączone. Użytkownicy nie mogą zatrzymać wymaganego nagrywania.",
+        "off": "Wyłączone",
+        "privileged": "Na uprzywilejowanych hostach",
+        "all": "Na każdym hoście"
+      },
+      "encryptRecordings": {
+        "label": "Szyfruj nagrania",
+        "description": "Szyfruj nowe nagrania na dysku. Nagrania utworzone wcześniej pozostają bez zmian."
+      },
+      "alertOnAccess": {
+        "label": "Alertuj przy otwarciu nagrania",
+        "description": "Wysyłaj alerty do audytorów, gdy ktoś ogląda, pobiera lub ogląda na żywo sesję.",
+        "off": "Wyłączone",
+        "others": "Gdy to sesja innej osoby",
+        "all": "Za każdym razem"
       }
     },
     "host": {
       "enable": {
         "label": "Włącz nagrywanie sesji",
         "description": "Nagrywaj wyjście terminala dla tego hosta, aby móc je później odtworzyć lub pobrać."
+      },
+      "includeOutputTimestamps": {
+        "label": "Znaczniki czasu w pobieraniu tekstu",
+        "description": "Pobieranie jako tekst dodaje czas wydrukowania każdej linii na jej początku, w formacie UTC. Nagrania i odtwarzanie pozostają bez zmian."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Host {{id}}",
     "sessionFallback": "Sesja {{id}}",
     "settingsTitle": "Ustawienia dzienników sesji",
-    "settingsDisplayTitle": "Wyświetlanie"
+    "settingsDisplayTitle": "Wyświetlanie",
+    "tabMine": "Moje",
+    "tabAll": "Wszyscy użytkownicy",
+    "tabLive": "Na żywo",
+    "tabRules": "Reguły",
+    "onHold": "Wstrzymane",
+    "flagCount": "{{count}} alertów",
+    "verify": "Sprawdź zmiany",
+    "verifyOk": "Nagranie nie zostało zmienione",
+    "verifyChanged": "Nagranie zostało zmienione po zapisaniu",
+    "verifyMissing": "Plik nagrania jest nieobecny",
+    "verifyUnknown": "To nagranie nie ma zapisanego odcisku palca do porównania",
+    "verifyFailed": "Nie udało się sprawdzić nagrania",
+    "putOnHold": "Wstrzymaj",
+    "releaseHold": "Anuluj wstrzymanie",
+    "holdOn": "Nagranie zostało wstrzymane. Nie zostanie usunięte.",
+    "holdOff": "Wstrzymanie nagrania zostało anulowane",
+    "holdFailed": "Nie udało się zmienić wstrzymania",
+    "missingTimestamps": "To nagranie nie zawiera informacji o czasie, więc nie można go pobrać ze znacznikami czasu."
   },
   "player": {
     "timeline": "Oś czasu nagrania",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Nagrywanie sesji",
-    "description": "Nagrywaj sesje terminala i pulpitu zdalnego, odtwarzaj je lub pobieraj później."
+    "description": "Nagrywaj sesje terminala i pulpitu zdalnego, oglądaj je na żywo i przechowuj audytowane, zaszyfrowane zapisy działań użytkowników."
   },
   "card": {
     "title": "Ostatnie nagrania",
     "loading": "Ładowanie..."
+  },
+  "operations": {
+    "list": {
+      "title": "Nagrania sesji"
+    },
+    "usage": {
+      "title": "Przechowywanie nagrań"
+    },
+    "recording": {
+      "title": "Nagrania",
+      "protocol": "Typ",
+      "started": "Rozpoczęto",
+      "ended": "Zakończono"
+    },
+    "storage": {
+      "title": "Przechowywanie nagrań"
+    },
+    "verify": {
+      "title": "Sprawdź nagranie pod kątem zmian"
+    },
+    "alertEvent": {
+      "title": "Dopasowano regułę alertu polecenia"
+    }
+  },
+  "details": {
+    "ended": "Zakończono: {{reason}}",
+    "flags": "Alerty ({{count}})",
+    "access": "Historia dostępu",
+    "noAccess": "Nikt jeszcze nie otworzył tego nagrania",
+    "someone": "Ktoś",
+    "actionViewed": "oglądał",
+    "actionDownloaded": "pobrał",
+    "actionVerified": "sprawdzał zmiany",
+    "actionWatchedLive": "oglądał na żywo",
+    "actionEndedLive": "zakończył sesję",
+    "actionHoldOn": "wstrzymał",
+    "actionHoldOff": "anulował wstrzymanie"
+  },
+  "live": {
+    "loading": "Ładowanie...",
+    "none": "Brak sesji na żywo",
+    "noneHint": "Tutaj wyświetlane są sesje SSH i zdalnego pulpitu wszystkich użytkowników.",
+    "loadError": "Nie udało się załadować aktywnych sesji",
+    "watch": "Obserwuj",
+    "end": "Zakończ sesję",
+    "endConfirm": "Zakończyć tę sesję?",
+    "endDescription": "Użytkownik {{user}} na hoście {{host}} zostanie natychmiast odłączony.",
+    "endReason": "Zakończone przez audytora",
+    "ended": "Sesja zakończona",
+    "endFailed": "Nie udało się zakończyć sesji",
+    "readOnly": "Tylko do odczytu",
+    "recording": "Nagrywanie",
+    "detached": "Odłączony",
+    "watchingAs": "Sesja użytkownika {{user}}",
+    "sessionEnded": "Sesja została zakończona",
+    "watchFailed": "Nie udało się obserwować tej sesji",
+    "displayUnavailable": "Do obserwowania tej sesji wymagany jest Zdalny Pulpit"
+  },
+  "rules": {
+    "intro": "Wysyłaj alert lub kończ sesję, gdy ktoś wpisze lub zobaczy wiersz pasujący do wzorca.",
+    "add": "Dodaj regułę",
+    "edit": "Edytuj regułę",
+    "delete": "Usuń regułę",
+    "deleteConfirm": "Usunąć tę regułę?",
+    "none": "Brak reguł",
+    "loadError": "Nie udało się załadować reguł",
+    "saveError": "Nie udało się zapisać reguły",
+    "name": "Nazwa",
+    "pattern": "Wzorzec",
+    "patternHint": "Tekst do wyszukania w jednym wierszu. Wielkość liter nie ma znaczenia.",
+    "regex": "Wyrażenie regularne",
+    "regexHint": "Traktuj wzorzec jako wyrażenie regularne.",
+    "target": "Sprawdzaj",
+    "targetInput": "Wpisany tekst",
+    "targetOutput": "Wydrukowane przez hosta",
+    "hosts": "Hosty",
+    "hostsAll": "Wszystkie hosty",
+    "hostsPrivileged": "Tylko uprzywilejowane hosty",
+    "severity": "Poziom alertu",
+    "severityInfo": "Info",
+    "severityWarning": "Ostrzeżenie",
+    "severityCritical": "Krytyczny",
+    "action": "Następnie",
+    "actionAlert": "Powiadom audytorów",
+    "actionEnd": "Powiadom i zakończ sesję",
+    "enabled": "Włączona"
   }
 }

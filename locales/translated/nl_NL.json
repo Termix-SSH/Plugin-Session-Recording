@@ -9,6 +9,14 @@
     "view": {
       "title": "Sessieopnames bekijken",
       "description": "Bekijk en speel je eigen sessieopnames af."
+    },
+    "audit": {
+      "title": "Controleer elke sessie",
+      "description": "Bekijk en speel de opnames van iedereen af, zie wie elke opname heeft geopend, zet opnames op wachtstand en bekijk of beëindig live-sessies."
+    },
+    "rules": {
+      "title": "Beheer regels voor commando-alarmen",
+      "description": "Voeg regels toe en wijzig deze om een alarm te laten afgaan of een sessie te beëindigen wanneer een commando overeenkomt."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Bewaartermijn (dagen)",
         "description": "Hoe lang een sessieopname wordt bewaard voordat deze automatisch wordt verwijderd."
+      },
+      "forceRecording": {
+        "label": "Opname verplichten",
+        "description": "Neem elke sessie op, zelfs als opname op een host is uitgeschakeld. Gebruikers kunnen een verplichte opname niet stoppen.",
+        "off": "Uit",
+        "privileged": "Op bevoorrechte hosts",
+        "all": "Op elke host"
+      },
+      "encryptRecordings": {
+        "label": "Opnames versleutelen",
+        "description": "Versleutel nieuwe opnames op de schijf. Eerdere opnames blijven zoals ze zijn."
+      },
+      "alertOnAccess": {
+        "label": "Alarm bij openen van opname",
+        "description": "Stuur een alarm naar auditors wanneer iemand een sessie bekijkt, downloadt of live bekijkt.",
+        "off": "Uit",
+        "others": "Wanneer het de sessie van iemand anders is",
+        "all": "Elke keer"
       }
     },
     "host": {
       "enable": {
         "label": "Sessieopname inschakelen",
         "description": "Neem de terminaluitvoer van deze host op zodat je deze later kunt afspelen of downloaden."
+      },
+      "includeOutputTimestamps": {
+        "label": "Tijdstempels in tekstdownloads",
+        "description": "Downloaden als tekst voegt de tijd toe waarop elke regel werd afgedrukt (in UTC) aan het begin. Opnames en afspeelweergave blijven hetzelfde."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Host {{id}}",
     "sessionFallback": "Sessie {{id}}",
     "settingsTitle": "Instellingen voor sessielogboeken",
-    "settingsDisplayTitle": "Weergave"
+    "settingsDisplayTitle": "Weergave",
+    "tabMine": "Mijn",
+    "tabAll": "Alle gebruikers",
+    "tabLive": "Live",
+    "tabRules": "Regels",
+    "onHold": "Op wachtstand",
+    "flagCount": "{{count}} alarmen",
+    "verify": "Controleren op wijzigingen",
+    "verifyOk": "De opname is onveranderd",
+    "verifyChanged": "De opname is gewijzigd na het opslaan",
+    "verifyMissing": "Het opnamebestand ontbreekt",
+    "verifyUnknown": "Deze opname heeft geen opgeslagen vingerafdruk om mee te vergelijken",
+    "verifyFailed": "Kon de opname niet controleren",
+    "putOnHold": "Op wachtstand zetten",
+    "releaseHold": "Van wachtstand halen",
+    "holdOn": "Opname op wachtstand gezet. Deze wordt niet verwijderd.",
+    "holdOff": "Opname van wachtstand gehaald",
+    "holdFailed": "Kon de wachtstand niet wijzigen",
+    "missingTimestamps": "Deze opname heeft geen timinginformatie, dus deze kan niet worden gedownload met tijdstempels."
   },
   "player": {
     "timeline": "Tijdlijn van opname",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Sessieopname",
-    "description": "Neem terminal- en remote-desktopsessies op en speel ze later af of download ze."
+    "description": "Neem terminal- en remote desktop-sessies op, bekijk ze live en bewaar een gecontroleerd, versleuteld overzicht van wie wat heeft gedaan."
   },
   "card": {
     "title": "Recent opnames",
     "loading": "Laden..."
+  },
+  "operations": {
+    "list": {
+      "title": "Sessieopnames"
+    },
+    "usage": {
+      "title": "Opslag voor opnames"
+    },
+    "recording": {
+      "title": "Opnames",
+      "protocol": "Type",
+      "started": "Gestart",
+      "ended": "Beëindigd"
+    },
+    "storage": {
+      "title": "Opslag voor opnames"
+    },
+    "verify": {
+      "title": "Controleer een opname op wijzigingen"
+    },
+    "alertEvent": {
+      "title": "Een regel voor commando-alarmen is overeengekomen"
+    }
+  },
+  "details": {
+    "ended": "Beëindigd: {{reason}}",
+    "flags": "Alarmen ({{count}})",
+    "access": "Toegangsgeschiedenis",
+    "noAccess": "Niemand heeft deze opname nog geopend",
+    "someone": "Iemand",
+    "actionViewed": "bekeken",
+    "actionDownloaded": "gedownload",
+    "actionVerified": "gecontroleerd op wijzigingen",
+    "actionWatchedLive": "live bekeken",
+    "actionEndedLive": "de sessie beëindigd",
+    "actionHoldOn": "op wachtstand gezet",
+    "actionHoldOff": "van wachtstand gehaald"
+  },
+  "live": {
+    "loading": "Laden...",
+    "none": "Geen live-sessies",
+    "noneHint": "SSH- en remote desktop-sessies van alle gebruikers worden hier weergegeven.",
+    "loadError": "Kon actieve sessies niet laden",
+    "watch": "Bekijken",
+    "end": "Sessie beëindigen",
+    "endConfirm": "Deze sessie beëindigen?",
+    "endDescription": "{{user}} op {{host}} wordt onmiddellijk verbinding verbroken.",
+    "endReason": "Beëindigd door een auditor",
+    "ended": "Sessie beëindigd",
+    "endFailed": "Kon de sessie niet beëindigen",
+    "readOnly": "Alleen-lezen",
+    "recording": "Opname",
+    "detached": "Gedetacheerd",
+    "watchingAs": "Sessie van {{user}}",
+    "sessionEnded": "De sessie is beëindigd",
+    "watchFailed": "Kon deze sessie niet bekijken",
+    "displayUnavailable": "Remote Desktop is vereist om deze sessie te bekijken"
+  },
+  "rules": {
+    "intro": "Stuur een waarschuwing of beëindig een sessie wanneer iemand een regel typt of ziet die overeenkomt.",
+    "add": "Regel toevoegen",
+    "edit": "Regel bewerken",
+    "delete": "Regel verwijderen",
+    "deleteConfirm": "Deze regel verwijderen?",
+    "none": "Nog geen regels",
+    "loadError": "Kon regels niet laden",
+    "saveError": "Kon de regel niet opslaan",
+    "name": "Naam",
+    "pattern": "Overeenkomst",
+    "patternHint": "Tekst om te zoeken in één regel. Hoofdlettergevoeligheid maakt niet uit.",
+    "regex": "Reguliere expressie",
+    "regexHint": "Behandel de overeenkomst als een reguliere expressie.",
+    "target": "Kijk naar",
+    "targetInput": "Wat er getypt wordt",
+    "targetOutput": "Wat de host afdrukt",
+    "hosts": "Hosts",
+    "hostsAll": "Alle hosts",
+    "hostsPrivileged": "Alleen bevoorrechte hosts",
+    "severity": "Waarschuwingsniveau",
+    "severityInfo": "Informatie",
+    "severityWarning": "Waarschuwing",
+    "severityCritical": "Kritiek",
+    "action": "Dan",
+    "actionAlert": "Waarschuw auditors",
+    "actionEnd": "Waarschuw en beëindig de sessie",
+    "enabled": "Aan"
   }
 }

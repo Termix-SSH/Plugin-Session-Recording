@@ -9,6 +9,14 @@
     "view": {
       "title": "Lihat rakaman sesian",
       "description": "Lihat dan main semula rakaman sesian anda sendiri."
+    },
+    "audit": {
+      "title": "Audit setiap sesi",
+      "description": "Lihat dan main semula rakaman semua orang, lihat siapa yang membuka setiap rakaman, tahan rakaman, dan tonton atau tamatkan sesi langsung."
+    },
+    "rules": {
+      "title": "Urus peraturan amaran arahan",
+      "description": "Tambah dan ubah peraturan yang memberi amaran atau menamatkan sesi apabila arahan sepadan."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Tempoh Simpanan (hari)",
         "description": "Lama rakaman sesian disimpan sebelum dipadam secara automatik."
+      },
+      "forceRecording": {
+        "label": "Wajibkan rakaman",
+        "description": "Rakam setiap sesi walaupun hos telah mematikan rakaman. Pengguna tidak boleh menghentikan rakaman yang diwajibkan.",
+        "off": "Mati",
+        "privileged": "Pada hos istimewa",
+        "all": "Pada setiap hos"
+      },
+      "encryptRecordings": {
+        "label": "Enkripsi rakaman",
+        "description": "Enkripsi rakaman baharu pada cakera. Rakaman yang dibuat sebelum ini kekal seperti sedia ada."
+      },
+      "alertOnAccess": {
+        "label": "Berikan amaran apabila rakaman dibuka",
+        "description": "Hantar amaran kepada auditor apabila seseorang menonton, memuat turun, atau menonton secara langsung sebuah sesi.",
+        "off": "Mati",
+        "others": "Apabila ia adalah sesi orang lain",
+        "all": "Setiap masa"
       }
     },
     "host": {
       "enable": {
         "label": "Dayakan rakaman sesian",
         "description": "Rakam output terminal untuk hos ini supaya anda boleh memainkannya semula atau memuat turunnya kemudian."
+      },
+      "includeOutputTimestamps": {
+        "label": "Cap masa dalam muat turun teks",
+        "description": "Muat turun sebagai teks meletakkan masa setiap baris dicetak pada permulaannya, dalam UTC. Rakaman dan main semula kekal sama."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Hos {{id}}",
     "sessionFallback": "Sesian {{id}}",
     "settingsTitle": "Tetapan log sesian",
-    "settingsDisplayTitle": "Paparan"
+    "settingsDisplayTitle": "Paparan",
+    "tabMine": "Milik saya",
+    "tabAll": "Semua pengguna",
+    "tabLive": "Langsung",
+    "tabRules": "Peraturan",
+    "onHold": "Ditahan",
+    "flagCount": "{{count}} amaran",
+    "verify": "Semak perubahan",
+    "verifyOk": "Rakaman tidak berubah",
+    "verifyChanged": "Rakaman telah diubah selepas ia disimpan",
+    "verifyMissing": "Fail rakaman hilang",
+    "verifyUnknown": "Rakaman ini tidak mempunyai cap jari yang disimpan untuk dibandingkan",
+    "verifyFailed": "Tidak dapat menyemak rakaman",
+    "putOnHold": "Tahan",
+    "releaseHold": "Lepaskan tahan",
+    "holdOn": "Rakaman ditahan. Ia tidak akan dipadam.",
+    "holdOff": "Rakaman dilepaskan daripada tahan",
+    "holdFailed": "Tidak dapat mengubah status tahan",
+    "missingTimestamps": "Rakaman ini tidak mempunyai masa, jadi ia tidak boleh dimuat turun dengan cap masa."
   },
   "player": {
     "timeline": "Garis masa rakaman",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Rakaman Sesian",
-    "description": "Rakam sesi terminal dan desktop jauh, kemudian main semula atau muat turun rakaman tersebut kemudian."
+    "description": "Rakam sesi terminal dan desktop jauh, tonton secara langsung, dan simpan rekod yang diaudit dan dienkripsi tentang siapa yang melakukan apa."
   },
   "card": {
     "title": "Rakaman terkini",
     "loading": "Memuatkan..."
+  },
+  "operations": {
+    "list": {
+      "title": "Rakaman sesi"
+    },
+    "usage": {
+      "title": "Storan rakaman"
+    },
+    "recording": {
+      "title": "Rakaman",
+      "protocol": "Jenis",
+      "started": "Dimulakan",
+      "ended": "Ditamatkan"
+    },
+    "storage": {
+      "title": "Storan rakaman"
+    },
+    "verify": {
+      "title": "Semak rakaman untuk perubahan"
+    },
+    "alertEvent": {
+      "title": "Peraturan amaran arahan sepadan"
+    }
+  },
+  "details": {
+    "ended": "Ditamatkan: {{reason}}",
+    "flags": "Amaran ({{count}})",
+    "access": "Sejarah akses",
+    "noAccess": "Tiada siapa yang membuka rakaman ini lagi",
+    "someone": "Seseorang",
+    "actionViewed": "menonton",
+    "actionDownloaded": "memuat turun",
+    "actionVerified": "menyemak perubahan",
+    "actionWatchedLive": "menonton secara langsung",
+    "actionEndedLive": "menamatkan sesi",
+    "actionHoldOn": "menahan",
+    "actionHoldOff": "melepaskan tahan"
+  },
+  "live": {
+    "loading": "Memuatkan...",
+    "none": "Tiada sesi langsung",
+    "noneHint": "Sesi SSH dan desktop jauh setiap pengguna dipaparkan di sini.",
+    "loadError": "Tidak dapat memuatkan sesi langsung",
+    "watch": "Pantau",
+    "end": "Tamatkan sesi",
+    "endConfirm": "Tamatkan sesi ini?",
+    "endDescription": "{{user}} pada {{host}} akan diputuskan serta-merta.",
+    "endReason": "Ditamatkan oleh auditor",
+    "ended": "Sesi ditamatkan",
+    "endFailed": "Tidak dapat menamatkan sesi",
+    "readOnly": "Baca sahaja",
+    "recording": "Direkodkan",
+    "detached": "Dilepaskan",
+    "watchingAs": "Sesi {{user}}",
+    "sessionEnded": "Sesi telah tamat",
+    "watchFailed": "Tidak dapat memantau sesi ini",
+    "displayUnavailable": "Desktop Jauh diperlukan untuk memantau sesi ini"
+  },
+  "rules": {
+    "intro": "Beritahu atau tamatkan sesi apabila seseorang menaip atau melihat baris yang sepadan.",
+    "add": "Tambah peraturan",
+    "edit": "Sunting peraturan",
+    "delete": "Padam peraturan",
+    "deleteConfirm": "Padam peraturan ini?",
+    "none": "Tiada peraturan lagi",
+    "loadError": "Tidak dapat memuatkan peraturan",
+    "saveError": "Tidak dapat menyimpan peraturan",
+    "name": "Nama",
+    "pattern": "Padanan",
+    "patternHint": "Teks untuk dicari dalam satu baris. Huruf besar kecil tidak penting.",
+    "regex": "Ekspresi biasa",
+    "regexHint": "Anggap padanan sebagai ekspresi biasa.",
+    "target": "Periksa",
+    "targetInput": "Apa yang ditaip",
+    "targetOutput": "Apa yang dicetak oleh hos",
+    "hosts": "Hos",
+    "hostsAll": "Setiap hos",
+    "hostsPrivileged": "Hos istimewa sahaja",
+    "severity": "Tahap amaran",
+    "severityInfo": "Maklumat",
+    "severityWarning": "Amaran",
+    "severityCritical": "Kritikal",
+    "action": "Kemudian",
+    "actionAlert": "Beritahu auditor",
+    "actionEnd": "Beritahu dan tamatkan sesi",
+    "enabled": "Hidup"
   }
 }

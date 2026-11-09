@@ -9,6 +9,14 @@
     "view": {
       "title": "Vizualizare înregistrări de sesiune",
       "description": "Vizualizați și redați propriile înregistrări de sesiune."
+    },
+    "audit": {
+      "title": "Audită fiecare sesiune",
+      "description": "Vizualizează și redă înregistrările tuturor, vezi cine a deschis fiecare, pune înregistrările în așteptare și urmărește sau încheie sesiunile în direct."
+    },
+    "rules": {
+      "title": "Gestionează regulile de alertă pentru comenzi",
+      "description": "Adaugă și modifică regulile care alertează sau încheie o sesiune atunci când o comandă se potrivește."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Perioada de retenție (zile)",
         "description": "Cât timp este păstrată o înregistrare de sesiune înainte de a fi ștearsă automat."
+      },
+      "forceRecording": {
+        "label": "Obligă înregistrarea",
+        "description": "Înregistrează fiecare sesiune chiar și atunci când un gazdă are înregistrarea dezactivată. Utilizatorii nu pot opri o înregistrare obligatorie.",
+        "off": "Oprit",
+        "privileged": "Pe gazde privilegiate",
+        "all": "Pe fiecare gazdă"
+      },
+      "encryptRecordings": {
+        "label": "Criptează înregistrările",
+        "description": "Criptează noile înregistrări pe disc. Înregistrările făcute anterior rămân neschimbate."
+      },
+      "alertOnAccess": {
+        "label": "Alertă când o înregistrare este deschisă",
+        "description": "Trimite o alertă auditorilor când cineva vizualizează, descarcă sau urmărește în direct o sesiune.",
+        "off": "Oprit",
+        "others": "Când este sesiunea altcuiva",
+        "all": "De fiecare dată"
       }
     },
     "host": {
       "enable": {
         "label": "Activează înregistrarea sesiunii",
         "description": "Înregistrează ieșirea terminalului pentru acest gazdă, astfel încât să o poți reda sau descărca ulterior."
+      },
+      "includeOutputTimestamps": {
+        "label": "Timestamp-uri în descărcările text",
+        "description": "Descărcarea ca text adaugă ora la care a fost afișată fiecare linie la începutul acesteia, în UTC. Înregistrările și redarea rămân neschimbate."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Gazdă {{id}}",
     "sessionFallback": "Sesiune {{id}}",
     "settingsTitle": "Setări jurnale de sesiune",
-    "settingsDisplayTitle": "Afișare"
+    "settingsDisplayTitle": "Afișare",
+    "tabMine": "Ale mele",
+    "tabAll": "Toți utilizatorii",
+    "tabLive": "În direct",
+    "tabRules": "Reguli",
+    "onHold": "În așteptare",
+    "flagCount": "{{count}} alerte",
+    "verify": "Verifică modificările",
+    "verifyOk": "Înregistrarea este neschimbată",
+    "verifyChanged": "Înregistrarea a fost modificată după salvarea acesteia",
+    "verifyMissing": "Fișierul de înregistrare lipsește",
+    "verifyUnknown": "Această înregistrare nu are o amprentă salvată pentru comparație",
+    "verifyFailed": "Nu s-a putut verifica înregistrarea",
+    "putOnHold": "Pune în așteptare",
+    "releaseHold": "Scoate din așteptare",
+    "holdOn": "Înregistrarea a fost pusă în așteptare. Nu va fi ștearsă.",
+    "holdOff": "Înregistrarea a fost scoasă din așteptare",
+    "holdFailed": "Nu s-a putut modifica starea de așteptare",
+    "missingTimestamps": "Această înregistrare nu are informații de timp, așa că nu poate fi descărcată cu timestamp-uri."
   },
   "player": {
     "timeline": "Cronologie înregistrare",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Înregistrare sesiune",
-    "description": "Înregistrează sesiunile de terminal și desktop remote și redă-le sau descarcă-le ulterior."
+    "description": "Înregistrează sesiunile terminal și desktop remote, urmărește-le în direct și păstrează un registru auditat și criptat al acțiunilor utilizatorilor."
   },
   "card": {
     "title": "Înregistrări recente",
     "loading": "Se încarcă..."
+  },
+  "operations": {
+    "list": {
+      "title": "Înregistrări sesiuni"
+    },
+    "usage": {
+      "title": "Stocare înregistrări"
+    },
+    "recording": {
+      "title": "Înregistrări",
+      "protocol": "Tip",
+      "started": "Început",
+      "ended": "Sfârșit"
+    },
+    "storage": {
+      "title": "Stocare înregistrări"
+    },
+    "verify": {
+      "title": "Verifică o înregistrare pentru modificări"
+    },
+    "alertEvent": {
+      "title": "O regulă de alertă pentru comenzi s-a potrivit"
+    }
+  },
+  "details": {
+    "ended": "Sfârșit: {{reason}}",
+    "flags": "Alerte ({{count}})",
+    "access": "Istoric acces",
+    "noAccess": "Nimeni nu a deschis încă această înregistrare",
+    "someone": "Cineva",
+    "actionViewed": "a vizualizat",
+    "actionDownloaded": "a descărcat",
+    "actionVerified": "a verificat modificările",
+    "actionWatchedLive": "a urmărit în direct",
+    "actionEndedLive": "a încheiat sesiunea",
+    "actionHoldOn": "a pus în așteptare",
+    "actionHoldOff": "a scos din așteptare"
+  },
+  "live": {
+    "loading": "Se încarcă...",
+    "none": "Nicio sesiune în direct",
+    "noneHint": "Sesiunile SSH și de desktop remote ale tuturor utilizatorilor apar aici.",
+    "loadError": "Nu s-au putut încărca sesiunile active",
+    "watch": "Monitorizare",
+    "end": "Încheie sesiunea",
+    "endConfirm": "Doriți să încheiați această sesiune?",
+    "endDescription": "{{user}} pe {{host}} va fi deconectat imediat.",
+    "endReason": "Încheiat de un auditor",
+    "ended": "Sesiune încheiată",
+    "endFailed": "Nu s-a putut încheia sesiunea",
+    "readOnly": "Doar citire",
+    "recording": "Înregistrare",
+    "detached": "Deconectat",
+    "watchingAs": "Sesiunea lui {{user}}",
+    "sessionEnded": "Sesiunea s-a încheiat",
+    "watchFailed": "Nu s-a putut monitoriza această sesiune",
+    "displayUnavailable": "Desktopul remote este necesar pentru a monitoriza această sesiune"
+  },
+  "rules": {
+    "intro": "Trimiteți o alertă sau încheiați o sesiune când cineva tastează sau vede o linie care se potrivește.",
+    "add": "Adaugă regulă",
+    "edit": "Editează regula",
+    "delete": "Șterge regula",
+    "deleteConfirm": "Doriți să ștergeți această regulă?",
+    "none": "Nicio regulă încă",
+    "loadError": "Nu s-au putut încărca regulile",
+    "saveError": "Nu s-a putut salva regula",
+    "name": "Nume",
+    "pattern": "Potrivire",
+    "patternHint": "Textul de căutat într-o singură linie. Nu contează majusculele.",
+    "regex": "Expresie regulată",
+    "regexHint": "Tratează potrivirea ca o expresie regulată.",
+    "target": "Verifică",
+    "targetInput": "Ce este tastat",
+    "targetOutput": "Ce afișează gazda",
+    "hosts": "Gazde",
+    "hostsAll": "Toate gazdele",
+    "hostsPrivileged": "Doar gazde privilegiate",
+    "severity": "Nivel de alertă",
+    "severityInfo": "Informare",
+    "severityWarning": "Avertisment",
+    "severityCritical": "Critic",
+    "action": "Apoi",
+    "actionAlert": "Alertează auditorii",
+    "actionEnd": "Alertează și încheie sesiunea",
+    "enabled": "Activat"
   }
 }

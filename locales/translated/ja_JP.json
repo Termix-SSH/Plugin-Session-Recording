@@ -9,6 +9,14 @@
     "view": {
       "title": "セッション録画の閲覧",
       "description": "自分のセッション録画を確認し、再生できます。"
+    },
+    "audit": {
+      "title": "すべてのセッションを監査",
+      "description": "すべてのユーザーの録画を確認・再生し、誰がどの録画を開いたかを確認できます。録画を保留状態にしたり、ライブセッションを監視・終了したりできます。"
+    },
+    "rules": {
+      "title": "コマンドアラートルールの管理",
+      "description": "コマンドが一致したときにアラートを発したりセッションを終了したりするルールを追加・変更します。"
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "保持期間（日数）",
         "description": "セッション録画が自動的に削除されるまでの保持期間です。"
+      },
+      "forceRecording": {
+        "label": "録画を必須にする",
+        "description": "ホストで録画が無効になっている場合でも、すべてのセッションを録画します。ユーザーは必須の録画を停止できません。",
+        "off": "オフ",
+        "privileged": "特権ホストのみ",
+        "all": "すべてのホスト"
+      },
+      "encryptRecordings": {
+        "label": "録画を暗号化する",
+        "description": "ディスク上の新しい録画を暗号化します。以前作成された録画はそのままの状態で残ります。"
+      },
+      "alertOnAccess": {
+        "label": "録画が開かれたときにアラート",
+        "description": "誰かがセッションを視聴、ダウンロード、またはライブ視聴したときに、監査担当者にアラートを送信します。",
+        "off": "オフ",
+        "others": "他人のセッションの場合のみ",
+        "all": "常に"
       }
     },
     "host": {
       "enable": {
         "label": "セッション録画を有効にする",
         "description": "このホストのターミナル出力を録画し、後で再生またはダウンロードできるようにします。"
+      },
+      "includeOutputTimestamps": {
+        "label": "テキストダウンロードにタイムスタンプ",
+        "description": "テキストとしてダウンロードすると、各行が出力された時刻（UTC）が先頭に付加されます。録画と再生には影響ありません。"
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "ホスト {{id}}",
     "sessionFallback": "セッション {{id}}",
     "settingsTitle": "セッションログの設定",
-    "settingsDisplayTitle": "表示"
+    "settingsDisplayTitle": "表示",
+    "tabMine": "自分のセッション",
+    "tabAll": "すべてのユーザー",
+    "tabLive": "ライブ",
+    "tabRules": "ルール",
+    "onHold": "保留中",
+    "flagCount": "{{count}}件のアラート",
+    "verify": "変更を確認",
+    "verifyOk": "録画に変更はありません",
+    "verifyChanged": "録画は保存後に変更されました",
+    "verifyMissing": "録画ファイルが見つかりません",
+    "verifyUnknown": "この録画には比較用の保存済みフィンガープリントがありません",
+    "verifyFailed": "録画の確認に失敗しました",
+    "putOnHold": "保留にする",
+    "releaseHold": "保留を解除する",
+    "holdOn": "録画が保留状態になりました。削除されません。",
+    "holdOff": "録画の保留が解除されました",
+    "holdFailed": "保留状態の変更に失敗しました",
+    "missingTimestamps": "この録画にはタイミング情報が含まれていないため、タイムスタンプ付きでダウンロードできません。"
   },
   "player": {
     "timeline": "録画タイムライン",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "セッション録画",
-    "description": "ターミナルとリモートデスクトップのセッションを録画し、後で再生またはダウンロードできます。"
+    "description": "ターミナルおよびリモートデスクトップセッションを録画し、ライブで視聴できます。また、誰が何を行ったかの監査済みで暗号化された記録を保持します。"
   },
   "card": {
     "title": "最近の録画",
     "loading": "読み込み中..."
+  },
+  "operations": {
+    "list": {
+      "title": "セッション録画"
+    },
+    "usage": {
+      "title": "録画ストレージ"
+    },
+    "recording": {
+      "title": "録画",
+      "protocol": "種類",
+      "started": "開始時刻",
+      "ended": "終了時刻"
+    },
+    "storage": {
+      "title": "録画ストレージ"
+    },
+    "verify": {
+      "title": "録画の変更を確認"
+    },
+    "alertEvent": {
+      "title": "コマンドアラートルールが一致しました"
+    }
+  },
+  "details": {
+    "ended": "終了理由: {{reason}}",
+    "flags": "アラート ({{count}}件)",
+    "access": "アクセス履歴",
+    "noAccess": "まだ誰もこの録画を開いていません",
+    "someone": "誰か",
+    "actionViewed": "視聴",
+    "actionDownloaded": "ダウンロード",
+    "actionVerified": "変更を確認",
+    "actionWatchedLive": "ライブ視聴",
+    "actionEndedLive": "セッションを終了",
+    "actionHoldOn": "保留",
+    "actionHoldOff": "保留解除"
+  },
+  "live": {
+    "loading": "読み込み中...",
+    "none": "ライブセッションはありません",
+    "noneHint": "すべてのユーザーの SSH およびリモートデスクトップセッションがここに表示されます。",
+    "loadError": "ライブセッションを読み込めませんでした",
+    "watch": "監視",
+    "end": "セッションを終了",
+    "endConfirm": "このセッションを終了しますか？",
+    "endDescription": "{{host}} 上の {{user}} は即座に切断されます。",
+    "endReason": "監査員によって終了されました",
+    "ended": "セッションが終了しました",
+    "endFailed": "セッションを終了できませんでした",
+    "readOnly": "読み取り専用",
+    "recording": "録画中",
+    "detached": "切断済み",
+    "watchingAs": "{{user}} のセッション",
+    "sessionEnded": "セッションが終了しました",
+    "watchFailed": "このセッションを監視できませんでした",
+    "displayUnavailable": "このセッションを監視するにはリモートデスクトップが必要です"
+  },
+  "rules": {
+    "intro": "特定の行が一致したときに、アラートを送信するかセッションを終了します。",
+    "add": "ルールを追加",
+    "edit": "ルールを編集",
+    "delete": "ルールを削除",
+    "deleteConfirm": "このルールを削除しますか？",
+    "none": "ルールはまだありません",
+    "loadError": "ルールを読み込めませんでした",
+    "saveError": "ルールを保存できませんでした",
+    "name": "名前",
+    "pattern": "一致条件",
+    "patternHint": "1行内で検索するテキスト。大文字と小文字は区別されません。",
+    "regex": "正規表現",
+    "regexHint": "一致条件を正規表現として扱います。",
+    "target": "監視対象",
+    "targetInput": "入力された内容",
+    "targetOutput": "ホストが出力した内容",
+    "hosts": "ホスト",
+    "hostsAll": "すべてのホスト",
+    "hostsPrivileged": "特権ホストのみ",
+    "severity": "アラートレベル",
+    "severityInfo": "情報",
+    "severityWarning": "警告",
+    "severityCritical": "重大",
+    "action": "アクション",
+    "actionAlert": "監査員にアラート",
+    "actionEnd": "アラートを送信し、セッションを終了",
+    "enabled": "有効"
   }
 }

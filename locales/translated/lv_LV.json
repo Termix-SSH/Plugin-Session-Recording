@@ -9,6 +9,14 @@
     "view": {
       "title": "Apskatīt sesiju ierakstus",
       "description": "Apskatiet un atskaņojiet savus sesiju ierakstus."
+    },
+    "audit": {
+      "title": "Pārbaudīt katru sesiju",
+      "description": "Apskatīt un atskaņot visu ierakstus, redzēt, kurš tos atvēra, apturēt ierakstus, skatīties vai beigt tiešraides sesijas."
+    },
+    "rules": {
+      "title": "Pārvaldīt komandu brīdinājumu noteikumus",
+      "description": "Pievienot un mainīt noteikumus, kas brīdina vai beidz sesiju, ja komanda sakrīt ar noteikumu."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Saglabāšanas periods (dienas)",
         "description": "Cik ilgi sesijas ieraksts tiek saglabāts, pirms to automātiski dzēš."
+      },
+      "forceRecording": {
+        "label": "Prasīt ierakstīšanu",
+        "description": "Ierakstīt katru sesiju, pat ja hostam ir izslēgta ierakstīšana. Lietotāji nevar apturēt prasītu ierakstīšanu.",
+        "off": "Izslēgts",
+        "privileged": "Uz privilēģētiem hostiem",
+        "all": "Uz visiem hostiem"
+      },
+      "encryptRecordings": {
+        "label": "Šifrēt ierakstus",
+        "description": "Šifrēt jaunus ierakstus diskā. Ieraksti, kas izveidoti iepriekš, paliek nemainīgi."
+      },
+      "alertOnAccess": {
+        "label": "Brīdināt, kad ieraksts tiek atvērts",
+        "description": "Sūtīt brīdinājumu auditoriem, kad kāds skatās, lejupielādē vai skatās tiešraidē sesiju.",
+        "off": "Izslēgts",
+        "others": "Kad tā ir kāda cita sesija",
+        "all": "Katru reizi"
       }
     },
     "host": {
       "enable": {
         "label": "Iespējot sesiju ierakstīšanu",
         "description": "Ierakstiet šī mezgla termināļa izvadi, lai to vēlāk varētu atskaņot vai lejupielādēt."
+      },
+      "includeOutputTimestamps": {
+        "label": "Laika zīmes teksta lejupielādēs",
+        "description": "Lejupielādējot kā tekstu, katra rindas laiks tiek pievienots tās sākumā UTC formātā. Ieraksti un atskaņošana paliek nemainīgi."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Mezgls {{id}}",
     "sessionFallback": "Sesija {{id}}",
     "settingsTitle": "Sesiju žurnālu iestatījumi",
-    "settingsDisplayTitle": "Attēlojums"
+    "settingsDisplayTitle": "Attēlojums",
+    "tabMine": "Manas",
+    "tabAll": "Visi lietotāji",
+    "tabLive": "Tiešraidē",
+    "tabRules": "Noteikumi",
+    "onHold": "Apturēts",
+    "flagCount": "{{count}} brīdinājumi",
+    "verify": "Pārbaudīt izmaiņas",
+    "verifyOk": "Ieraksts nav mainīts",
+    "verifyChanged": "Ieraksts tika mainīts pēc saglabāšanas",
+    "verifyMissing": "Ieraksta fails nav atrasts",
+    "verifyUnknown": "Šim ierakstam nav saglabāta pirkstu nospieduma salīdzināšanai",
+    "verifyFailed": "Neizdevās pārbaudīt ierakstu",
+    "putOnHold": "Apturēt",
+    "releaseHold": "Atcelt apturēšanu",
+    "holdOn": "Ieraksts apturēts. Tas netiks dzēsts.",
+    "holdOff": "Ieraksta apturēšana atcelta",
+    "holdFailed": "Neizdevās mainīt apturēšanas statusu",
+    "missingTimestamps": "Šim ierakstam nav laika zīmju, tāpēc to nevar lejupielādēt ar laika zīmēm."
   },
   "player": {
     "timeline": "Ieraksta laika ass",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Sesiju ierakstīšana",
-    "description": "Ierakstiet termināļa un attālinātā darbvirsas sesijas, lai tās atskaņotu vai lejupielādētu vēlāk."
+    "description": "Ierakstīt termināļa un attālinātā darbvietas sesijas, skatīties tās tiešraidē un uzturēt pārbaudāmu, šifrētu reģistru par to, kas ko darīja."
   },
   "card": {
     "title": "Nesenās ieraksti",
     "loading": "Ielādē..."
+  },
+  "operations": {
+    "list": {
+      "title": "Sesiju ieraksti"
+    },
+    "usage": {
+      "title": "Ierakstu glabātuve"
+    },
+    "recording": {
+      "title": "Ieraksti",
+      "protocol": "Tips",
+      "started": "Sākts",
+      "ended": "Beidzies"
+    },
+    "storage": {
+      "title": "Ierakstu glabātuve"
+    },
+    "verify": {
+      "title": "Pārbaudīt ierakstu izmaiņām"
+    },
+    "alertEvent": {
+      "title": "Komandu brīdinājuma noteikums sakrita"
+    }
+  },
+  "details": {
+    "ended": "Beidzies: {{reason}}",
+    "flags": "Brīdinājumi ({{count}})",
+    "access": "Piekļuves vēsture",
+    "noAccess": "Šo ierakstu vēl neviens nav atvēris",
+    "someone": "Kāds",
+    "actionViewed": "skatījās",
+    "actionDownloaded": "lejupielādēja",
+    "actionVerified": "pārbaudīja izmaiņas",
+    "actionWatchedLive": "skatījās tiešraidē",
+    "actionEndedLive": "beidza sesiju",
+    "actionHoldOn": "apturēja",
+    "actionHoldOff": "atcēla apturēšanu"
+  },
+  "live": {
+    "loading": "Ielādē...",
+    "none": "Nav tiešraides sesiju",
+    "noneHint": "Šeit tiek parādītas visu lietotāju SSH un attālinātā darbvirsas sesijas.",
+    "loadError": "Neizdevās ielādēt tiešraides sesijas",
+    "watch": "Apskatīt",
+    "end": "Beigt sesiju",
+    "endConfirm": "Beigt šo sesiju?",
+    "endDescription": "{{user}} uz {{host}} tiek nekavējoties atvienots.",
+    "endReason": "Beidza auditoris",
+    "ended": "Sesija beigusies",
+    "endFailed": "Neizdevās beigt sesiju",
+    "readOnly": "Tikai lasīšanai",
+    "recording": "Ierakstīšana",
+    "detached": "Atvienots",
+    "watchingAs": "{{user}} sesija",
+    "sessionEnded": "Sesija ir beigusies",
+    "watchFailed": "Neizdevās apskatīt šo sesiju",
+    "displayUnavailable": "Lai apskatītu šo sesiju, ir nepieciešama Attālinātā darbvirsma"
+  },
+  "rules": {
+    "intro": "Brīdiniet vai beidziet sesiju, kad kāds ieraksta vai redz rindu, kas atbilst nosacījumiem.",
+    "add": "Pievienot noteikumu",
+    "edit": "Rediģēt noteikumu",
+    "delete": "Dzēst noteikumu",
+    "deleteConfirm": "Dzēst šo noteikumu?",
+    "none": "Vēl nav noteikumu",
+    "loadError": "Neizdevās ielādēt noteikumus",
+    "saveError": "Neizdevās saglabāt noteikumu",
+    "name": "Nosaukums",
+    "pattern": "Atbilstība",
+    "patternHint": "Teksts, ko meklēt vienā rindā. Reģistram nav nozīmes.",
+    "regex": "Regulārā izteiksme",
+    "regexHint": "Uzskatīt atbilstību par regulāru izteiksmi.",
+    "target": "Meklēt",
+    "targetInput": "Tas, kas tiek ierakstīts",
+    "targetOutput": "Tas, ko izdrukā serveris",
+    "hosts": "Serveri",
+    "hostsAll": "Visi serveri",
+    "hostsPrivileged": "Tikai privilēģētie serveri",
+    "severity": "Brīdinājuma līmenis",
+    "severityInfo": "Informācija",
+    "severityWarning": "Brīdinājums",
+    "severityCritical": "Kritisks",
+    "action": "Tad",
+    "actionAlert": "Brīdināt auditorus",
+    "actionEnd": "Brīdināt un beigt sesiju",
+    "enabled": "Ieslēgts"
   }
 }

@@ -9,6 +9,14 @@
     "view": {
       "title": "Veure enregistraments de sessió",
       "description": "Visualitza i reprodueix els teus propis enregistraments de sessió."
+    },
+    "audit": {
+      "title": "Auditar cada sessió",
+      "description": "Veure i reproduir les gravacions de tothom, veure qui ha obert cadascuna, posar les gravacions en espera i veure o finalitzar sessions en directe."
+    },
+    "rules": {
+      "title": "Gestionar les regles d'alerta de comandes",
+      "description": "Afegir i modificar les regles que alerten o finalitzen una sessió quan una comanda coincideix."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Retenció (dies)",
         "description": "Durada durant la qual es conserva un enregistrament de sessió abans que s'esborri automàticament."
+      },
+      "forceRecording": {
+        "label": "Exigir gravació",
+        "description": "Gravar cada sessió fins i tot quan un host tingui la gravació desactivada. Els usuaris no poden aturar una gravació obligatòria.",
+        "off": "Desactivat",
+        "privileged": "En hosts privilegiats",
+        "all": "En tots els hosts"
+      },
+      "encryptRecordings": {
+        "label": "Xifrar gravacions",
+        "description": "Xifrar les noves gravacions al disc. Les gravacions fetes abans es mantenen tal com són."
+      },
+      "alertOnAccess": {
+        "label": "Alertar quan s'obri una gravació",
+        "description": "Enviar una alerta als auditors quan algú vegi, descarregui o vegi en directe una sessió.",
+        "off": "Desactivat",
+        "others": "Quan sigui la sessió d'una altra persona",
+        "all": "Cada vegada"
       }
     },
     "host": {
       "enable": {
         "label": "Activa l'enregistrament de sessió",
         "description": "Enregistra la sortida del terminal d'aquest amfitrió per poder-la reproduir o descarregar més endavant."
+      },
+      "includeOutputTimestamps": {
+        "label": "Molletes en les descàrregues de text",
+        "description": "Descarregar com a text posa l'hora en què es va imprimir cada línia al seu inici, en UTC. Les gravacions i la reproducció es mantenen iguals."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Amfitrió {{id}}",
     "sessionFallback": "Sessió {{id}}",
     "settingsTitle": "Configuració dels registres de sessió",
-    "settingsDisplayTitle": "Visualització"
+    "settingsDisplayTitle": "Visualització",
+    "tabMine": "Meves",
+    "tabAll": "Tots els usuaris",
+    "tabLive": "En directe",
+    "tabRules": "Regles",
+    "onHold": "En espera",
+    "flagCount": "{{count}} alertes",
+    "verify": "Comprovar canvis",
+    "verifyOk": "La gravació no ha canviat",
+    "verifyChanged": "La gravació ha canviat després de guardar-se",
+    "verifyMissing": "Falta el fitxer de la gravació",
+    "verifyUnknown": "Aquesta gravació no té cap empremta digital guardada per comparar",
+    "verifyFailed": "No s'ha pogut comprovar la gravació",
+    "putOnHold": "Posar en espera",
+    "releaseHold": "Treure de l'espera",
+    "holdOn": "Gravació posada en espera. No s'eliminarà.",
+    "holdOff": "Gravació trencada de l'espera",
+    "holdFailed": "No s'ha pogut canviar l'espera",
+    "missingTimestamps": "Aquesta gravació no té informació de temps, per la qual cosa no es pot descarregar amb molletes."
   },
   "player": {
     "timeline": "Línia temporal de l'enregistrament",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Enregistrament de sessió",
-    "description": "Grava sessions de terminal i escriptori remot i reprodueix-les o descarrega-les més tard."
+    "description": "Gravar sessions de terminal i escriptori remot, veure-les en directe i mantenir un registre auditable i xifrat de qui ha fet què."
   },
   "card": {
     "title": "Enregistraments recents",
     "loading": "S'està carregant..."
+  },
+  "operations": {
+    "list": {
+      "title": "Gravacions de sessions"
+    },
+    "usage": {
+      "title": "Emmagatzematge de gravacions"
+    },
+    "recording": {
+      "title": "Gravacions",
+      "protocol": "Tipus",
+      "started": "Iniciada",
+      "ended": "Finalitzada"
+    },
+    "storage": {
+      "title": "Emmagatzematge de gravacions"
+    },
+    "verify": {
+      "title": "Comprovar una gravació per canvis"
+    },
+    "alertEvent": {
+      "title": "S'ha detectat una regla d'alerta de comanda"
+    }
+  },
+  "details": {
+    "ended": "Finalitzada: {{reason}}",
+    "flags": "Alertes ({{count}})",
+    "access": "Historial d'accés",
+    "noAccess": "Encara ningú ha obert aquesta gravació",
+    "someone": "Algú",
+    "actionViewed": "ha vist",
+    "actionDownloaded": "ha descarregat",
+    "actionVerified": "ha comprovat canvis",
+    "actionWatchedLive": "ha vist en directe",
+    "actionEndedLive": "ha finalitzat la sessió",
+    "actionHoldOn": "ha posat en espera",
+    "actionHoldOff": "ha tret de l'espera"
+  },
+  "live": {
+    "loading": "Carregant...",
+    "none": "No hi ha sessions en directe",
+    "noneHint": "S'hi mostren les sessions SSH i d'escriptori remot de tots els usuaris.",
+    "loadError": "No s'han pogut carregar les sessions en directe",
+    "watch": "Observar",
+    "end": "Finalitzar la sessió",
+    "endConfirm": "Vols finalitzar aquesta sessió?",
+    "endDescription": "{{user}} a {{host}} es desconnecta immediatament.",
+    "endReason": "Finalitzada per un auditor",
+    "ended": "Sessió finalitzada",
+    "endFailed": "No s'ha pogut finalitzar la sessió",
+    "readOnly": "Només lectura",
+    "recording": "Enregistrament",
+    "detached": "Desconnectat",
+    "watchingAs": "Sessió de {{user}}",
+    "sessionEnded": "La sessió ha finalitzat",
+    "watchFailed": "No s'ha pogut observar aquesta sessió",
+    "displayUnavailable": "Cal Escriptori remot per observar aquesta sessió"
+  },
+  "rules": {
+    "intro": "Alerta o finalitza una sessió quan algú escriu o veu una línia que coincideix.",
+    "add": "Afegeix una regla",
+    "edit": "Edita la regla",
+    "delete": "Suprimeix la regla",
+    "deleteConfirm": "Vols suprimir aquesta regla?",
+    "none": "Encara no hi ha regles",
+    "loadError": "No s'han pogut carregar les regles",
+    "saveError": "No s'ha pogut desar la regla",
+    "name": "Nom",
+    "pattern": "Coincidència",
+    "patternHint": "Text a cercar en una línia. No distingeix entre majúscules i minúscules.",
+    "regex": "Expressió regular",
+    "regexHint": "Tracta la coincidència com una expressió regular.",
+    "target": "Observa",
+    "targetInput": "El que s'escriu",
+    "targetOutput": "El que imprimeix l'amfitrió",
+    "hosts": "Amfitrions",
+    "hostsAll": "Tots els amfitrions",
+    "hostsPrivileged": "Només amfitrions privilegiats",
+    "severity": "Nivell d'alerta",
+    "severityInfo": "Informació",
+    "severityWarning": "Avís",
+    "severityCritical": "Crític",
+    "action": "Aleshores",
+    "actionAlert": "Alerta els auditors",
+    "actionEnd": "Alerta i finalitza la sessió",
+    "enabled": "Activat"
   }
 }

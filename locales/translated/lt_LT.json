@@ -9,6 +9,14 @@
     "view": {
       "title": "Peržiūrėti sesijų įrašus",
       "description": "Peržiūrėkite ir atkurtite savo sesijų įrašus."
+    },
+    "audit": {
+      "title": "Audituoti kiekvieną sesiją",
+      "description": "Peržiūrėti ir atkurti visų įrašus, matyti, kas atidarė kiekvieną įrašą, laikinai sustabdyti įrašų šalinimą ir stebėti arba baigti tiesiogines sesijas."
+    },
+    "rules": {
+      "title": "Tvarkyti komandų įspėjimo taisykles",
+      "description": "Sukurti ir keisti taisykles, kurios įspėja arba baigia sesiją, kai sutampa komanda."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Laikymo trukmė (dienos)",
         "description": "Kaip ilgai sesijos įrašas bus saugomas, kol bus automatiškai ištrintas."
+      },
+      "forceRecording": {
+        "label": "Reikalauti įrašymo",
+        "description": "Įrašyti kiekvieną sesiją, net jei įrenginyje įrašymas išjungtas. Naudotojai negali sustabdyti privalomo įrašymo.",
+        "off": "Išjungta",
+        "privileged": "Privilegijuotuose įrenginiuose",
+        "all": "Visuose įrenginiuose"
+      },
+      "encryptRecordings": {
+        "label": "Šifruoti įrašus",
+        "description": "Šifruoti naujus įrašus diske. Ankstesni įrašai lieka nepakitę."
+      },
+      "alertOnAccess": {
+        "label": "Įspėti, kai atidaromas įrašas",
+        "description": "Siųsti įspėjimą auditoriams, kai kas nors peržiūri, atsisiunčia arba stebi tiesiogiai sesiją.",
+        "off": "Išjungta",
+        "others": "Kai tai kito naudotojo sesija",
+        "all": "Kiekvieną kartą"
       }
     },
     "host": {
       "enable": {
         "label": "Įjungti sesijų įrašymą",
         "description": "Įrašykite šio serverio terminalo išvestį, kad galėtumėte ją vėliau atkurti arba atsisiųsti."
+      },
+      "includeOutputTimestamps": {
+        "label": "Laiko žymos tekstiniuose atsisiuntimuose",
+        "description": "Atsisiunčiant kaip tekstą, kiekvienos eilutės pradžioje bus nurodytas jos išvedimo laikas UTC formatu. Įrašai ir atkūrimas lieka nepakitę."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Serveris {{id}}",
     "sessionFallback": "Sesija {{id}}",
     "settingsTitle": "Sesijų žurnalų nustatymai",
-    "settingsDisplayTitle": "Rodinys"
+    "settingsDisplayTitle": "Rodinys",
+    "tabMine": "Mano",
+    "tabAll": "Visi naudotojai",
+    "tabLive": "Tiesiogiai",
+    "tabRules": "Taisyklės",
+    "onHold": "Laikinai sustabdyta",
+    "flagCount": "{{count}} įspėjimų",
+    "verify": "Patikrinti, ar nėra pakeitimų",
+    "verifyOk": "Įrašas nepakitęs",
+    "verifyChanged": "Įrašas buvo pakeistas po išsaugojimo",
+    "verifyMissing": "Įrašo failas nerastas",
+    "verifyUnknown": "Šis įrašas neturi išsaugoto pirštų antspaudo, su kuriuo būtų galima palyginti",
+    "verifyFailed": "Nepavyko patikrinti įrašo",
+    "putOnHold": "Laikinai sustabdyti",
+    "releaseHold": "Atšaukti laikiną sustabdymą",
+    "holdOn": "Įrašas laikinai sustabdytas. Jis nebus ištrintas.",
+    "holdOff": "Laikinas įrašo sustabdymas atšauktas",
+    "holdFailed": "Nepavyko pakeisti laikino sustabdymo būsenos",
+    "missingTimestamps": "Šis įrašas neturi laiko žymų, todėl jo negalima atsisiųsti su laiko žymomis."
   },
   "player": {
     "timeline": "Įrašo laiko juosta",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Sesijų įrašymas",
-    "description": "Įrašykite terminalo ir nuotolinio darbalaukio sesijas, o vėliau jas atkurti arba atsisiųsti."
+    "description": "Įrašyti terminalo ir nuotolinio darbalaukio sesijas, stebėti jas tiesiogiai ir išlaikyti audituotą, šifruotą veiksmų istoriją."
   },
   "card": {
     "title": "Naujausi įrašai",
     "loading": "Įkeliama..."
+  },
+  "operations": {
+    "list": {
+      "title": "Sesijų įrašai"
+    },
+    "usage": {
+      "title": "Įrašų saugykla"
+    },
+    "recording": {
+      "title": "Įrašai",
+      "protocol": "Tipas",
+      "started": "Pradėta",
+      "ended": "Baigta"
+    },
+    "storage": {
+      "title": "Įrašų saugykla"
+    },
+    "verify": {
+      "title": "Patikrinti įrašą dėl pakeitimų"
+    },
+    "alertEvent": {
+      "title": "Sutapo komandų įspėjimo taisyklė"
+    }
+  },
+  "details": {
+    "ended": "Baigta: {{reason}}",
+    "flags": "Įspėjimai ({{count}})",
+    "access": "Prieigos istorija",
+    "noAccess": "Šio įrašo dar niekas neatidarė",
+    "someone": "Kas nors",
+    "actionViewed": "peržiūrėjo",
+    "actionDownloaded": "atsisiuntė",
+    "actionVerified": "patikrino dėl pakeitimų",
+    "actionWatchedLive": "stebėjo tiesiogiai",
+    "actionEndedLive": "baigė sesiją",
+    "actionHoldOn": "laikinai sustabdė",
+    "actionHoldOff": "atšaukė laikiną sustabdymą"
+  },
+  "live": {
+    "loading": "Įkeliama...",
+    "none": "Nėra tiesioginių sesijų",
+    "noneHint": "Čia rodomi visi vartotojų SSH ir nuotolinio darbalaukio prisijungimai.",
+    "loadError": "Nepavyko įkelti aktyvių prisijungimų",
+    "watch": "Stebėti",
+    "end": "Baigti prisijungimą",
+    "endConfirm": "Baigti šį prisijungimą?",
+    "endDescription": "{{user}} prisijungimas prie {{host}} bus nedelsiant nutrauktas.",
+    "endReason": "Nutraukė auditorius",
+    "ended": "Prisijungimas baigtas",
+    "endFailed": "Nepavyko baigti prisijungimo",
+    "readOnly": "Tik skaitymui",
+    "recording": "Įrašoma",
+    "detached": "Atsijungta",
+    "watchingAs": "{{user}} prisijungimas",
+    "sessionEnded": "Prisijungimas baigtas",
+    "watchFailed": "Nepavyko stebėti šio prisijungimo",
+    "displayUnavailable": "Norint stebėti šį prisijungimą, reikia Nuotolinio darbalaukio"
+  },
+  "rules": {
+    "intro": "Įspėkite arba nutraukite prisijungimą, kai kas nors įveda arba pamato eilutę, atitinkančią taisyklę.",
+    "add": "Pridėti taisyklę",
+    "edit": "Redaguoti taisyklę",
+    "delete": "Šalinti taisyklę",
+    "deleteConfirm": "Šalinti šią taisyklę?",
+    "none": "Dar nėra taisyklių",
+    "loadError": "Nepavyko įkelti taisyklių",
+    "saveError": "Nepavyko išsaugoti taisyklės",
+    "name": "Pavadinimas",
+    "pattern": "Atitikmuo",
+    "patternHint": "Tekstas, kurį ieškoti vienoje eilutėje. Didžiosios ir mažosios raidės nesvarbios.",
+    "regex": "Reguliarusis reiškinys",
+    "regexHint": "Atitikmenį traktuoti kaip reguliarųjį reiškinį.",
+    "target": "Ieškoti",
+    "targetInput": "Įvestas tekstas",
+    "targetOutput": "Serverio išvestis",
+    "hosts": "Serveriai",
+    "hostsAll": "Visi serveriai",
+    "hostsPrivileged": "Tik privilegijuoti serveriai",
+    "severity": "Įspėjimo lygis",
+    "severityInfo": "Informacija",
+    "severityWarning": "Įspėjimas",
+    "severityCritical": "Kritinis",
+    "action": "Tada",
+    "actionAlert": "Įspėti auditorius",
+    "actionEnd": "Įspėti ir nutraukti prisijungimą",
+    "enabled": "Įjungta"
   }
 }

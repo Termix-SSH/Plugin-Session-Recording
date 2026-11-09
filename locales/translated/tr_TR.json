@@ -9,6 +9,14 @@
     "view": {
       "title": "Oturum kayıtlarını görüntüle",
       "description": "Kendi oturum kayıtlarınızı görüntüleyin ve oynatın."
+    },
+    "audit": {
+      "title": "Tüm oturumları denetle",
+      "description": "Herkesin kayıtlarını görüntüleyin ve oynatın, her kaydın kim tarafından açıldığını görün, kayıtları bekletmeye alın ve canlı oturumları izleyin veya sonlandırın."
+    },
+    "rules": {
+      "title": "Komut uyarı kurallarını yönet",
+      "description": "Bir komut eşleştiğinde uyarı veren veya oturumu sonlandıran kuralları ekleyin ve değiştirin."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Tutma süresi (gün)",
         "description": "Bir oturum kaydının otomatik olarak silinmeden önce ne kadar süreyle saklanacağı."
+      },
+      "forceRecording": {
+        "label": "Kayıt zorunlu kıl",
+        "description": "Bir ana bilgisayarın kayıt özelliği kapalı olsa bile her oturumu kaydedin. Kullanıcılar zorunlu bir kaydı durduramaz.",
+        "off": "Kapalı",
+        "privileged": "Yönetici ana bilgisayarlarda",
+        "all": "Tüm ana bilgisayarlarda"
+      },
+      "encryptRecordings": {
+        "label": "Kayıtları şifrele",
+        "description": "Diskteki yeni kayıtları şifreleyin. Önceden yapılan kayıtlar olduğu gibi kalır."
+      },
+      "alertOnAccess": {
+        "label": "Bir kayıt açıldığında uyar",
+        "description": "Birisi bir oturumu izlediğinde, indirdiğinde veya canlı izlediğinde denetçilere bir uyarı gönderin.",
+        "off": "Kapalı",
+        "others": "Başkasının oturumu olduğunda",
+        "all": "Her seferinde"
       }
     },
     "host": {
       "enable": {
         "label": "Oturum kaydını etkinleştir",
         "description": "Bu ana bilgisayar için terminal çıktısını kaydedin, böylece daha sonra oynatabilir veya indirebilirsiniz."
+      },
+      "includeOutputTimestamps": {
+        "label": "Metin indirmelerinde zaman damgaları",
+        "description": "Metin olarak indirme, her satırın yazdırıldığı saati UTC formatında başına ekler. Kayıtlar ve oynatma aynı kalır."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Ana Bilgisayar {{id}}",
     "sessionFallback": "Oturum {{id}}",
     "settingsTitle": "Oturum kayıt ayarları",
-    "settingsDisplayTitle": "Görünüm"
+    "settingsDisplayTitle": "Görünüm",
+    "tabMine": "Benim",
+    "tabAll": "Tüm kullanıcılar",
+    "tabLive": "Canlı",
+    "tabRules": "Kurallar",
+    "onHold": "Beklemede",
+    "flagCount": "{{count}} uyarı",
+    "verify": "Değişiklikleri kontrol et",
+    "verifyOk": "Kayıt değişmemiş",
+    "verifyChanged": "Kayıt kaydedildikten sonra değiştirildi",
+    "verifyMissing": "Kayıt dosyası eksik",
+    "verifyUnknown": "Bu kaydın karşılaştırılacak kayıtlı bir parmak izi yok",
+    "verifyFailed": "Kayıt kontrol edilemedi",
+    "putOnHold": "Bekletmeye al",
+    "releaseHold": "Bekletmeyi kaldır",
+    "holdOn": "Kayıt bekletmeye alındı. Silinmeyecek.",
+    "holdOff": "Kaydın bekletmesi kaldırıldı",
+    "holdFailed": "Bekletme durumu değiştirilemedi",
+    "missingTimestamps": "Bu kaydın zamanlaması yok, bu nedenle zaman damgalarıyla indirilemez."
   },
   "player": {
     "timeline": "Kayıt zaman çizelgesi",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Oturum Kaydı",
-    "description": "Terminal ve uzak masaüstü oturumlarını kaydedin, daha sonra oynatın veya indirin."
+    "description": "Terminal ve uzak masaüstü oturumlarını kaydedin, canlı olarak izleyin ve neyin ne zaman yapıldığına dair denetlenmiş, şifreli bir kayıt tutun."
   },
   "card": {
     "title": "Son kayıtlar",
     "loading": "Yükleniyor..."
+  },
+  "operations": {
+    "list": {
+      "title": "Oturum kayıtları"
+    },
+    "usage": {
+      "title": "Kayıt depolama"
+    },
+    "recording": {
+      "title": "Kayıtlar",
+      "protocol": "Tür",
+      "started": "Başlangıç",
+      "ended": "Bitiş"
+    },
+    "storage": {
+      "title": "Kayıt depolama"
+    },
+    "verify": {
+      "title": "Bir kaydın değişiklikleri için kontrolü"
+    },
+    "alertEvent": {
+      "title": "Bir komut uyarı kuralı eşleşti"
+    }
+  },
+  "details": {
+    "ended": "Bitiş: {{reason}}",
+    "flags": "Uyarılar ({{count}})",
+    "access": "Erişim geçmişi",
+    "noAccess": "Bu kayıt henüz kimse tarafından açılmadı",
+    "someone": "Birisi",
+    "actionViewed": "izledi",
+    "actionDownloaded": "indirdi",
+    "actionVerified": "değişiklikleri kontrol etti",
+    "actionWatchedLive": "canlı izledi",
+    "actionEndedLive": "oturumu sonlandırdı",
+    "actionHoldOn": "bekletmeye aldı",
+    "actionHoldOff": "bekletmeyi kaldırdı"
+  },
+  "live": {
+    "loading": "Yükleniyor...",
+    "none": "Canlı oturum yok",
+    "noneHint": "Her kullanıcının SSH ve uzak masaüstü oturumları burada gösterilir.",
+    "loadError": "Canlı oturumlar yüklenemedi",
+    "watch": "İzle",
+    "end": "Oturumu sonlandır",
+    "endConfirm": "Bu oturum sonlandırılsın mı?",
+    "endDescription": "{{user}} kullanıcısının {{host}} sunucusundaki bağlantısı hemen kesilecektir.",
+    "endReason": "Bir denetçi tarafından sonlandırıldı",
+    "ended": "Oturum sonlandırıldı",
+    "endFailed": "Oturum sonlandırılamadı",
+    "readOnly": "Salt okunur",
+    "recording": "Kaydediliyor",
+    "detached": "Bağlantı kesildi",
+    "watchingAs": "{{user}} kullanıcısının oturumu",
+    "sessionEnded": "Oturum sona erdi",
+    "watchFailed": "Bu oturum izlenemedi",
+    "displayUnavailable": "Bu oturumu izlemek için Uzak Masaüstü gereklidir"
+  },
+  "rules": {
+    "intro": "Birisi eşleşen bir satır yazdığında veya gördüğünde uyarı verin veya oturumu sonlandırın.",
+    "add": "Kural ekle",
+    "edit": "Kuralı düzenle",
+    "delete": "Kuralı sil",
+    "deleteConfirm": "Bu kural silinsin mi?",
+    "none": "Henüz kural yok",
+    "loadError": "Kurallar yüklenemedi",
+    "saveError": "Kural kaydedilemedi",
+    "name": "Ad",
+    "pattern": "Eşleşme",
+    "patternHint": "Bir satırda aranacak metin. Büyük/küçük harf duyarsızdır.",
+    "regex": "Düzenli ifade",
+    "regexHint": "Eşleşmeyi düzenli ifade olarak değerlendir.",
+    "target": "İncele",
+    "targetInput": "Yazılanlar",
+    "targetOutput": "Sunucunun yazdıkları",
+    "hosts": "Sunucular",
+    "hostsAll": "Tüm sunucular",
+    "hostsPrivileged": "Sadece ayrıcalıklı sunucular",
+    "severity": "Uyarı seviyesi",
+    "severityInfo": "Bilgi",
+    "severityWarning": "Uyarı",
+    "severityCritical": "Kritik",
+    "action": "Sonra",
+    "actionAlert": "Denetçileri uyar",
+    "actionEnd": "Uyar ve oturumu sonlandır",
+    "enabled": "Açık"
   }
 }

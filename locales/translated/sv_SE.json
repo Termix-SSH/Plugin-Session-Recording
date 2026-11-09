@@ -9,6 +9,14 @@
     "view": {
       "title": "Visa sessionsinspelningar",
       "description": "Se och spela upp dina egna sessionsinspelningar."
+    },
+    "audit": {
+      "title": "Granska alla sessioner",
+      "description": "Visa och spela upp alla inspelningar, se vem som öppnade varje inspelning, pausa inspelningar och titta på eller avsluta live-sessioner."
+    },
+    "rules": {
+      "title": "Hantera regler för kommandovarningar",
+      "description": "Lägg till och ändra de regler som varnar för eller avslutar en session när ett kommando matchar."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Behållning (dagar)",
         "description": "Hur länge en sessionsinspelning sparas innan den raderas automatiskt."
+      },
+      "forceRecording": {
+        "label": "Kräv inspelning",
+        "description": "Spela in alla sessioner även när en värd har inspelning avstängd. Användare kan inte stoppa en obligatorisk inspelning.",
+        "off": "Av",
+        "privileged": "På privilegierade värdar",
+        "all": "På alla värdar"
+      },
+      "encryptRecordings": {
+        "label": "Kryptera inspelningar",
+        "description": "Kryptera nya inspelningar på disken. Inspeiningar som gjordes tidigare förblir oförändrade."
+      },
+      "alertOnAccess": {
+        "label": "Varna när en inspelning öppnas",
+        "description": "Skicka en varning till granskare när någon tittar på, laddar ner eller tittar live på en session.",
+        "off": "Av",
+        "others": "När det är någon annans session",
+        "all": "Alltid"
       }
     },
     "host": {
       "enable": {
         "label": "Aktivera sessionsinspelning",
         "description": "Spela in terminalutdata för denna värd så att du kan spela upp eller ladda ner den senare."
+      },
+      "includeOutputTimestamps": {
+        "label": "Tidsstämplar i textnedladdningar",
+        "description": "Nedladdning som text lägger till tiden då varje rad skrevs ut i början, i UTC. Inspeiningar och uppspelning förblir oförändrade."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Värd {{id}}",
     "sessionFallback": "Session {{id}}",
     "settingsTitle": "Inställningar för sessionsloggar",
-    "settingsDisplayTitle": "Visning"
+    "settingsDisplayTitle": "Visning",
+    "tabMine": "Mina",
+    "tabAll": "Alla användare",
+    "tabLive": "Live",
+    "tabRules": "Regler",
+    "onHold": "På paus",
+    "flagCount": "{{count}} varningar",
+    "verify": "Kontrollera efter ändringar",
+    "verifyOk": "Inspelningen är oförändrad",
+    "verifyChanged": "Inspelningen ändrades efter att den sparades",
+    "verifyMissing": "Inspelningsfilen saknas",
+    "verifyUnknown": "Denna inspelning har ingen sparad fingeravtryck att jämföra med",
+    "verifyFailed": "Kunde inte kontrollera inspelningen",
+    "putOnHold": "Pausa",
+    "releaseHold": "Ta bort paus",
+    "holdOn": "Inspelning pausad. Den kommer inte att raderas.",
+    "holdOff": "Inspelningens paus borttagen",
+    "holdFailed": "Kunde inte ändra pausen",
+    "missingTimestamps": "Denna inspelning har ingen tidtagning, så den kan inte laddas ner med tidsstämplar."
   },
   "player": {
     "timeline": "Inspelnings tidslinje",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Sessionsinspelning",
-    "description": "Spela in terminal- och fjärrskrivbordsessioner och spela upp eller ladda ner dem senare."
+    "description": "Spela in terminal- och fjärrskrivbordssessioner, titta på dem live och behåll en granskad, krypterad logg över vad som gjordes."
   },
   "card": {
     "title": "Senaste inspelningar",
     "loading": "Laddar..."
+  },
+  "operations": {
+    "list": {
+      "title": "Sessionsinspelningar"
+    },
+    "usage": {
+      "title": "Lagring för inspelningar"
+    },
+    "recording": {
+      "title": "Inspeiningar",
+      "protocol": "Typ",
+      "started": "Startad",
+      "ended": "Avslutad"
+    },
+    "storage": {
+      "title": "Lagring för inspelningar"
+    },
+    "verify": {
+      "title": "Kontrollera en inspelning efter ändringar"
+    },
+    "alertEvent": {
+      "title": "En regel för kommandovarning matchade"
+    }
+  },
+  "details": {
+    "ended": "Avslutad: {{reason}}",
+    "flags": "Varningar ({{count}})",
+    "access": "Åtkomsthistorik",
+    "noAccess": "Ingen har öppnat denna inspelning än",
+    "someone": "Någon",
+    "actionViewed": "tittade på",
+    "actionDownloaded": "laddade ner",
+    "actionVerified": "kontrollerade efter ändringar",
+    "actionWatchedLive": "tittade live på",
+    "actionEndedLive": "avslutade sessionen",
+    "actionHoldOn": "pausade",
+    "actionHoldOff": "tog bort paus"
+  },
+  "live": {
+    "loading": "Laddar...",
+    "none": "Inga live-sessioner",
+    "noneHint": "Öppna SSH- och fjärrskrivbordsessioner för alla användare visas här.",
+    "loadError": "Kunde inte ladda live-sessioner",
+    "watch": "Visa",
+    "end": "Avsluta session",
+    "endConfirm": "Vill du avsluta denna session?",
+    "endDescription": "{{user}} på {{host}} kopplas omedelbart bort.",
+    "endReason": "Avslutad av en granskare",
+    "ended": "Sessionen avslutad",
+    "endFailed": "Kunde inte avsluta sessionen",
+    "readOnly": "Skrivskyddad",
+    "recording": "Spelar in",
+    "detached": "Kopplad bort",
+    "watchingAs": "Session för {{user}}",
+    "sessionEnded": "Sessionen har avslutats",
+    "watchFailed": "Kunde inte visa denna session",
+    "displayUnavailable": "Fjärrskrivbord krävs för att visa denna session"
+  },
+  "rules": {
+    "intro": "Varna eller avsluta en session när någon skriver eller ser en rad som matchar.",
+    "add": "Lägg till regel",
+    "edit": "Redigera regel",
+    "delete": "Ta bort regel",
+    "deleteConfirm": "Vill du ta bort denna regel?",
+    "none": "Inga regler än",
+    "loadError": "Kunde inte ladda regler",
+    "saveError": "Kunde inte spara regeln",
+    "name": "Namn",
+    "pattern": "Matchning",
+    "patternHint": "Text att leta efter i en rad. Stor- och småskift spelar ingen roll.",
+    "regex": "Reguljärt uttryck",
+    "regexHint": "Behandla matchningen som ett reguljärt uttryck.",
+    "target": "Titta på",
+    "targetInput": "Vad som skrivs",
+    "targetOutput": "Vad värdmaskinen skriver ut",
+    "hosts": "Värdar",
+    "hostsAll": "Alla värdar",
+    "hostsPrivileged": "Endast privilegierade värdar",
+    "severity": "Varningsnivå",
+    "severityInfo": "Info",
+    "severityWarning": "Varning",
+    "severityCritical": "Kritisk",
+    "action": "Då",
+    "actionAlert": "Varna granskare",
+    "actionEnd": "Varna och avsluta sessionen",
+    "enabled": "På"
   }
 }

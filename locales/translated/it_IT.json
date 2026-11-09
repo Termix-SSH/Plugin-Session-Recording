@@ -9,6 +9,14 @@
     "view": {
       "title": "Visualizza registrazioni di sessione",
       "description": "Visualizza e riproduci le tue registrazioni di sessione."
+    },
+    "audit": {
+      "title": "Controlla ogni sessione",
+      "description": "Visualizza e riproduci le registrazioni di tutti, vedi chi ha aperto ciascuna di esse, metti in pausa le registrazioni e guarda o termina le sessioni in diretta."
+    },
+    "rules": {
+      "title": "Gestisci le regole di avviso sui comandi",
+      "description": "Aggiungi e modifica le regole che attivano un avviso o terminano una sessione quando un comando corrisponde."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Conservazione (giorni)",
         "description": "Per quanto tempo una registrazione di sessione viene conservata prima di essere eliminata automaticamente."
+      },
+      "forceRecording": {
+        "label": "Registrazione obbligatoria",
+        "description": "Registra ogni sessione anche quando un host ha la registrazione disattivata. Gli utenti non possono interrompere una registrazione obbligatoria.",
+        "off": "Disattivata",
+        "privileged": "Su host privilegiati",
+        "all": "Su tutti gli host"
+      },
+      "encryptRecordings": {
+        "label": "Crittografa le registrazioni",
+        "description": "Crittografa le nuove registrazioni sul disco. Le registrazioni create in precedenza rimangono invariate."
+      },
+      "alertOnAccess": {
+        "label": "Avviso all'apertura di una registrazione",
+        "description": "Invia un avviso agli auditor quando qualcuno guarda, scarica o guarda in diretta una sessione.",
+        "off": "Disattivata",
+        "others": "Quando è la sessione di un altro utente",
+        "all": "Ogni volta"
       }
     },
     "host": {
       "enable": {
         "label": "Abilita registrazione sessione",
         "description": "Registra l'output del terminale per questo host in modo da poterlo riprodurre o scaricare in seguito."
+      },
+      "includeOutputTimestamps": {
+        "label": "Timestamp nei download di testo",
+        "description": "Il download come testo inserisce l'ora in cui ogni riga è stata stampata all'inizio, in UTC. Le registrazioni e la riproduzione rimangono invariate."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Host {{id}}",
     "sessionFallback": "Sessione {{id}}",
     "settingsTitle": "Impostazioni registri di sessione",
-    "settingsDisplayTitle": "Visualizzazione"
+    "settingsDisplayTitle": "Visualizzazione",
+    "tabMine": "Mie",
+    "tabAll": "Tutti gli utenti",
+    "tabLive": "In diretta",
+    "tabRules": "Regole",
+    "onHold": "In attesa",
+    "flagCount": "{{count}} avvisi",
+    "verify": "Verifica le modifiche",
+    "verifyOk": "La registrazione è invariata",
+    "verifyChanged": "La registrazione è stata modificata dopo il salvataggio",
+    "verifyMissing": "Il file di registrazione è mancante",
+    "verifyUnknown": "Questa registrazione non ha un'impronta digitale salvata con cui confrontarla",
+    "verifyFailed": "Impossibile verificare la registrazione",
+    "putOnHold": "Metti in attesa",
+    "releaseHold": "Rimuovi dall'attesa",
+    "holdOn": "Registrazione messa in attesa. Non verrà eliminata.",
+    "holdOff": "Registrazione rimossa dall'attesa",
+    "holdFailed": "Impossibile modificare lo stato di attesa",
+    "missingTimestamps": "Questa registrazione non ha informazioni temporali, quindi non può essere scaricata con i timestamp."
   },
   "player": {
     "timeline": "Cronologia registrazione",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Registrazione sessione",
-    "description": "Registra le sessioni del terminale e del desktop remoto e riprodurle o scaricarle in seguito."
+    "description": "Registra le sessioni del terminale e del desktop remoto, guardale in diretta e mantieni un registro crittografato e verificabile di chi ha fatto cosa."
   },
   "card": {
     "title": "Registrazioni recenti",
     "loading": "Caricamento..."
+  },
+  "operations": {
+    "list": {
+      "title": "Registrazioni delle sessioni"
+    },
+    "usage": {
+      "title": "Archiviazione delle registrazioni"
+    },
+    "recording": {
+      "title": "Registrazioni",
+      "protocol": "Tipo",
+      "started": "Iniziata",
+      "ended": "Terminata"
+    },
+    "storage": {
+      "title": "Archiviazione delle registrazioni"
+    },
+    "verify": {
+      "title": "Verifica le modifiche di una registrazione"
+    },
+    "alertEvent": {
+      "title": "Una regola di avviso sui comandi ha corrisposto"
+    }
+  },
+  "details": {
+    "ended": "Terminata: {{reason}}",
+    "flags": "Avvisi ({{count}})",
+    "access": "Cronologia accessi",
+    "noAccess": "Nessuno ha ancora aperto questa registrazione",
+    "someone": "Qualcuno",
+    "actionViewed": "ha guardato",
+    "actionDownloaded": "ha scaricato",
+    "actionVerified": "ha verificato le modifiche",
+    "actionWatchedLive": "ha guardato in diretta",
+    "actionEndedLive": "ha terminato la sessione",
+    "actionHoldOn": "ha messo in attesa",
+    "actionHoldOff": "ha rimosso dall'attesa"
+  },
+  "live": {
+    "loading": "Caricamento...",
+    "none": "Nessuna sessione in diretta",
+    "noneHint": "Le sessioni SSH e desktop remoto di tutti gli utenti vengono visualizzate qui.",
+    "loadError": "Impossibile caricare le sessioni attive",
+    "watch": "Monitora",
+    "end": "Termina sessione",
+    "endConfirm": "Terminare questa sessione?",
+    "endDescription": "{{user}} su {{host}} verrà disconnesso immediatamente.",
+    "endReason": "Terminata da un revisore",
+    "ended": "Sessione terminata",
+    "endFailed": "Impossibile terminare la sessione",
+    "readOnly": "Sola lettura",
+    "recording": "Registrazione",
+    "detached": "Distaccato",
+    "watchingAs": "Sessione di {{user}}",
+    "sessionEnded": "La sessione è terminata",
+    "watchFailed": "Impossibile monitorare questa sessione",
+    "displayUnavailable": "È necessario il desktop remoto per monitorare questa sessione"
+  },
+  "rules": {
+    "intro": "Invia un avviso o termina una sessione quando qualcuno digita o visualizza una riga corrispondente.",
+    "add": "Aggiungi regola",
+    "edit": "Modifica regola",
+    "delete": "Elimina regola",
+    "deleteConfirm": "Eliminare questa regola?",
+    "none": "Nessuna regola ancora",
+    "loadError": "Impossibile caricare le regole",
+    "saveError": "Impossibile salvare la regola",
+    "name": "Nome",
+    "pattern": "Corrispondenza",
+    "patternHint": "Testo da cercare in una riga. La distinzione tra maiuscole e minuscole non è rilevante.",
+    "regex": "Espressione regolare",
+    "regexHint": "Tratta la corrispondenza come un'espressione regolare.",
+    "target": "Cerca in",
+    "targetInput": "Cosa viene digitato",
+    "targetOutput": "Cosa stampa l'host",
+    "hosts": "Host",
+    "hostsAll": "Tutti gli host",
+    "hostsPrivileged": "Solo host privilegiati",
+    "severity": "Livello di avviso",
+    "severityInfo": "Info",
+    "severityWarning": "Avviso",
+    "severityCritical": "Critico",
+    "action": "Quindi",
+    "actionAlert": "Avvisa i revisori",
+    "actionEnd": "Avvisa e termina la sessione",
+    "enabled": "Attivo"
   }
 }

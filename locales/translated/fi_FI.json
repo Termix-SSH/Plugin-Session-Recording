@@ -9,6 +9,14 @@
     "view": {
       "title": "Katso istunnon tallenteita",
       "description": "Katso ja toista omia istunnon tallenteitasi."
+    },
+    "audit": {
+      "title": "Tarkastele jokaista istuntoa",
+      "description": "Katsele ja toista kaikkien nauhoituksia, näe kuka avasi jokaisen, pidä nauhoituksia pannaattuna ja katso tai lopeta live-istunnot."
+    },
+    "rules": {
+      "title": "Hallitse komentojen hälytysääntöjä",
+      "description": "Lisää ja muokkaa sääntöjä, jotka hälyttävät tai lopettavat istunnon, kun komento täsmää."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Säilytysaika (päivää)",
         "description": "Kuinka kauan istunnon tallennetta säilytetään ennen automaattista poistamista."
+      },
+      "forceRecording": {
+        "label": "Vaadi nauhoitus",
+        "description": "Nauhoita jokainen istunto, vaikka isäntälaitteessa nauhoitus olisi poissa käytöstä. Käyttäjät eivät voi pysäyttää pakollista nauhoitusta.",
+        "off": "Pois päältä",
+        "privileged": "Oikeutetuilla isännillä",
+        "all": "Jokaisella isännällä"
+      },
+      "encryptRecordings": {
+        "label": "Salaus nauhoituksille",
+        "description": "Salaa uudet nauhoitukset levylle. Aiemmat nauhoitukset säilyvät ennallaan."
+      },
+      "alertOnAccess": {
+        "label": "Hälytä, kun nauhoitus avataan",
+        "description": "Lähetä hälytys tarkastajille, kun joku katsoo, lataa tai seuraa live-istuntoa.",
+        "off": "Pois päältä",
+        "others": "Kun kyseessä on toisen istunto",
+        "all": "Joka kerta"
       }
     },
     "host": {
       "enable": {
         "label": "Ota istunnon tallennus käyttöön",
         "description": "Tallenna tämän isäntäpalvelimen pääteulostulo, jotta voit toistaa tai ladata sen myöhemmin."
+      },
+      "includeOutputTimestamps": {
+        "label": "Aikaleimat tekstilatauksissa",
+        "description": "Tekstin lataaminen lisää aikaleiman rivin alkuun UTC-aikana. Nauhoitukset ja toisto pysyvät ennallaan."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Isäntäpalvelin {{id}}",
     "sessionFallback": "Istunto {{id}}",
     "settingsTitle": "Istuntolokien asetukset",
-    "settingsDisplayTitle": "Näyttö"
+    "settingsDisplayTitle": "Näyttö",
+    "tabMine": "Omat",
+    "tabAll": "Kaikki käyttäjät",
+    "tabLive": "Live",
+    "tabRules": "Säännöt",
+    "onHold": "Pannaattuna",
+    "flagCount": "{{count}} hälytystä",
+    "verify": "Tarkista muutokset",
+    "verifyOk": "Nauhoitus on muuttumaton",
+    "verifyChanged": "Nauhoitusta on muutettu tallennuksen jälkeen",
+    "verifyMissing": "Nauhoitustiedosto puuttuu",
+    "verifyUnknown": "Tällä nauhoituksella ei ole tallennettua sormenjälkeä vertailua varten",
+    "verifyFailed": "Nauhoituksen tarkistus epäonnistui",
+    "putOnHold": "Aseta pannaattuna",
+    "releaseHold": "Poista pannaus",
+    "holdOn": "Nauhoitus asetettu pannaattuna. Sitä ei poisteta.",
+    "holdOff": "Nauhoituksen pannaus poistettu",
+    "holdFailed": "Pannausta ei voitu muuttaa",
+    "missingTimestamps": "Tässä nauhoituksessa ei ole aikaleimoja, joten sitä ei voi ladata aikaleimoilla."
   },
   "player": {
     "timeline": "Tallenteen aikajana",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Istunnon tallennus",
-    "description": "Näytä terminaali- ja etätyöpöytäistunnot ja toista tai lataa ne myöhemmin."
+    "description": "Nauhoita terminaali- ja etätyöpöytäistunnot, seuraa niitä live-tilassa ja pidä tarkasteltua, salattua kirjaa siitä, kuka teki mitäkin."
   },
   "card": {
     "title": "Viimeisimmät nauhoitukset",
     "loading": "Ladataan..."
+  },
+  "operations": {
+    "list": {
+      "title": "Istunnon nauhoitukset"
+    },
+    "usage": {
+      "title": "Nauhoitusten tallennustila"
+    },
+    "recording": {
+      "title": "Nauhoitukset",
+      "protocol": "Tyyppi",
+      "started": "Aloitettu",
+      "ended": "Päättynyt"
+    },
+    "storage": {
+      "title": "Nauhoitusten tallennustila"
+    },
+    "verify": {
+      "title": "Tarkista nauhoituksen muutokset"
+    },
+    "alertEvent": {
+      "title": "Komentohälytyssääntö täsmäsi"
+    }
+  },
+  "details": {
+    "ended": "Päättynyt: {{reason}}",
+    "flags": "Hälytykset ({{count}})",
+    "access": "Käyttöhistoria",
+    "noAccess": "Kukaan ei ole vielä avannut tätä nauhoitusta",
+    "someone": "Joku",
+    "actionViewed": "katsoi",
+    "actionDownloaded": "latai",
+    "actionVerified": "tarkisti muutokset",
+    "actionWatchedLive": "katsoi live-tilassa",
+    "actionEndedLive": "lopetti istunnon",
+    "actionHoldOn": "asetti pannaattuna",
+    "actionHoldOff": "poisti pannausta"
+  },
+  "live": {
+    "loading": "Ladataan...",
+    "none": "Ei live-istuntoja",
+    "noneHint": "Kaikkien käyttäjien SSH- ja etätyöpöytäistunnot näkyvät tässä.",
+    "loadError": "Reaaliaikaisia istuntoja ei voitu ladata",
+    "watch": "Seuraa",
+    "end": "Lopeta istunto",
+    "endConfirm": "Lopetetaanko tämä istunto?",
+    "endDescription": "{{user}} -yhteys palvelimelle {{host}} katkaistaan välittömästi.",
+    "endReason": "Lopettanut tarkastaja",
+    "ended": "Istunto päättyi",
+    "endFailed": "Istuntoa ei voitu lopettaa",
+    "readOnly": "Vain luku",
+    "recording": "Nauhoitus",
+    "detached": "Irrotettu",
+    "watchingAs": "Käyttäjän {{user}} istunto",
+    "sessionEnded": "Istunto päättyi",
+    "watchFailed": "Tätä istuntoa ei voitu seurata",
+    "displayUnavailable": "Tämän istunnon seuraaminen vaatii Etätyöpöydän"
+  },
+  "rules": {
+    "intro": "Lähetä hälytys tai lopeta istunto, kun joku kirjoittaa tai näkee rivin, joka täsmää.",
+    "add": "Lisää sääntö",
+    "edit": "Muokkaa sääntöä",
+    "delete": "Poista sääntö",
+    "deleteConfirm": "Poistetaanko tämä sääntö?",
+    "none": "Ei vielä sääntöjä",
+    "loadError": "Sääntöjä ei voitu ladata",
+    "saveError": "Sääntöä ei voitu tallentaa",
+    "name": "Nimi",
+    "pattern": "Osumaehto",
+    "patternHint": "Tekstiä etsittäväksi yhdeltä riviltä. Kirjoitusasu ei vaikuta tulokseen.",
+    "regex": "Säännöllinen lauseke",
+    "regexHint": "Tulkitaan osumaehto säännölliseksi lausekkeeksi.",
+    "target": "Tarkastelukohteet",
+    "targetInput": "Kirjoitettu sisältö",
+    "targetOutput": "Palvelimen tulostama sisältö",
+    "hosts": "Palvelimet",
+    "hostsAll": "Kaikki palvelimet",
+    "hostsPrivileged": "Vain erioikeutetut palvelimet",
+    "severity": "Hälytystaso",
+    "severityInfo": "Tieto",
+    "severityWarning": "Varoitus",
+    "severityCritical": "Kriittinen",
+    "action": "Toimi",
+    "actionAlert": "Hälytä tarkastajat",
+    "actionEnd": "Hälytä ja lopeta istunto",
+    "enabled": "Päällä"
   }
 }

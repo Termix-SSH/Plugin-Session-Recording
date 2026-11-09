@@ -9,6 +9,14 @@
     "view": {
       "title": "Munkamenet-felvételek megtekintése",
       "description": "Saját munkamenet-felvételek megtekintése és lejátszása."
+    },
+    "audit": {
+      "title": "Minden munkamenet ellenőrzése",
+      "description": "Tekintse meg és játssza le újra mindenki felvételeit, lássa, ki nyitotta meg őket, tegye felvételeket várakoztatásba, és nézze vagy zárja le az élő munkameneteket."
+    },
+    "rules": {
+      "title": "Parancsriasztási szabályok kezelése",
+      "description": "Adjon hozzá és módosítson olyan szabályokat, amelyek riasztást küldenek, vagy lezárják a munkamenetet, ha egy parancs egyezik."
     }
   },
   "settings": {
@@ -16,12 +24,34 @@
       "retentionDays": {
         "label": "Tárolási idő (nap)",
         "description": "Annak a munkamenet-felvételnek a tárolási ideje, mielőtt automatikusan törlődik."
+      },
+      "forceRecording": {
+        "label": "Felvétel kötelezővé tétele",
+        "description": "Rögzítsen minden munkamenetet akkor is, ha egy gazdagépen a felvétel kikapcsolva van. A felhasználók nem állíthatják le a kötelező felvételt.",
+        "off": "Ki",
+        "privileged": "Jogosultságokkal rendelkező gazdagépeken",
+        "all": "Minden gazdagépen"
+      },
+      "encryptRecordings": {
+        "label": "Felvételek titkosítása",
+        "description": "Titkosítsa az új felvételeket a lemezen. A korábban készült felvételek változatlanok maradnak."
+      },
+      "alertOnAccess": {
+        "label": "Riasztás, amikor egy felvételt megnyitnak",
+        "description": "Küldjön riasztást az ellenőröknek, amikor valaki megnézi, letölti vagy élőben figyeli egy munkamenetet.",
+        "off": "Ki",
+        "others": "Amikor valaki más munkamenetéről van szó",
+        "all": "Minden alkalommal"
       }
     },
     "host": {
       "enable": {
         "label": "Munkamenet-felvétel engedélyezése",
         "description": "A terminál kimenetének rögzítése ehhez a gazdagéphez, hogy később lejátszhasd vagy letölthessed."
+      },
+      "includeOutputTimestamps": {
+        "label": "Időbélyegek a szöveges letöltésekben",
+        "description": "A szövegként történő letöltés minden sor elejére teszi az időpontot, amikor azt kiírták, UTC idő szerint. A felvételek és a lejátszás változatlanok maradnak."
       }
     },
     "alwaysShowActions": {
@@ -50,7 +80,25 @@
     "hostFallback": "Gazdagép {{id}}",
     "sessionFallback": "Munkamenet {{id}}",
     "settingsTitle": "Munkamenet-napló beállítások",
-    "settingsDisplayTitle": "Megjelenítés"
+    "settingsDisplayTitle": "Megjelenítés",
+    "tabMine": "Saját",
+    "tabAll": "Minden felhasználó",
+    "tabLive": "Élő",
+    "tabRules": "Szabályok",
+    "onHold": "Várakoztatás alatt",
+    "flagCount": "{{count}} riasztás",
+    "verify": "Változások ellenőrzése",
+    "verifyOk": "A felvétel változatlan",
+    "verifyChanged": "A felvételt a mentés után módosították",
+    "verifyMissing": "A felvétel fájlja hiányzik",
+    "verifyUnknown": "Ennek a felvételnek nincs mentett ujjlenyomata az összehasonlításhoz",
+    "verifyFailed": "Nem sikerült ellenőrizni a felvételt",
+    "putOnHold": "Várakoztatásba helyezés",
+    "releaseHold": "Várakoztatás feloldása",
+    "holdOn": "A felvételt várakoztatásba helyezték. Nem lesz törölve.",
+    "holdOff": "A felvétel várakoztatása feloldva",
+    "holdFailed": "Nem sikerült módosítani a várakoztatást",
+    "missingTimestamps": "Ennek a felvételnek nincs időzítése, ezért nem tölthető le időbélyegekkel."
   },
   "player": {
     "timeline": "Felvétel idővonala",
@@ -64,10 +112,96 @@
   },
   "plugin": {
     "name": "Munkamenet-felvétel",
-    "description": "Rögzítse a terminál- és távoli asztali munkameneteket, és játssza le őket, vagy töltse le őket később."
+    "description": "Rögzítse a terminál- és távoli asztalmunkameneteket, nézze meg őket élőben, és tartson ellenőrzött, titkosított nyilvántartást arról, hogy ki mit csinált."
   },
   "card": {
     "title": "Legutóbbi felvételek",
     "loading": "Betöltés..."
+  },
+  "operations": {
+    "list": {
+      "title": "Munkamenet-felvételek"
+    },
+    "usage": {
+      "title": "Felvétel tárhelye"
+    },
+    "recording": {
+      "title": "Felvételek",
+      "protocol": "Típus",
+      "started": "Kezdés",
+      "ended": "Befejezés"
+    },
+    "storage": {
+      "title": "Felvétel tárhelye"
+    },
+    "verify": {
+      "title": "Felvétel ellenőrzése változásokra"
+    },
+    "alertEvent": {
+      "title": "Egy parancsriasztási szabály egyezett"
+    }
+  },
+  "details": {
+    "ended": "Befejezés: {{reason}}",
+    "flags": "Riasztások ({{count}})",
+    "access": "Hozzáfelési előzmények",
+    "noAccess": "Még senki sem nyitotta meg ezt a felvételt",
+    "someone": "Valaki",
+    "actionViewed": "megnézte",
+    "actionDownloaded": "letöltötte",
+    "actionVerified": "ellenőrizte változásokra",
+    "actionWatchedLive": "élőben nézte",
+    "actionEndedLive": "lezárta a munkamenetet",
+    "actionHoldOn": "várakoztatásba helyezte",
+    "actionHoldOff": "feloldotta a várakoztatást"
+  },
+  "live": {
+    "loading": "Betöltés...",
+    "none": "Nincsenek élő munkamenetek",
+    "noneHint": "Minden felhasználó SSH- és távoli asztali munkamenetei itt jelennek meg.",
+    "loadError": "Nem sikerült betölteni az élő munkameneteket",
+    "watch": "Megfigyelés",
+    "end": "Munkamenet befejezése",
+    "endConfirm": "Befejezi ezt a munkamenetet?",
+    "endDescription": "{{user}} a(z) {{host}} gépen azonnal lekapcsolódik.",
+    "endReason": "Ellenőr által befejezve",
+    "ended": "A munkamenet véget ért",
+    "endFailed": "Nem sikerült befejezni a munkamenetet",
+    "readOnly": "Csak olvasható",
+    "recording": "Rögzítés",
+    "detached": "Leválasztva",
+    "watchingAs": "{{user}} munkamenete",
+    "sessionEnded": "A munkamenet véget ért",
+    "watchFailed": "Nem sikerült megfigyelni ezt a munkamenetet",
+    "displayUnavailable": "A munkamenet megfigyeléséhez Távoli asztal szükséges"
+  },
+  "rules": {
+    "intro": "Riasztson vagy fejezzen be egy munkamenetet, ha valaki olyan sort ír be vagy lát, amely egyezik.",
+    "add": "Szabály hozzáadása",
+    "edit": "Szabály szerkesztése",
+    "delete": "Szabály törlése",
+    "deleteConfirm": "Törli ezt a szabályt?",
+    "none": "Még nincsenek szabályok",
+    "loadError": "Nem sikerült betölteni a szabályokat",
+    "saveError": "Nem sikerült menteni a szabályt",
+    "name": "Név",
+    "pattern": "Egyezés",
+    "patternHint": "A keresendő szöveg egy sorban. A kis- és nagybetűk nem számítanak.",
+    "regex": "Reguláris kifejezés",
+    "regexHint": "Az egyezést reguláris kifejezésként kezeli.",
+    "target": "Megfigyelés",
+    "targetInput": "A begépelt szöveg",
+    "targetOutput": "A host által kiírt szöveg",
+    "hosts": "Hostok",
+    "hostsAll": "Minden host",
+    "hostsPrivileged": "Csak jogosult hostok",
+    "severity": "Riasztási szint",
+    "severityInfo": "Információ",
+    "severityWarning": "Figyelmeztetés",
+    "severityCritical": "Kritikus",
+    "action": "Akkor",
+    "actionAlert": "Riasztás az ellenőröknek",
+    "actionEnd": "Riasztás és a munkamenet befejezése",
+    "enabled": "Be"
   }
 }
