@@ -1,0 +1,172 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Termix-SSH/Termix/main/scripts/authz/authz.schema.json",
+  "seed": [
+    {
+      "as": "admin",
+      "method": "POST",
+      "path": "/plugin-api/session-recording/rules",
+      "body": {
+        "name": "authz-own-rule",
+        "pattern": "authz",
+        "target": "input"
+      },
+      "capture": {
+        "session-recording.rules": "rule.id"
+      }
+    }
+  ],
+  "routes": {
+    "GET /plugin-api/session-recording": {
+      "access": "user",
+      "permission": "session-recording.view"
+    },
+    "DELETE /plugin-api/session-recording/:id": {
+      "access": "user",
+      "permission": "session-recording.view",
+      "resource": {
+        "kind": "own",
+        "fixture": "session-recording.item"
+      },
+      "params": {
+        "id": "=authz-none"
+      },
+      "destructive": true,
+      "allowed": "any",
+      "note": "No item in the test data (needs a recorded session); only session, permission and unknown id refusals are checked"
+    },
+    "GET /plugin-api/session-recording/:id": {
+      "access": "user",
+      "permission": "session-recording.view",
+      "resource": {
+        "kind": "own",
+        "fixture": "session-recording.item"
+      },
+      "params": {
+        "id": "=authz-none"
+      },
+      "allowed": "any",
+      "note": "No item in the test data (needs a recorded session); only session, permission and unknown id refusals are checked"
+    },
+    "GET /plugin-api/session-recording/:id/access": {
+      "access": "user",
+      "permission": "session-recording.view",
+      "resource": {
+        "kind": "own",
+        "fixture": "session-recording.item"
+      },
+      "params": {
+        "id": "=authz-none"
+      },
+      "allowed": "any",
+      "note": "No item in the test data (needs a recorded session); only session, permission and unknown id refusals are checked"
+    },
+    "GET /plugin-api/session-recording/:id/content": {
+      "access": "user",
+      "permission": "session-recording.view",
+      "resource": {
+        "kind": "own",
+        "fixture": "session-recording.item"
+      },
+      "params": {
+        "id": "=authz-none"
+      },
+      "allowed": "any",
+      "note": "No item in the test data (needs a recorded session); only session, permission and unknown id refusals are checked"
+    },
+    "PUT /plugin-api/session-recording/:id/hold": {
+      "access": "user",
+      "permission": "session-recording.view",
+      "resource": {
+        "kind": "own",
+        "fixture": "session-recording.item"
+      },
+      "params": {
+        "id": "=authz-none"
+      },
+      "allowed": "any",
+      "note": "No item in the test data (needs a recorded session); only session, permission and unknown id refusals are checked"
+    },
+    "POST /plugin-api/session-recording/:id/verify": {
+      "access": "user",
+      "permission": "session-recording.view",
+      "resource": {
+        "kind": "own",
+        "fixture": "session-recording.item"
+      },
+      "params": {
+        "id": "=authz-none"
+      },
+      "allowed": "any",
+      "note": "No item in the test data (needs a recorded session); only session, permission and unknown id refusals are checked"
+    },
+    "GET /plugin-api/session-recording/live": {
+      "access": "admin",
+      "permission": "session-recording.view"
+    },
+    "POST /plugin-api/session-recording/live/:protocol/:id/end": {
+      "access": "user",
+      "permission": "session-recording.view",
+      "resource": {
+        "kind": "own",
+        "fixture": "session-recording.live"
+      },
+      "params": {
+        "protocol": "=ssh",
+        "id": "=999999"
+      },
+      "allowed": "any",
+      "note": "Needs a live recorded session"
+    },
+    "POST /plugin-api/session-recording/live/:protocol/:id/viewer": {
+      "access": "user",
+      "permission": "session-recording.view",
+      "resource": {
+        "kind": "own",
+        "fixture": "session-recording.live"
+      },
+      "params": {
+        "protocol": "=ssh",
+        "id": "=999999"
+      },
+      "allowed": "any",
+      "note": "Needs a live recorded session"
+    },
+    "GET /plugin-api/session-recording/rules": {
+      "access": "admin",
+      "permission": "session-recording.view"
+    },
+    "POST /plugin-api/session-recording/rules": {
+      "access": "user",
+      "permission": "session-recording.view"
+    },
+    "DELETE /plugin-api/session-recording/rules/:id": {
+      "access": "user",
+      "permission": "session-recording.view",
+      "resource": {
+        "kind": "own",
+        "fixture": "session-recording.rules"
+      },
+      "params": {
+        "id": "session-recording.rules"
+      },
+      "destructive": true
+    },
+    "PUT /plugin-api/session-recording/rules/:id": {
+      "access": "user",
+      "permission": "session-recording.view",
+      "resource": {
+        "kind": "own",
+        "fixture": "session-recording.rules"
+      },
+      "params": {
+        "id": "session-recording.rules"
+      }
+    },
+    "WS /plugin-ws/session-recording/live": {
+      "access": "admin",
+      "permission": "session-recording.view",
+      "allowed": "any",
+      "note": "Admin only; needs a live recorded session to stay open"
+    }
+  }
+}
