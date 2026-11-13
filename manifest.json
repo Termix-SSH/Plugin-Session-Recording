@@ -1,7 +1,7 @@
 {
   "id": "session-recording",
   "name": "Session Recording",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Record terminal and remote desktop sessions, watch them live, and keep an audited, encrypted record of who did what.",
   "author": {
     "name": "Termix"

@@ -275,6 +275,17 @@ export function registerSessionRecordingRoutes(deps: RouteDeps): Router {
    * @openapi
    * /plugin-api/session-recording/live/{protocol}/{id}/end:
    *   post:
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: string
+   *       - in: path
+   *         name: protocol
+   *         required: true
+   *         schema:
+   *           type: string
    *     summary: End someone's live session
    *     description: Needs session-recording.audit and the provider's monitor permission. Audited, and the reason is kept on the recording.
    *     tags:
@@ -317,6 +328,17 @@ export function registerSessionRecordingRoutes(deps: RouteDeps): Router {
    * @openapi
    * /plugin-api/session-recording/live/{protocol}/{id}/viewer:
    *   post:
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: string
+   *       - in: path
+   *         name: protocol
+   *         required: true
+   *         schema:
+   *           type: string
    *     summary: A read only viewer token for a live remote desktop session
    *     tags:
    *       - Session Recording
@@ -442,6 +464,12 @@ export function registerSessionRecordingRoutes(deps: RouteDeps): Router {
    * @openapi
    * /plugin-api/session-recording/rules/{id}:
    *   put:
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: integer
    *     summary: Change a command alert rule
    *     description: Needs session-recording.rules.
    *     tags:
@@ -454,6 +482,12 @@ export function registerSessionRecordingRoutes(deps: RouteDeps): Router {
    *       404:
    *         description: No such rule.
    *   delete:
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: integer
    *     summary: Delete a command alert rule
    *     description: Needs session-recording.rules.
    *     tags:
@@ -632,6 +666,12 @@ export function registerSessionRecordingRoutes(deps: RouteDeps): Router {
    * @openapi
    * /plugin-api/session-recording/{id}/access:
    *   get:
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: integer
    *     summary: Who watched, downloaded or checked a recording
    *     description: Needs session-recording.audit.
    *     tags:
@@ -660,6 +700,12 @@ export function registerSessionRecordingRoutes(deps: RouteDeps): Router {
    * @openapi
    * /plugin-api/session-recording/{id}/verify:
    *   post:
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: integer
    *     summary: Check a recording was not changed
    *     description: Recomputes the SHA-256 of the plain recording and compares it with the one saved when it ended. A changed recording alerts auditors.
    *     tags:
@@ -684,6 +730,12 @@ export function registerSessionRecordingRoutes(deps: RouteDeps): Router {
    * @openapi
    * /plugin-api/session-recording/{id}/hold:
    *   put:
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: integer
    *     summary: Put a recording on hold or take it off
    *     description: A held recording is never removed by retention or deleted by hand. Needs session-recording.audit.
    *     tags:
