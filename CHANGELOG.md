@@ -5,6 +5,7 @@
 ### Changed
 
 - Runs in its own process on Termix 26.11.2 and later, with no access to the server beyond what Termix allows it
+- Remote desktop recordings play in Remote Desktop's own frame (needs Termix 26.11.2)
 
 ### Fixed
 
