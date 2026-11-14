@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import type { PluginContext } from "@termix-ssh/plugin-sdk/backend";
 import type { SessionRecordingRepository } from "./repository.js";
-import { adoptRecordingFile } from "./files.js";
+import { adoptRecordingFile, copyRecordingFrom } from "./files.js";
 import { fileHeader, newRecordingKey, sealFile, sealFrame } from "./crypto.js";
 import { encryptionOn, isForced } from "./policy.js";
 import type { RuleEngine } from "./rule-engine.js";
@@ -51,7 +51,10 @@ export interface RecordingsWriterV1 {
    * (remote desktop's guacd recordings), rather than streaming through
    * open()/append(). The caller already decided to record. The file is
    * moved under this plugin's data folder, where playback reads it, then
-   * encrypted when encryption is on.
+   * encrypted when encryption is on. This plugin runs in its own process on
+   * Termix 26.11.2 and can't open another plugin's files, so callers pass
+   * `read`: it returns the bytes from an offset, or an empty chunk at the
+   * end. The caller removes its own file once this resolves.
    */
   createFinished: (input: {
     hostId: number;
@@ -62,6 +65,7 @@ export interface RecordingsWriterV1 {
     recordingPath: string;
     protocol: string;
     format: string;
+    read?: (offset: number) => Promise<Uint8Array | null>;
   }) => Promise<{ id: number }>;
 }
 
@@ -171,11 +175,13 @@ export function createRecordingsWriter(
       };
     },
 
-    async createFinished(input) {
+    async createFinished({ read, ...input }) {
       const username = await repository.usernameFor(input.userId);
-      const recordingPath = await adoptRecordingFile(
-        input.recordingPath,
-        await ctx.files.dataDir(),
+      const dataDir = await ctx.files.dataDir();
+      const recordingPath = await (
+        read
+          ? copyRecordingFrom(read, input.recordingPath, dataDir)
+          : adoptRecordingFile(input.recordingPath, dataDir)
       ).catch(() => input.recordingPath);
       let sealed: { wrappedKey: string | null; sha256: string | null } = {
         wrappedKey: null,

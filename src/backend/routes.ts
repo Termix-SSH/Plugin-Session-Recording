@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import express, { type Request, type Response, type Router } from "express";
+import type { Request, Response, Router } from "express";
 import type { PluginContext } from "@termix-ssh/plugin-sdk/backend";
 import type {
   RecordingFilters,
@@ -27,6 +27,8 @@ const ADMIN_PERMISSION = "admin.plugins.manage";
 const RULES_PERMISSION = "session-recording.rules";
 
 export interface RouteDeps {
+  /** ctx's own router: a plugin process serves no sub-router. */
+  router: Router;
   ctx: PluginContext;
   repository: SessionRecordingRepository;
   rules: RuleStore;
@@ -96,8 +98,7 @@ function publicRow(row: Record<string, unknown>) {
 }
 
 export function registerSessionRecordingRoutes(deps: RouteDeps): Router {
-  const { ctx, repository, rules, engine, access, dataDir } = deps;
-  const router = express.Router();
+  const { router, ctx, repository, rules, engine, access, dataDir } = deps;
   // Every route needs session-recording.view, the same permission the rail
   // item and the writer service are gated on.
   router.use(ctx.rbac.require("view") as never);

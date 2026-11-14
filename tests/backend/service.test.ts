@@ -85,6 +85,7 @@ async function setup(options: { encrypt?: boolean } = {}): Promise<{
   );
 
   const mock = createMockCtx({
+    sandbox: true,
     pluginId: manifest.id,
     manifest,
     capabilities: manifest.capabilities,
@@ -292,6 +293,42 @@ describe("recordings.writer", () => {
       .get(row.id) as { recording_path: string };
     expect(stored.recording_path).toBe(target);
     await fs.rm(guacdDir, { recursive: true, force: true });
+  });
+
+  it("createFinished copies through the caller's reader when it can't open the file", async () => {
+    const { mock, writer } = await setup();
+    const body = Buffer.from("4.size,1.0;4.sync,1.1;");
+    const offsets: number[] = [];
+
+    const row = await writer.createFinished({
+      hostId: 7,
+      userId: "user-1",
+      startedAt: new Date().toISOString(),
+      endedAt: new Date().toISOString(),
+      duration: 10,
+      recordingPath: "/elsewhere/guacamole/rdp-2.guac",
+      protocol: "rdp",
+      format: "guacamole",
+      read: async (offset) => {
+        offsets.push(offset);
+        return body.subarray(offset, offset + 8);
+      },
+    });
+
+    const target = path.join(
+      await mock.ctx.files.dataDir(),
+      "session_recordings",
+      "guacamole",
+      "rdp-2.guac",
+    );
+    await expect(fs.readFile(target, "utf8")).resolves.toBe(body.toString());
+    expect(offsets).toEqual([0, 8, 16, 22]);
+    const stored = db!.sqlite
+      .prepare(
+        "SELECT recording_path FROM p_session_recording_session_recordings WHERE id = ?",
+      )
+      .get(row.id) as { recording_path: string };
+    expect(stored.recording_path).toBe(target);
   });
 
   it("enabledFor follows the host's recording switch", async () => {

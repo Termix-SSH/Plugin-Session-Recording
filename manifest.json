@@ -25,8 +25,8 @@
     "Alert or end a session when a typed command matches a rule"
   ],
   "engine": {
-    "termix": ">=26.11.1-0",
-    "api": "^1.15"
+    "termix": ">=26.11.2-0",
+    "api": "^2.0.0"
   },
   "capabilities": [
     "hosts:read",
@@ -41,6 +41,9 @@
     "notify:send",
     "kv:own"
   ],
+  "sandbox": {
+    "events": ["user.deleted"]
+  },
   "provides": [
     {
       "service": "recordings.writer",
