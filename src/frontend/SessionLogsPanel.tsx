@@ -51,7 +51,7 @@ import { RulesView } from "./RulesView";
 import { RecordingDetails } from "./RecordingDetails";
 import { SessionRecordingPlayer } from "./SessionRecordingPlayer";
 import {
-  SessionLogSettings,
+  useOpenSettingsPage,
   readSessionLogSettings,
   rowActionProps,
 } from "./SessionLogSettings";
@@ -319,7 +319,7 @@ export function SessionLogsPanel({
   const [viewLoading, setViewLoading] = useState(false);
   const confirm = useConfirm();
   const [copied, setCopied] = useState(false);
-  const [settingsOpen, setSettingsOpen] = useState(false);
+  const openSettingsPage = useOpenSettingsPage();
   const settings = useSettings("user");
   const { alwaysShowActions } = readSessionLogSettings(settings.values);
   const logsRef = useRef(logs);
@@ -624,15 +624,6 @@ export function SessionLogsPanel({
     );
   }
 
-  if (settingsOpen) {
-    return (
-      <SessionLogSettings
-        settings={settings}
-        onBack={() => setSettingsOpen(false)}
-      />
-    );
-  }
-
   const tabs = [
     { id: "mine", label: t("sessionLogs.tabMine") },
     ...(canAudit
@@ -677,7 +668,7 @@ export function SessionLogsPanel({
           <Button
             variant="outline"
             size="icon"
-            onClick={() => setSettingsOpen(true)}
+            onClick={() => openSettingsPage()}
             title={t("sessionLogs.settingsTitle")}
             aria-label={t("sessionLogs.settingsTitle")}
           >

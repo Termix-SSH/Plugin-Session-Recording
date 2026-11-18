@@ -32,10 +32,12 @@ export async function isPrivileged(
   hostId: number,
 ): Promise<boolean> {
   try {
-    if (!ctx.services.providers("privileged-access.hosts").includes("")) {
+    if (
+      !(await ctx.services.providers("privileged-access.hosts")).includes("")
+    ) {
       return false;
     }
-    const service = ctx.services.get<PrivilegedHostsV1>(
+    const service = await ctx.services.get<PrivilegedHostsV1>(
       "privileged-access.hosts",
     );
     return (await service.isPrivileged(hostId)) === true;

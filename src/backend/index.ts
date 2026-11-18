@@ -1,6 +1,5 @@
 import type { Router } from "express";
 import type { PluginContext } from "@termix-ssh/plugin-sdk/backend";
-import { repairLegacyRecordingSchema } from "./legacy-schema.js";
 import {
   recordingAccess,
   recordingRules,
@@ -23,7 +22,6 @@ export async function activate(ctx: PluginContext) {
   const table = await ctx.db.define(sessionRecordings);
   const accessTable = await ctx.db.define(recordingAccess);
   const rulesTable = await ctx.db.define(recordingRules);
-  await repairLegacyRecordingSchema(ctx.db);
   const repository = createSessionRecordingRepository(ctx.db, table, ctx.hosts);
   const rules = createRuleStore(ctx.db, rulesTable);
   const access = createAccessLog(
@@ -41,16 +39,15 @@ export async function activate(ctx: PluginContext) {
   );
   const dataDir = () => ctx.files.dataDir();
 
-  ctx.http.router<Router>().use(
-    registerSessionRecordingRoutes({
-      ctx,
-      repository,
-      rules,
-      engine,
-      access,
-      dataDir,
-    }),
-  );
+  registerSessionRecordingRoutes({
+    router: ctx.http.router<Router>(),
+    ctx,
+    repository,
+    rules,
+    engine,
+    access,
+    dataDir,
+  });
   registerLiveSocket(ctx, repository, access);
 
   ctx.services.provide<RecordingsWriterV1>(

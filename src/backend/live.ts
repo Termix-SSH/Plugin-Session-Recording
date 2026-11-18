@@ -49,15 +49,15 @@ export function isLiveProtocol(value: unknown): value is LiveProtocol {
   return (LIVE_PROVIDERS as readonly unknown[]).includes(value);
 }
 
-function provider(
+async function provider(
   ctx: PluginContext,
   protocol: LiveProtocol,
-): LiveProvider | null {
+): Promise<LiveProvider | null> {
   try {
-    if (!ctx.services.providers("sessions.live").includes(protocol)) {
+    if (!(await ctx.services.providers("sessions.live")).includes(protocol)) {
       return null;
     }
-    return ctx.services.get<LiveProvider>("sessions.live", {
+    return await ctx.services.get<LiveProvider>("sessions.live", {
       provider: protocol,
     });
   } catch {
@@ -69,7 +69,7 @@ function provider(
 export async function listLive(ctx: PluginContext): Promise<LiveSession[]> {
   const all: LiveSession[] = [];
   for (const protocol of LIVE_PROVIDERS) {
-    const live = provider(ctx, protocol);
+    const live = await provider(ctx, protocol);
     if (!live?.listAll) continue;
     try {
       for (const row of await live.listAll()) {
@@ -96,7 +96,7 @@ export async function getLive(
   protocol: LiveProtocol,
   id: string,
 ): Promise<LiveSessionRow | null> {
-  const live = provider(ctx, protocol);
+  const live = await provider(ctx, protocol);
   if (!live?.getSession) return null;
   return (await live.getSession(id)) ?? null;
 }
@@ -107,7 +107,7 @@ export async function endLiveSession(
   id: string,
   reason: string,
 ): Promise<boolean> {
-  const live = provider(ctx, protocol);
+  const live = await provider(ctx, protocol);
   if (!live?.ownerEndSession) return false;
   await live.ownerEndSession(id, reason);
   return true;
@@ -119,7 +119,7 @@ export async function watchSsh(
   id: string,
   onData: (data: string) => void,
 ): Promise<{ snapshot: string | null; stop: () => void } | null> {
-  const live = provider(ctx, "ssh");
+  const live = await provider(ctx, "ssh");
   if (!live?.subscribe) return null;
   const snapshot = live.snapshot ? await live.snapshot(id) : null;
   const stop = await live.subscribe(id, onData);
@@ -132,7 +132,7 @@ export async function viewerToken(
   protocol: LiveProtocol,
   id: string,
 ): Promise<string | null> {
-  const live = provider(ctx, protocol);
+  const live = await provider(ctx, protocol);
   if (!live?.createViewerToken) return null;
   return live.createViewerToken(id, true);
 }
